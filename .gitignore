@@ -74,5 +74,8 @@ crashlytics-build.properties
 
 # Custom added - files that will need to be downloaded yourself once locally.
 
+# Handled by package manager.
+/Assets/TextMesh Pro
+
 # Import that folder by hand.
-/[Aa]ssets/[Ss]ynty[Ss]tudios 
+/[Aa]ssets/[Ss]ynty[Ss]tudios

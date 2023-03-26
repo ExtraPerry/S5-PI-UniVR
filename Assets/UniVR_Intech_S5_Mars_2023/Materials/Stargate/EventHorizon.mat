@@ -27,7 +27,7 @@ Material:
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -92,14 +92,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Activation_Cutout_Anim_State: 1
     - _AlphaClip: 0
+    - _Alpha_Cutout_Radius: 0
     - _Blend: 0
     - _BumpScale: 1
     - _Cell_Density: 40
     - _Cell_Power_Modifier: 10
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -115,6 +117,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Ripple_Amplitude: 0.1
+    - _Ripple_Density: 3.5
+    - _Ripple_Edge_Blend: 0.5
+    - _Ripple_Effect_Radius: 1
+    - _Ripple_Frequency: 3.5
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -128,8 +135,10 @@ Material:
     m_Colors:
     - _Background_Noise_Color: {r: 0, g: 0.8892269, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0, g: 0.015686275, b: 0.7490196, a: 1}
+    - _Base_Color: {r: 0, g: 0.6666665, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0.034905627, b: 0.39215687, a: 1}
     - _Event_Horizon_Color: {r: 0.027450982, g: 0.227451, b: 0.5529412, a: 1}
+    - _Ripple_Origin: {r: 0.12, g: -0.12, b: -0.83, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

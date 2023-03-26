@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: EventHorizon
-  m_Shader: {fileID: -6465566751694194690, guid: 1acd675c41e708a4e986b7a71c7957c4,
+  m_Shader: {fileID: -6465566751694194690, guid: 77a9e87da278df8498bc6f8aafe66150,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -105,6 +105,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Distance: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -112,6 +113,7 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _Noise_Scale: 21.85
+    - _Normal_Strength: 2.59
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -125,6 +127,7 @@ Material:
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 0
     - _SrcBlend: 1
     - _Start: 0.375
     - _Surface: 0
@@ -137,8 +140,11 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Base_Color: {r: 0, g: 0.6666665, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DeepColor: {r: 0, g: 0.6666665, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0.034905627, b: 0.39215687, a: 1}
     - _Event_Horizon_Color: {r: 0.027450982, g: 0.227451, b: 0.5529412, a: 1}
     - _Ripple_Origin: {r: 0.12, g: -0.12, b: -0.83, a: 0}
+    - _Scale: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SurfaceColor: {r: 0, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

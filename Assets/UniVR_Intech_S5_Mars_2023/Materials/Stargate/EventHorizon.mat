@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: EventHorizon
-  m_Shader: {fileID: -6465566751694194690, guid: 77a9e87da278df8498bc6f8aafe66150,
+  m_Shader: {fileID: -6465566751694194690, guid: 9a8a733e48648964caafc40ceea2e130,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -95,6 +95,7 @@ Material:
     - _Activation_Cutout_Anim_State: 1
     - _AlphaClip: 0
     - _Alpha_Cutout_Radius: 0
+    - _Backround_Noise_Scale: 25
     - _Blend: 0
     - _BumpScale: 1
     - _Cell_Density: 20
@@ -112,9 +113,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Metallic: 0
+    - _IsIdle: 1
+    - _Metallic: 0.5
     - _Noise_Scale: 21.85
-    - _Normal_Strength: 0.2
+    - _Normal_Speed: 0.5
+    - _Normal_Strength: 0.075
     - _Normal_Time_Multiplier: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -126,7 +129,7 @@ Material:
     - _Ripple_Edge_Blend: 0.5
     - _Ripple_Effect_Radius: 1
     - _Ripple_Frequency: 3.5
-    - _Smoothness: 0
+    - _Smoothness: 0.75
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 0
@@ -139,13 +142,14 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Background_Noise_Color: {r: 0, g: 0.8892269, b: 1, a: 1}
+    - _Background_Noise_Color: {r: 0, g: 0.8901961, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Base_Color: {r: 0, g: 0.6666665, b: 1, a: 1}
+    - _Base_Color: {r: 0, g: 0.283019, b: 0.4245283, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DeepColor: {r: 0, g: 0.6666665, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0.034905627, b: 0.39215687, a: 1}
     - _Event_Horizon_Color: {r: 0, g: 0.3137255, b: 0.54901963, a: 1}
+    - _Event_Horizon_Ice_Color: {r: 0.75, g: 1, b: 1, a: 1}
     - _Ripple_Origin: {r: 0.12, g: -0.12, b: -0.83, a: 0}
     - _Scale: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

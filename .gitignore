@@ -74,8 +74,9 @@ crashlytics-build.properties
 
 # Custom added - files that will need to be downloaded yourself once locally.
 
-# Handled by package manager.
+# Unity Package Manager.
 /Assets/TextMesh Pro
 
-# Import that folder by hand.
+# Unity Online Shop
 /[Aa]ssets/[Ss]ynty[Ss]tudios
+/Assets/Thirdparty

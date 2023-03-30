@@ -34,6 +34,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Layer_A41D931E:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Layer_CF6CE822:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: daf6607961c1f4949acb47a155124487, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -129,7 +137,7 @@ Material:
     - _Ripple_Edge_Blend: 0.5
     - _Ripple_Effect_Radius: 1
     - _Ripple_Frequency: 3.5
-    - _Smoothness: 0.75
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 0
@@ -144,12 +152,13 @@ Material:
     m_Colors:
     - _Background_Noise_Color: {r: 0, g: 0.8901961, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Base_Color: {r: 0, g: 0.283019, b: 0.4245283, a: 1}
+    - _Base_Color: {r: 0.21176471, g: 0.3392157, b: 0.42352942, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DeepColor: {r: 0, g: 0.6666665, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0.034905627, b: 0.39215687, a: 1}
     - _Event_Horizon_Color: {r: 0, g: 0.3137255, b: 0.54901963, a: 1}
     - _Event_Horizon_Ice_Color: {r: 0.75, g: 1, b: 1, a: 1}
+    - _Reflection: {r: 0, g: 0.099476315, b: 1, a: 1}
     - _Ripple_Origin: {r: 0.12, g: -0.12, b: -0.83, a: 0}
     - _Scale: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

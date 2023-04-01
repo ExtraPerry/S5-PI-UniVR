@@ -7056,6 +7056,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078750355, guid: 3ff6763b1fac8214aa9f3c2fcf4145fb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359892848532219570, guid: 3ff6763b1fac8214aa9f3c2fcf4145fb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3409175807434187755, guid: 3ff6763b1fac8214aa9f3c2fcf4145fb,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3409175807434187755, guid: 3ff6763b1fac8214aa9f3c2fcf4145fb,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4619994458570432309, guid: 3ff6763b1fac8214aa9f3c2fcf4145fb,
         type: 3}
       propertyPath: m_RootOrder

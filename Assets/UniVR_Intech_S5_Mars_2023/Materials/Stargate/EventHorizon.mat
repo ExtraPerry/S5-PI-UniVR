@@ -28,8 +28,9 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -103,9 +104,10 @@ Material:
     - _Activation_Cutout_Anim_State: 1
     - _AlphaClip: 0
     - _Alpha_Cutout_Radius: 0
-    - _Backround_Noise_Scale: 25
+    - _Backround_Noise_Scale: 15
     - _Blend: 0
     - _BumpScale: 1
+    - _CastShadows: 1
     - _Cell_Density: 20
     - _Cell_Power_Modifier: 10
     - _ClearCoatMask: 0
@@ -122,10 +124,10 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _IsIdle: 1
-    - _Metallic: 0.5
+    - _Metallic: 1
     - _Noise_Scale: 21.85
     - _Normal_Speed: 0.5
-    - _Normal_Strength: 0.075
+    - _Normal_Strength: 0.2
     - _Normal_Time_Multiplier: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -137,7 +139,7 @@ Material:
     - _Ripple_Edge_Blend: 0.5
     - _Ripple_Effect_Radius: 1
     - _Ripple_Frequency: 3.5
-    - _Smoothness: 0.5
+    - _Smoothness: 0.257
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 0
@@ -148,11 +150,13 @@ Material:
     - _Water_Time_Multiplier: 1
     - _WireThickness: 800
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _Background_Noise_Color: {r: 0, g: 0.8901961, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Base_Color: {r: 0.21176471, g: 0.3392157, b: 0.42352942, a: 1}
+    - _Base_Color: {r: 0.75, g: 0.75, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DeepColor: {r: 0, g: 0.6666665, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0.034905627, b: 0.39215687, a: 1}

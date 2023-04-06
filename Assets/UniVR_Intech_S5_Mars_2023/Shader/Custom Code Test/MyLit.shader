@@ -1,3 +1,4 @@
+// "C" is fun "Shader HLSL" not so much :'D
 shader "ExtraPerry/MyLit" {
 
 	// Subshader allows for different behaviours based on options such as : Pipelines & Platforms.

@@ -4376,7 +4376,7 @@ GameObject:
   - component: {fileID: 684555288}
   - component: {fileID: 684555287}
   - component: {fileID: 684555286}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8053,6 +8053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   turnSpeed: 90
+  jumpVelocity: 7
   moveInputSource:
     m_UseReference: 1
     m_Action:
@@ -8078,6 +8079,19 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -6493913391331992944, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+  jumpInputSource:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Jump Input Source
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 8af1ca1d-c410-4d42-9f16-f1dc0761521f
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 3701707434889473823, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
   rb: {fileID: 118941573}
   groundLayer:

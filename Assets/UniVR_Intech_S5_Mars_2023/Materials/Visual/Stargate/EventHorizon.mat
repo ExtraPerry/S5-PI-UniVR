@@ -21,16 +21,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: EventHorizon
-  m_Shader: {fileID: -6465566751694194690, guid: 9a8a733e48648964caafc40ceea2e130,
+  m_Shader: {fileID: -6465566751694194690, guid: 77a9e87da278df8498bc6f8aafe66150,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -156,7 +155,7 @@ Material:
     m_Colors:
     - _Background_Noise_Color: {r: 0, g: 0.8901961, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Base_Color: {r: 0.75, g: 0.75, b: 1, a: 1}
+    - _Base_Color: {r: 0, g: 0.6666665, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DeepColor: {r: 0, g: 0.6666665, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0.034905627, b: 0.39215687, a: 1}

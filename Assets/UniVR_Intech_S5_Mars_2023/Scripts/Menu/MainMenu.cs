@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     public GameObject stargate;
-    public Rigidbody playerRigidbody;
+    public ContinuousMovementPhysics playerController;
     public Transform worldSpawn;
 
     // Dev utility to force the gate open for the next level.
@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).
     public void forceRespawnPlayer()
     {
-        playerRigidbody.position = worldSpawn.position;
+        playerController.teleportTo(worldSpawn);
         Debug.Log("Force respawned the player back to World Spawn .");
     }
 

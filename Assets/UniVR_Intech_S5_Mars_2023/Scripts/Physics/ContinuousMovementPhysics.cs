@@ -22,13 +22,16 @@ public class ContinuousMovementPhysics : MonoBehaviour
     // Registered Inputs.
     private Vector2 inputMoveAxis;
     private float inputTurnAxis;
+    // Global Variables for use in next time frame.
+    private Vector3 teleportMovePosition;
     // Global Checks.
     private bool isGrounded;
+    private bool isPrimedToTeleport;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        isPrimedToTeleport = false;
     }
 
     // Update is called once per frame
@@ -51,36 +54,56 @@ public class ContinuousMovementPhysics : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Check if the player is grounded.
+        // Check if the player is grounded, but instance it for other potential uses later.
         isGrounded = checkIfGrounded();
-
-        // If the player is grounded then let them be able to move arround.
-        if (isGrounded)
+        // Also check if the rigidbody is sleeping.
+        if (isGrounded && !rb.IsSleeping())
         {
-            // Define the direction of the movement.
+            // Define the direction the player is looking at.
             Quaternion yaw = Quaternion.Euler(0, directionSource.eulerAngles.y, 0);
-            Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0, inputMoveAxis.y);
 
-            // Calculate the move 3D vector by which the player will move.
-            Vector3 targetMovePosition = rb.position + ((direction * Time.fixedDeltaTime) * moveSpeed);
-
-            // Define the direction of the rotation.
-            Vector3 axis = Vector3.up;
+            // Calculate the angle by which the player will rotate.
             float angle = turnSpeed * Time.fixedDeltaTime * inputTurnAxis;
 
-            // Calculate the Quaternion by which the player will rotate.
+            // Define what is Up.
+            Vector3 axis = Vector3.up;
+
+            // Calculate the Quaternion by which the player will rotate arround the Up axis, so 2 degrees of rotation instead of 3 (ignore up angle).
             Quaternion q = Quaternion.AngleAxis(angle, axis);
 
             // Update the player's rotation.
             rb.MoveRotation(rb.rotation * q);
 
-            // Calculate the position change of the player that the rotation has induced (with the movement calculated before too).
-            Vector3 newPosition = q * (targetMovePosition - turnSource.position) + turnSource.position;
+            // If the player is not primed for a teleport then let them move normally.
+            if (!isPrimedToTeleport)
+            {
+                // Define the direction of the movement.
+                Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0, inputMoveAxis.y);
 
-            // Update the player's position.
-            rb.MovePosition(newPosition);
+                // Calculate the position to which the player will move.
+                Vector3 targetMovePosition = rb.position + direction * (Time.fixedDeltaTime * moveSpeed);
+
+                // Take into account the movement produced by the players rotation.
+                Vector3 newMovePosition = q * (targetMovePosition - turnSource.position) + turnSource.position;
+
+                // Update the player's position. (Use MovePosition() because it a movement).
+                rb.MovePosition(newMovePosition);
+            }
+            else
+            {
+                // Take into account the movement produced by the players rotation.
+                Vector3 newTeleportPosition = q * (teleportMovePosition - turnSource.position) + turnSource.position;
+                
+                // Update the player's position. (Use .position because it a teleport).
+                rb.position = newTeleportPosition;
+
+                // Reset the teleport primer.
+                isPrimedToTeleport = false;
+                teleportMovePosition = Vector3.zero;
+            }
         }
     }
+       
 
     public bool checkIfGrounded()
     {
@@ -95,9 +118,12 @@ public class ContinuousMovementPhysics : MonoBehaviour
         return hasHit;
     }
 
-    public void setJumpHeight(float height)
+    public void teleportTo(Transform target)
     {
-        jumpHeight = height;
+        rb.Sleep();
+        teleportMovePosition = target.position;
+        isPrimedToTeleport = true;
+        rb.WakeUp();
     }
 }
 

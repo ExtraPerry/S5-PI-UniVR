@@ -72,6 +72,15 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# Package Manager cache (don't add import_packages.bat)
+/Packages/
+imported_packages.zip
+imported_packages.zip.meta
+packages.yml
+packages.yml.meta
+*.lnk.meta
+*.bat.meta
+
 # Custom added - files that will need to be downloaded yourself once locally.
 
 # Unity Package Manager.

@@ -78,5 +78,10 @@ crashlytics-build.properties
 /Assets/TextMesh Pro
 
 # Unity Online Shop
+
+# POLYGON - Sampler Pack
 /[Aa]ssets/[Ss]ynty[Ss]tudios
-/Assets/Thirdparty
+# Gridbox Prototype Materials
+/[Aa]ssets/[Tt]hirdparty
+# Space Robot Kyle | URP
+/[Aa]ssets/[Uu]nity[Tt]echnologies

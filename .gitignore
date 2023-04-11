@@ -78,10 +78,14 @@ crashlytics-build.properties
 /Assets/TextMesh Pro
 
 # Unity Online Shop
-
+# ----------------------------
 # POLYGON - Sampler Pack
 /[Aa]ssets/[Ss]ynty[Ss]tudios
 # Gridbox Prototype Materials
 /[Aa]ssets/[Tt]hirdparty
 # Space Robot Kyle | URP
 /[Aa]ssets/[Uu]nity[Tt]echnologies
+
+# Packaging Stuff ( !!! Never include this type of data in the git !!! ). Changing the package name will make a new directory. . .
+/[Qq]uest2[Aa]ndroid[Bb]uild_[Bb]ack[Uu]p[Tt]his[Ff]older_[Bb]ut[Dd]ont[Ss]hip[Ii]t[Ww]ith[Yy]our[Gg]ame
+/[Qq]uest2[Aa]ndroid[Bb]uild_[Bb]urst[Dd]ebug[Ii]nformation_[Dd]o[Nn]ot[Ss]hip

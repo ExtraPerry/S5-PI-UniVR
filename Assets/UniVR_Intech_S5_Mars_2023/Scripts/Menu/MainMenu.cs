@@ -1,17 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject stargate;
+    public TMPro.TMP_Text stargateStatus;
+    public Button gateButton;
+    public TMPro.TMP_Text gateButtonText;
+    public Animator stargate;
     public ContinuousMovementPhysics playerController;
     public Transform worldSpawn;
 
-    // Dev utility to force the gate open for the next level.
-    public void forceStartGate()
+    public void Update()
     {
-        Debug.Log("Force started the Stargate for next level.");
+        stargateStatus.text = stargate.GetCurrentAnimatorStateInfo(0).ToString();
+    }
+
+    // Dev utility to force the gate open for the next level.
+    public void ForceToggleGate()
+    {
+        /**
+        if (!stargate.GetBool("StartGate"))
+        {
+            stargate.SetBool("StartGate", true);
+            gateButton.image.color = new Color(0.5f, 0, 0, 1);
+            gateButtonText.text = "Close Gate";
+            Debug.Log("Force started the Stargate for next level.");
+        }
+        else
+        {
+            stargate.SetBool("StartGate", false);
+            gateButton.image.color = new Color(0, 0.5f, 0, 1);
+            gateButtonText.text = "Start Gate";
+            Debug.Log("Force close the Stargate.");
+        }
+        */
+
+        stargate.SetBool("StartGate", true);
     }
 
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).

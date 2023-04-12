@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).
     public void forceRespawnPlayer()
     {
-        playerController.teleportTo(worldSpawn);
+        playerController.PrepareTeleportTo(worldSpawn);
         Debug.Log("Force respawned the player back to World Spawn .");
     }
 

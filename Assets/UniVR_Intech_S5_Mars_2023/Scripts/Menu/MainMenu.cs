@@ -20,7 +20,6 @@ public class MainMenu : MonoBehaviour
     // Dev utility to force the gate open for the next level.
     public void ForceToggleGate()
     {
-        /**
         if (!stargate.GetBool("StartGate"))
         {
             stargate.SetBool("StartGate", true);
@@ -35,9 +34,6 @@ public class MainMenu : MonoBehaviour
             gateButtonText.text = "Start Gate";
             Debug.Log("Force close the Stargate.");
         }
-        */
-
-        stargate.SetBool("StartGate", true);
     }
 
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).

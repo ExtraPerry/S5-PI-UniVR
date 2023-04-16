@@ -99,7 +99,7 @@ public class StargateAnimator : MonoBehaviour
 
         if (chevronsLocked == 7)
         {
-            Stargate.SetBool("EventHorizon", true);
+            Stargate.SetBool("OpenClosed", true);
             isActive = true;
             isDialling = false;
             return;

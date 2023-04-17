@@ -2026,7 +2026,6 @@ MonoBehaviour:
   stargateStatus: {fileID: 1220906579}
   gateButton: {fileID: 376279417}
   gateButtonText: {fileID: 2073688500}
-  stargate: {fileID: 1860537901}
   playerController: {fileID: 7913724507338695656}
   worldSpawn: {fileID: 299441647}
 --- !u!1 &1094145587
@@ -4430,17 +4429,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.007754458
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 3.5020583
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15
+      value: 14.988077
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
         type: 3}
@@ -4450,7 +4449,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
         type: 3}
@@ -4460,7 +4459,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
         type: 3}
@@ -5340,27 +5339,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1860537899}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1860537901
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860537900}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 48cfdc7d217d49643ba4dae67d9815b5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &1860537902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b323349211185504faba688ab845bf75,
@@ -5379,11 +5357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46e86d550ad01c479dcf059647bd438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateTo: 0
-  useGlyphs: 0
-  selectedGlyph: 23
-  gateRingBone: {fileID: 1860537904}
-  Stargate: {fileID: 1860537901}
+  speed: 1
+  Stargate: {fileID: 1860537902}
+  ring: {fileID: 1860537904}
+  selectedGlyph: 0
 --- !u!4 &1860537904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6869489474400122654, guid: b323349211185504faba688ab845bf75,

@@ -63,12 +63,24 @@ public class RingGlyths
             return ringGlyphsRotationValue[(int)glyphs] - 360;
         }
     }
+
+    public static Quaternion GetQuaternion(GlyphsList glyphs)
+    {
+        return Quaternion.Euler(ringGlyphsRotationValue[(int)glyphs], 0, 0);
+    }
 }
 
 public class StargateAnimator : MonoBehaviour
 {
     // Rotational value in Degrees/Second.
-    public float ringRotationSpeed = 55;
+    [Range(0, 1)]
+    public float rotateTo = 0;
+
+    public bool useGlyphs = false;
+
+    public GlyphsList selectedGlyph = GlyphsList.Giza;
+    private GlyphsList oldGlyph = GlyphsList.Giza;
+
     public Transform gateRingBone;
     public Animator Stargate;
 
@@ -85,52 +97,87 @@ public class StargateAnimator : MonoBehaviour
     void Start()
     {
         CloseGate();
+        /**
         JumpRingToTarget(0);
+
+
+        StartDiallingSequence(new GlyphsList[]{
+            GlyphsList.Taurus,
+            GlyphsList.Serpens_Caput,
+            GlyphsList.Capricornus,
+            GlyphsList.Monoceros,
+            GlyphsList.Sagittarius,
+            GlyphsList.Orion,
+            GlyphsList.Giza
+        });
+        */
     }
 
     // Update is called once per frame
     // Only update the rings position each time a frame is generated. Don't bother updating it if another frame isn't generated :D.
     void Update()
     {
+        Quaternion current = gateRingBone.rotation;
+        Quaternion target = RingGlyths.GetQuaternion(selectedGlyph);
+
+        Quaternion difference = current * Quaternion.Inverse(target);
+        Quaternion next = difference * current;
+
+        gateRingBone.rotation
+
+        Quaternion.
+
+        /**
         if (isActive)
         {
             return;
         }
 
-        if (chevronsLocked == 7)
+        if (isAllChevronsLocked())
         {
             Stargate.SetBool("OpenClosed", true);
             isActive = true;
             isDialling = false;
             return;
         }
-
-        if (isDialling && !isActive)
+        else
         {
-            float nextRotation = ringRotationSpeed / Time.deltaTime;
-
-            if (currentRotationalDirection == RingRotation.CounterClockwise)
+            if (isDialling && !isActive)
             {
-                nextRotation *= -1;
-                if (gateRingBone.rotation.eulerAngles.x + nextRotation < targetRotation)
-                {
-                    JumpRingToTarget(targetRotation);
-                    PrepareNextChevronSequence();
-                    return;
-                }
-            }
-            else
-            {
-                if (gateRingBone.rotation.eulerAngles.x + nextRotation > targetRotation)
-                {
-                    JumpRingToTarget(targetRotation);
-                    PrepareNextChevronSequence();
-                    return;
-                }
-            }
+                float nextRotation = ringRotationSpeed / Time.deltaTime;
 
-            JumpRingToTarget(gateRingBone.rotation.eulerAngles.x + nextRotation);
+                bool isCounterClockwise = currentRotationalDirection == RingRotation.CounterClockwise;
+                // (gateRingBone.rotation.eulerAngles.x + nextRotation < targetRotation && isCounterClockwise)
+                // (gateRingBone.rotation.eulerAngles.x + nextRotation > targetRotation && !isCounterClockwise)
+
+                if (isCounterClockwise)
+                {
+                    nextRotation *= -1;
+                }
+
+                if ((gateRingBone.transform.rotation.eulerAngles.x + nextRotation > targetRotation && isCounterClockwise) || (gateRingBone.transform.rotation.eulerAngles.x + nextRotation < targetRotation && !isCounterClockwise))
+                {
+                    if (!isAllChevronsLocked())
+                    {
+                        JumpRingToTarget(targetRotation);
+                        PrepareNextChevronSequence();
+
+                        Debug.Log("Target ring rotation is reached for chevron " + (chevronsLocked + 1) + " in " + currentRotationalDirection + " direction.");
+                        return;
+                    }
+                    else
+                    {
+                        chevronsLocked++;
+                        Stargate.SetInteger("ChevronsLocked", chevronsLocked);
+                        Debug.Log("All 7 chevrons are locked.");
+                        return;
+                    }
+                }
+
+                JumpRingToTarget(gateRingBone.transform.rotation.eulerAngles.x + nextRotation);
+            }
         }
+        */
     }
 
     public void StartDiallingSequence(GlyphsList[] sequence)
@@ -149,6 +196,9 @@ public class StargateAnimator : MonoBehaviour
 
         glyphSequence = sequence;
         chevronsLocked = 0;
+
+        Debug.Log("Stargate dialling request accepted. Address is : [" + glyphSequence[0] + ", " + glyphSequence[1] + ", " + glyphSequence[2] + ", " + glyphSequence[3] + ", " + glyphSequence[4] + ", " + glyphSequence[5] + ", " + glyphSequence[6] + "].");
+
         UpdateTargetRotation();
         isDialling = true;
     }
@@ -164,11 +214,15 @@ public class StargateAnimator : MonoBehaviour
         currentRotationalDirection = RingRotation.CounterClockwise;
         chevronsLocked = 0;
 
+        Debug.Log("Gate Closed/Reset.");
+
     }
 
     private void JumpRingToTarget(float target)
     {
-        gateRingBone.Rotate(new Vector3(target, 0, 0), Space.Self);
+        gateRingBone.eulerAngles = new Vector3(target, gateRingBone.eulerAngles.y, gateRingBone.eulerAngles.z);
+
+        Debug.Log("Ring rotation has been set to : " + gateRingBone.transform.rotation.eulerAngles.x + "°.");
     }
 
     private void PrepareNextChevronSequence()
@@ -185,11 +239,25 @@ public class StargateAnimator : MonoBehaviour
             currentRotationalDirection = RingRotation.CounterClockwise;
         }
 
+        Debug.Log("Chevron " + (chevronsLocked + 1) + " sequence started in " + currentRotationalDirection + "direction.");
+
         UpdateTargetRotation();
     }
 
     private void UpdateTargetRotation()
     {
         targetRotation = RingGlyths.GetRingGlyphRotation(glyphSequence[chevronsLocked], currentRotationalDirection);
+
+        Debug.Log("Target rotation set to : " + targetRotation + "°.");
+    }
+
+    private bool isAllChevronsLocked()
+    {
+        if (chevronsLocked >= 6)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

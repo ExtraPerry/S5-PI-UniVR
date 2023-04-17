@@ -4622,6 +4622,11 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7232152948499081740, guid: b323349211185504faba688ab845bf75,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6869489474400122654, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -4812,6 +4817,11 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -184731980054060906, guid: b323349211185504faba688ab845bf75,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_Name
@@ -4857,6 +4867,11 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1139920759431730637, guid: b323349211185504faba688ab845bf75,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1321037520503572217, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_DirtyAABB
@@ -5142,6 +5157,11 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6154697358713226576, guid: b323349211185504faba688ab845bf75,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6389764028837733314, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_DirtyAABB
@@ -5182,6 +5202,11 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6389764028837733314, guid: b323349211185504faba688ab845bf75,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6426005313785041062, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_DirtyAABB
@@ -5257,6 +5282,11 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6564995871633040190, guid: b323349211185504faba688ab845bf75,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8507354468958509260, guid: b323349211185504faba688ab845bf75,
         type: 3}
       propertyPath: m_DirtyAABB
@@ -5296,6 +5326,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507354468958509260, guid: b323349211185504faba688ab845bf75,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b323349211185504faba688ab845bf75, type: 3}
@@ -5344,7 +5379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46e86d550ad01c479dcf059647bd438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ringRotationSpeed: 55
+  rotateTo: 0
+  useGlyphs: 0
+  selectedGlyph: 23
   gateRingBone: {fileID: 1860537904}
   Stargate: {fileID: 1860537901}
 --- !u!4 &1860537904 stripped

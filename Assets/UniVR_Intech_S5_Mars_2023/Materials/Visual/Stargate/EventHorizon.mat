@@ -100,7 +100,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Activation_Cutout_Anim_State: 0.3
+    - _Activation_Cutout_Anim_State: 1
     - _AlphaClip: 0
     - _Alpha_Cutout_Radius: 0
     - _Backround_Noise_Scale: 15

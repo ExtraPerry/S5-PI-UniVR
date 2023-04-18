@@ -2,12 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum RingRotation
-{
-    CounterClockwise,
-    Clockwise
-}
-
 public class RingGlyths
 {
     private static float[] ringGlyphsRotationValue = {
@@ -72,6 +66,7 @@ public class StargateAnimator : MonoBehaviour
     });
 
     // Setup fields.
+    public Animator animator;
     public Transform Stargate;
     public Transform ring;
 
@@ -80,10 +75,9 @@ public class StargateAnimator : MonoBehaviour
 
     // Program attributes.
     private GlyphsList[] storedGlyphsSequence = new GlyphsList[7];
-    [SerializeField]
+    [SerializeField] // Let's you manually change the value inside of the editor, but not in the true game.
     private GlyphsList selectedGlyph;
     private GlyphsList oldGlyph;
-    private RingRotation targetDirection = RingRotation.CounterClockwise;
 
     // Ring rotation animation attributes.
     private Quaternion originalRotation;
@@ -94,7 +88,10 @@ public class StargateAnimator : MonoBehaviour
     // Event Triggers.
     [Range(0, 7)]
     private int chevronLvl = 0;
-    private bool isRingStart = false;
+    private bool isGateActive = false;
+    private bool isAnimationTimeout = false;
+    private float animationTimeoutAmount = 1;
+    private float animationTimeout = 0;
 
 
     // Start is called before the first frame update
@@ -115,17 +112,34 @@ public class StargateAnimator : MonoBehaviour
     // Only update the rings position each time a frame is generated. Don't bother updating it if another frame isn't generated :D.
     void Update()
     {
-        if (selectedGlyph != oldGlyph)
-        {
-            SetupRingForRotation();
-        }
+        // Needs to be checked every frame for consistency.
+        UpdateAnimationTimeout();
 
-        if (currentRotation != targetQuaternion)
+        if (!isGateActive)
         {
-            UpdateRing();
-        }
+            if (selectedGlyph != oldGlyph)
+            {
+                SetupRingForRotation();
+            }
 
-        Debug.Log(speedCurve.keys[1].inTangent + " & " + speedCurve.keys[1].outTangent);
+            if (currentRotation != targetQuaternion)
+            {
+                if (isAnimationTimeout) return; //Check if animator is still animating a chevron.
+                UpdateRing();
+            }
+            else if (chevronLvl <= 7)
+            {
+                // Both lines need to be checked independantly withing the instant between each line execution.
+                if (chevronLvl <= 6) chevronLvl++;
+                if (chevronLvl <= 6) selectedGlyph = storedGlyphsSequence[chevronLvl];
+
+                // Update the animator's parameter too.
+                animator.SetInteger("ChevronsLocked", chevronLvl);
+                // Prep the script to wait for the animation to end.
+                SetupAnimationTimeout(1);
+                if (chevronLvl == 7) isGateActive = true;
+            }
+        }
     }
 
     public void StartGateSequence(GlyphsList[] sequence)
@@ -156,7 +170,7 @@ public class StargateAnimator : MonoBehaviour
 
     private void UpdateRing()
     {
-        // Update the rotation of the Stargate's ring using targetRotation argument.
+        // Update the rotation of the Stargate's ring, requires that SetupRingForRotation() be used before if you want to change the target rotation.
         // !!! Note it aligns to X & Y but rotating the Stargate on Z will break it :'D !!!
 
         // Calculate progress % of how close it's getting to the target.
@@ -168,6 +182,26 @@ public class StargateAnimator : MonoBehaviour
         ring.rotation = Quaternion.RotateTowards(currentRotation, targetQuaternion, speedCurve.Evaluate(progress) * speed * Time.deltaTime);
 
         // Debug :D
-        Debug.Log("Progress : " + progress + ", Traverse planned : " + originalToTargetAngle + "°, Current : " + currentAngleProgress + "°.");
+        // Debug.Log("Progress : " + progress + ", Traverse planned : " + originalToTargetAngle + "°, Current : " + currentAngleProgress + "°.");
+    }
+
+    private void SetupAnimationTimeout(float seconds)
+    {
+        animationTimeoutAmount = seconds;
+        isAnimationTimeout = true;
+    }
+
+    private void UpdateAnimationTimeout()
+    {
+        if (isAnimationTimeout)
+        {
+            animationTimeout += Time.deltaTime;
+
+            if (animationTimeout >= animationTimeoutAmount)
+            {
+                animationTimeout = 0;
+                isAnimationTimeout = false;
+            }
+        }
     }
 }

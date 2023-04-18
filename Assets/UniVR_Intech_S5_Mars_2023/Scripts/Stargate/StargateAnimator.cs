@@ -61,12 +61,22 @@ public class RingGlyths
 public class StargateAnimator : MonoBehaviour
 {
     // Public Fields.
-    [Range(0, 10)]
-    public float speed = 1f;
-    
+    [Range(0, 360)]
+    public float speed = 120f;
+    public AnimationCurve speedCurve = new AnimationCurve(new Keyframe[] {
+        new Keyframe(0, 0.1f),
+        new Keyframe(0.1f, 0.35f, 1.81539f, 1.815319f),
+        new Keyframe(0.33f, 0.5f),
+        new Keyframe(0.66f, 0.5f),
+        new Keyframe(1, 0.1f),
+    });
+
     // Setup fields.
     public Transform Stargate;
     public Transform ring;
+
+    // Testing field.
+    public bool ringOverride = false;
 
     // Program attributes.
     private GlyphsList[] storedGlyphsSequence = new GlyphsList[7];
@@ -74,14 +84,14 @@ public class StargateAnimator : MonoBehaviour
     private GlyphsList selectedGlyph;
     private GlyphsList oldGlyph;
     private RingRotation targetDirection = RingRotation.CounterClockwise;
-    private float targetRotation = 0;
 
-    Quaternion currentRotation;
-    Quaternion targetQuaternion;
+    // Ring rotation animation attributes.
+    private Quaternion originalRotation;
+    private Quaternion currentRotation;
+    private Quaternion targetQuaternion;
+    private float originalToTargetAngle = 0;
 
     // Event Triggers.
-    private bool isDialling = false;
-    private bool isActive = false;
     [Range(0, 7)]
     private int chevronLvl = 0;
     private bool isRingStart = false;
@@ -107,30 +117,57 @@ public class StargateAnimator : MonoBehaviour
     {
         if (selectedGlyph != oldGlyph)
         {
-            targetRotation = RingGlyths.GetRingGlyphRotation(selectedGlyph);
-            oldGlyph = selectedGlyph;
-            isRingStart = true;
-            Debug.Log("Current Selected Glypth is : " + selectedGlyph + " with a target rotation of : " + targetRotation + "°.");
+            SetupRingForRotation();
         }
 
-        UpdateRing(targetRotation);
+        if (currentRotation != targetQuaternion)
+        {
+            UpdateRing();
+        }
+
+        Debug.Log(speedCurve.keys[1].inTangent + " & " + speedCurve.keys[1].outTangent);
     }
 
     public void StartGateSequence(GlyphsList[] sequence)
     {
-        if (sequence.Length == 7 && !isDialling && !isActive)
+        if (sequence.Length == 7)
         {
             storedGlyphsSequence = sequence;
-            isDialling = true;
+            selectedGlyph = storedGlyphsSequence[0];
         }
     }
 
-    private void UpdateRing(float targetRotation)
+    private void SetupRingForRotation()
+    {
+        // Get the rotation of the glyph on the ring.
+        float targetRotation = RingGlyths.GetRingGlyphRotation(selectedGlyph);
+        targetQuaternion = Quaternion.Euler(targetRotation, Stargate.eulerAngles.y, Stargate.eulerAngles.z).normalized;
+        oldGlyph = selectedGlyph;
+
+        // Remember what the starting rotation is at.
+        originalRotation = ring.rotation.normalized;
+
+        // Calculate the total angle that will be traversed.
+        originalToTargetAngle = Quaternion.Angle(originalRotation, targetQuaternion);
+
+        // Debug :D
+        Debug.Log("Current Selected Glypth is : " + selectedGlyph + " with a target rotation of : " + targetRotation + "° and a planned traverse angle of : " + originalToTargetAngle + "°.");
+    }
+
+    private void UpdateRing()
     {
         // Update the rotation of the Stargate's ring using targetRotation argument.
         // !!! Note it aligns to X & Y but rotating the Stargate on Z will break it :'D !!!
+
+        // Calculate progress % of how close it's getting to the target.
         currentRotation = ring.rotation.normalized;
-        targetQuaternion = Quaternion.Euler(targetRotation, Stargate.eulerAngles.y, Stargate.eulerAngles.z).normalized;
-        ring.rotation = Quaternion.Lerp(currentRotation, targetQuaternion, speed * Time.deltaTime);
+        float currentAngleProgress = Quaternion.Angle(originalRotation, currentRotation);
+        float progress = Mathf.InverseLerp(0f, originalToTargetAngle, currentAngleProgress);
+
+        // Rotate the ring using the time curve over time & base speed value.
+        ring.rotation = Quaternion.RotateTowards(currentRotation, targetQuaternion, speedCurve.Evaluate(progress) * speed * Time.deltaTime);
+
+        // Debug :D
+        Debug.Log("Progress : " + progress + ", Traverse planned : " + originalToTargetAngle + "°, Current : " + currentAngleProgress + "°.");
     }
 }

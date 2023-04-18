@@ -5,12 +5,19 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public TMPro.TMP_Text stargateStatus;
-    public Button gateButton;
-    public TMPro.TMP_Text gateButtonText;
-    
-    public ContinuousMovementPhysics playerController;
-    public Transform worldSpawn;
+    [SerializeField]
+    private TMPro.TMP_Text stargateStatus;
+    [SerializeField]
+    private Button gateButton;
+    [SerializeField]
+    private TMPro.TMP_Text gateButtonText;
+
+    [SerializeField]
+    private StargateAnimator stargate;
+    [SerializeField]
+    private ContinuousMovementPhysics playerController;
+    [SerializeField]
+    private Transform worldSpawn;
 
     public void Update()
     {
@@ -20,7 +27,32 @@ public class MainMenu : MonoBehaviour
     // Dev utility to force the gate open for the next level.
     public void ForceToggleGate()
     {
-        
+        if (stargate.IsGateOccupied())
+        {
+            // Abydos gate address (Desert World).
+            stargate.StartGateSequence(new GlyphsList[]{
+            GlyphsList.Taurus,
+            GlyphsList.Serpens_Caput,
+            GlyphsList.Capricornus,
+            GlyphsList.Monoceros,
+            GlyphsList.Sagittarius,
+            GlyphsList.Orion,
+            GlyphsList.Giza
+            });
+
+            gateButton.image.color = new Color(0.5f, 0, 0, 1);
+            gateButtonText.text = "Close Gate";
+            Debug.Log("Started Gate to Abydos !");
+        }
+        else
+        {
+            stargate.StargateInterrupt();
+
+            gateButton.image.color = new Color(0, 0.5f, 0, 1);
+            gateButtonText.text = "Start Gate";
+            Debug.Log("Force close the Stargate.");
+        }
+
     }
 
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).

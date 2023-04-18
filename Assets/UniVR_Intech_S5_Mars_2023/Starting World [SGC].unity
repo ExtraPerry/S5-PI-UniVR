@@ -5412,8 +5412,8 @@ MonoBehaviour:
   animator: {fileID: 1860537905}
   Stargate: {fileID: 1860537902}
   ring: {fileID: 1860537904}
-  ringOverride: 1
   selectedGlyph: 0
+  interruptGate: 0
 --- !u!4 &1860537904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6869489474400122654, guid: b323349211185504faba688ab845bf75,

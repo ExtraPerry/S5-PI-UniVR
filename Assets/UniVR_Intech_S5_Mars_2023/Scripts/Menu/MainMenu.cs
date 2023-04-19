@@ -19,6 +19,13 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Transform worldSpawn;
 
+    public void Start()
+    {
+        gateButton.image.color = new Color(0, 0.5f, 0, 1);
+        gateButtonText.text = "Start Gate";
+        stargateStatus.text = "Gate Offline";
+    }
+
     public void Update()
     {
         
@@ -28,6 +35,15 @@ public class MainMenu : MonoBehaviour
     public void ForceToggleGate()
     {
         if (stargate.IsGateOccupied())
+        {
+            stargate.StargateInterrupt();
+
+            gateButton.image.color = new Color(0, 0.5f, 0, 1);
+            gateButtonText.text = "Start Gate";
+            stargateStatus.text = "Gate Offline";
+            Debug.Log("Force close the Stargate.");
+        }
+        else
         {
             // Abydos gate address (Desert World).
             stargate.StartGateSequence(new GlyphsList[]{
@@ -42,17 +58,9 @@ public class MainMenu : MonoBehaviour
 
             gateButton.image.color = new Color(0.5f, 0, 0, 1);
             gateButtonText.text = "Close Gate";
+            stargateStatus.text = "Gate Active";
             Debug.Log("Started Gate to Abydos !");
         }
-        else
-        {
-            stargate.StargateInterrupt();
-
-            gateButton.image.color = new Color(0, 0.5f, 0, 1);
-            gateButtonText.text = "Start Gate";
-            Debug.Log("Force close the Stargate.");
-        }
-
     }
 
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).

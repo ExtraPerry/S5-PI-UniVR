@@ -46,7 +46,7 @@ public class RingGlyths
         351.2f   // 38
         };
 
-    public static float GetRingGlyphRotation(GlyphsList glyphs)
+    public static float GetRingGlyphRotation(Glyph glyphs)
     {
         return ringGlyphsRotationValue[(int)glyphs];
     }
@@ -61,6 +61,8 @@ public enum RotationDirection
 public class StargateAnimator : MonoBehaviour
 {
     // Settings.
+    [SerializeField]
+    private DHD dhd;
     public AnimationCurve speedCurve = new AnimationCurve(new Keyframe[] {
         new Keyframe(0, 0.1f),
         new Keyframe(0.1f, 0.35f, 1.81539f, 1.815319f),
@@ -74,7 +76,7 @@ public class StargateAnimator : MonoBehaviour
     public int spinMultiplier = 2;
     public AnimationCurve momentumCurve = new AnimationCurve(new Keyframe[] {
         new Keyframe(0, 1, -2.011582f, -2.011582f),
-        new Keyframe(0, 1)
+        new Keyframe(1, 0)
     });
     [Range(1, 2.5f)]
     public float remainingMomentumInSeconds = 1;
@@ -85,10 +87,10 @@ public class StargateAnimator : MonoBehaviour
     public Transform ring;
 
     // Address & Glyph information.
-    private GlyphsList[] storedGlyphsSequence = null;
+    private Glyph[] storedGlyphsSequence = null;
     [SerializeField] // Let's you manually change the value inside of the editor, but not in the true game.
-    private GlyphsList selectedGlyph;
-    private GlyphsList targetGlyth;
+    private Glyph selectedGlyph;
+    private Glyph targetGlyth;
 
     // Ring rotation animation attributes.
     private RotationDirection direction = RotationDirection.CounterClockwise;
@@ -113,9 +115,6 @@ public class StargateAnimator : MonoBehaviour
     private bool isAnimationTimeout = false;
     private float animationTimeoutAmount = 1;
     private float animationTimeout = 0;
-
-    // Gate status.
-    private bool isGateOccupied = false;
 
 
     // Start is called before the first frame update
@@ -148,11 +147,13 @@ public class StargateAnimator : MonoBehaviour
             {
                 // Turn off the event horizon.
                 CloseStargate();
+                return;
             }
             else
             {
                 // Turn off the stargate completly & reset interrupt.
                 ResetStargate();
+                return;
             }
         }
 
@@ -174,21 +175,23 @@ public class StargateAnimator : MonoBehaviour
     }
 
     // Public Methodes.
-    public void StartGateSequence(GlyphsList[] sequence)
+    public bool StartGateSequence(Glyph[] sequence)
     {
-        if (sequence.Length == 7 && !isGateOccupied)
+        if ((sequence.Length == 7) && !IsGateOccupied() && (sequence != null))
         {
             storedGlyphsSequence = sequence;
             selectedGlyph = storedGlyphsSequence[0];
-            isGateOccupied = true;
 
             Debug.Log("Dialling : [" + storedGlyphsSequence[0] + ", " + storedGlyphsSequence[1] + ", " + storedGlyphsSequence[2] + ", " + storedGlyphsSequence[3] + ", " + storedGlyphsSequence[4] + ", " + storedGlyphsSequence[5] + ", " + storedGlyphsSequence[6] + "] address.");
+
+            return true;
         }
+        return false;
     }
 
     public bool IsGateOccupied()
     {
-        return isGateOccupied;
+        return storedGlyphsSequence != null;
     }
 
     public void StargateInterrupt()
@@ -202,19 +205,30 @@ public class StargateAnimator : MonoBehaviour
         isGateActive = false;
         animator.SetBool("EventHorizon", isGateActive);
         SetupAnimationTimeout(0.2f);
+
+        Debug.Log("Closing event horizon.");
     }
 
     private void ResetStargate()
     {
-        storedGlyphsSequence = null;
+        // Event Triggers.
         chevronLvl = 0;
+        interruptGate = false;
+
+        // Rando stuff.
         animator.SetInteger("ChevronsLocked", chevronLvl);
         remainingMomentumSeconds = remainingMomentumInSeconds;
         momentumClamp = speedCurve.Evaluate(ringProgress);
         isRingMaintainingMomentum = true;
-        interruptGate = false;
-        isGateOccupied = false;
+        
+
+        // Address & Glyph information.
+        storedGlyphsSequence = null;
+
+        // Animation timeout.
         SetupAnimationTimeout(0.15f);
+
+        Debug.Log("Stargate shuting down.");
     }
 
     private void UpdateChevrons()

@@ -46,14 +46,14 @@ public class MainMenu : MonoBehaviour
         else
         {
             // Abydos gate address (Desert World).
-            stargate.StartGateSequence(new GlyphsList[]{
-            GlyphsList.Taurus,
-            GlyphsList.Serpens_Caput,
-            GlyphsList.Capricornus,
-            GlyphsList.Monoceros,
-            GlyphsList.Sagittarius,
-            GlyphsList.Orion,
-            GlyphsList.Giza
+            stargate.StartGateSequence(new Glyph[]{
+            Glyph.Taurus,
+            Glyph.Serpens_Caput,
+            Glyph.Capricornus,
+            Glyph.Monoceros,
+            Glyph.Sagittarius,
+            Glyph.Orion,
+            Glyph.Giza
             });
 
             gateButton.image.color = new Color(0.5f, 0, 0, 1);

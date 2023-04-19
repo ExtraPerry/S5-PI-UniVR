@@ -209,7 +209,7 @@ public class StargateAnimator : MonoBehaviour
         storedGlyphsSequence = null;
         chevronLvl = 0;
         animator.SetInteger("ChevronsLocked", chevronLvl);
-        remainingMomentumSeconds = maxRemainingMomentumInSeconds;
+        remainingMomentumSeconds = remainingMomentumInSeconds;
         momentumClamp = speedCurve.Evaluate(ringProgress);
         isRingMaintainingMomentum = true;
         interruptGate = false;

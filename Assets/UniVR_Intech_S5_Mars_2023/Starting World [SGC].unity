@@ -1436,7 +1436,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 786559031}
         m_TargetAssemblyTypeName: DHD, Assembly-CSharp
-        m_MethodName: AttemptDialling
+        m_MethodName: DialPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3373,7 +3373,6 @@ GameObject:
   - component: {fileID: 571606743}
   - component: {fileID: 571606742}
   - component: {fileID: 571606741}
-  - component: {fileID: 571606740}
   m_Layer: 5
   m_Name: Glyph Dev Side Display
   m_TagString: Untagged
@@ -3409,70 +3408,6 @@ RectTransform:
   m_AnchoredPosition: {x: 2.8, y: 10.48}
   m_SizeDelta: {x: 0.25, y: 2.5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &571606740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571606738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ff5dab59e0fab0439b8fd689804c87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  self: {fileID: 0}
-  glyphsLibrary: {fileID: 0}
-  dialButton: {fileID: 0}
-  glyphButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  glyphDisplays:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  stargate: {fileID: 1860537903}
 --- !u!114 &571606741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10497,8 +10432,23 @@ MonoBehaviour:
   animator: {fileID: 1860537905}
   Stargate: {fileID: 543450651847879104}
   ring: {fileID: 2353882563979577033}
+  storedGlyphSequence: 
   selectedGlyph: 0
+  targetGlyth: 0
+  targetXRotation: 0
+  currentXRotation: 0
+  startXRotation: 0
+  isRingSpinning: 0
+  ringProgress: 0
+  isRingMaintainingMomentum: 0
+  remainingMomentumSeconds: 1
+  momentumClamp: 1
+  chevronLvl: 0
+  isGateActive: 0
   interruptGate: 0
+  isAnimationTimeout: 0
+  animationTimeoutAmount: 1
+  animationTimeout: 0
 --- !u!95 &1860537905
 Animator:
   serializedVersion: 5

@@ -26,6 +26,14 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: self
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: glyphsLibrary
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: dialButton
     value: 
     objectReference: {fileID: 0}
@@ -223,6 +231,42 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: stargate
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: status
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sfx.Array.size
+    value: 7
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sfx.Array.data[0]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sfx.Array.data[1]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sfx.Array.data[2]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sfx.Array.data[3]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sfx.Array.data[4]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sfx.Array.data[5]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sfx.Array.data[6]
     value: 
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

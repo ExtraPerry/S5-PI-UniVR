@@ -82,9 +82,14 @@ public class StargateAnimator : MonoBehaviour
     public float remainingMomentumInSeconds = 1;
 
     // External elements.
-    public Animator animator;
-    public Transform Stargate;
-    public Transform ring;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private Transform Stargate;
+    [SerializeField]
+    private Transform ring;
+    [SerializeField]
+    private AudioSource[] sfx = new AudioSource[3];
 
     // Address & Glyph information.
     private Glyph[] storedGlyphSequence = null;
@@ -181,7 +186,8 @@ public class StargateAnimator : MonoBehaviour
             if (!animator.GetBool("EventHorizon"))
             {
                 animator.SetBool("EventHorizon", isGateActive);
-                SetupAnimationTimeout(0.2f);
+                sfx[0].Play();
+                SetupAnimationTimeout(6.4f);
             }
         }
     }
@@ -220,7 +226,8 @@ public class StargateAnimator : MonoBehaviour
     {
         isGateActive = false;
         animator.SetBool("EventHorizon", isGateActive);
-        SetupAnimationTimeout(0.2f);
+        sfx[1].Play();
+        SetupAnimationTimeout(2.6f);
 
         Debug.Log("Closing event horizon.");
     }

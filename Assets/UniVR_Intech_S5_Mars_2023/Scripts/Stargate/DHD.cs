@@ -17,16 +17,17 @@ public class DHD : MonoBehaviour
     private Image[] glyphDisplays = new Image[7];
     [SerializeField]
     private StargateAnimator stargate;
-
+    [SerializeField]
     private TMPro.TMP_Text status;
-    private Glyph[] storedGlyphSequence = null;
+    [SerializeField]
+    private AudioSource[] sfx = new AudioSource[7];
+
     private Stack<Glyph> activeGlyphs = new Stack<Glyph>();
-    private int glyphCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        glyphCount = 0; 
+        dialButton.image.color = new Color(0, 0.75f, 0, 1);
         if (!IsGlyphDisplaysEmptyOrNull())
         {
             foreach (Image element in glyphDisplays)
@@ -42,6 +43,7 @@ public class DHD : MonoBehaviour
                 element.image.color = new Color(1, 1, 1, 1);
             }
         }
+        UpdateStatus();
     }
 
     // Update is called once per frame
@@ -57,24 +59,19 @@ public class DHD : MonoBehaviour
 
     public void SymbolePressed(Glyph glyph)
     {
-        if (IsStoredGlyphSequenceEmptyOrNull())
-        {
-            storedGlyphSequence = new Glyph[7];
-        }
-
         if (activeGlyphs.Contains(glyph) || stargate.IsGateOccupied())
         {
             Debug.Log("Glyph : " + glyph + " has already been selected or Gate already has an address.");
             return;
         }
 
-        if (glyphCount <= 6)
+        if (activeGlyphs.Count <= 6)
         {
             activeGlyphs.Push(glyph);
-            storedGlyphSequence[glyphCount] = glyph;
             glyphButtons[(int)glyph].image.color = new Color(1, 0.666f, 0, 1);
-            glyphDisplays[glyphCount].material = glyphsLibrary.GetGlyphMaterial(glyph);
-            glyphCount++;
+            glyphDisplays[activeGlyphs.Count - 1].material = glyphsLibrary.GetGlyphMaterial(glyph);
+            sfx[activeGlyphs.Count - 1].Play();
+            UpdateStatus();
 
             Debug.Log("Glyph : " + glyph + " has been added to DHD sequence.");
         }
@@ -88,7 +85,7 @@ public class DHD : MonoBehaviour
 
     public void DialPressed()
     {
-        if (glyphCount != 7)
+        if (activeGlyphs.Count != 7)
         {
             Debug.Log("DHD has attempted to dial but sequence was incomplete.");
             ResetDHD();
@@ -96,7 +93,9 @@ public class DHD : MonoBehaviour
         }
 
         // (sequence.Length == 7) && !IsGateOccupied())
-        bool isSuccesful = stargate.StartGateSequence(storedGlyphSequence);
+        Glyph[] sequence = activeGlyphs.ToArray();
+        System.Array.Reverse(sequence);
+        bool isSuccesful = stargate.StartGateSequence(sequence);
         if (isSuccesful)
         {
             dialButton.image.color = new Color(1, 0.666f, 0, 1);
@@ -104,7 +103,7 @@ public class DHD : MonoBehaviour
             {
                 foreach (Image element in glyphDisplays)
                 {
-                    element.color = new Color(1, 0.666f, 0, 1);
+                    element.color = new Color(0, 0.75f, 0, 1);
                 }
             }
 
@@ -121,31 +120,31 @@ public class DHD : MonoBehaviour
 
     public void ResetDHD()
     {
-        if (!IsStoredGlyphSequenceEmptyOrNull())
-        {
-            foreach (Glyph element in storedGlyphSequence)
-            {
-                glyphButtons[(int)element].image.color = new Color(1, 1, 1, 1);
-            }
-        }
-        if (!IsGlyphDisplaysEmptyOrNull())
-        {
-            foreach (Image element in glyphDisplays)
-            {
-                element.material = glyphsLibrary.GetBlankGlyphMaterial();
-            }
-        }
-        dialButton.image.color = new Color(0, 0.75f, 0, 1);
-        storedGlyphSequence = null;
         activeGlyphs.Clear();
-        glyphCount = 0;
-
+        Start();
+        
         Debug.Log("DHD has been reset.");
     }
 
-    private bool IsStoredGlyphSequenceEmptyOrNull()
+    private void UpdateStatus()
     {
-        return storedGlyphSequence == null || storedGlyphSequence.Length == 0;
+        int count = 0;
+        string[] stringGlyphs = new string[7];
+        if (activeGlyphs.Count != 0)
+        {
+            Glyph[] glyphs = activeGlyphs.ToArray();
+            System.Array.Reverse(glyphs);
+            foreach (Glyph element in glyphs)
+            {
+                stringGlyphs[count] = element.ToString();
+                count++;
+            }
+        }
+        for (int i = count; i < stringGlyphs.Length; i++)
+        {
+            stringGlyphs[i] = "None";
+        }
+        status.text = "1 - [" + stringGlyphs[0] + "]\n2 - [" + stringGlyphs[1] + "]\n3 - [" + stringGlyphs[2] + "]\n4 - [" + stringGlyphs[3] + "]\n5 - [" + stringGlyphs[4] + "]\n6 - [" + stringGlyphs[5] + "]\n7 - [" + stringGlyphs[6] + "]";
     }
 
     private bool IsGlyphButtonsEmptyOrNull()

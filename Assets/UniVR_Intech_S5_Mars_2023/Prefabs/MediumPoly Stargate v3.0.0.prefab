@@ -1293,8 +1293,8 @@ MonoBehaviour:
   entranceCollider: {fileID: 1289186974228967050}
   eventHorizonCollider: {fileID: 1289186973486049291}
   colliderOffOnMaterials:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 4c46dc62478e1fb43a8d139a85cff811, type: 2}
+  - {fileID: 2100000, guid: 10705a0f8e53cb94183d5d1747f4de33, type: 2}
   targetScene: 0
 --- !u!1 &2188460564995760276
 GameObject:

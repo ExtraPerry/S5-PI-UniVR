@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class ContinuousMovementPhysics : MonoBehaviour
 {
     // Main Parameters.
@@ -13,22 +14,33 @@ public class ContinuousMovementPhysics : MonoBehaviour
     public InputActionProperty moveInputSource;
     public InputActionProperty turnInputSource;
     public InputActionProperty jumpInputSource;
+    public InputActionProperty respawnInputSource;
     // Reference Elements.
-    public Rigidbody rb;
-    public LayerMask groundLayer;
-    public Transform directionSource;
-    public Transform turnSource;
-    public CapsuleCollider bodyCollider;
+    [SerializeField]
+    private Player player;
+    [SerializeField]
+    private LayerMask groundLayer;
+    [SerializeField]
+    private Transform directionSource;
+    [SerializeField]
+    private Transform turnSource;
+    [SerializeField]
+    private CapsuleCollider bodyCollider;
+    [SerializeField]
+    private Transform worldSpawn;
     // Registered Inputs.
     private Vector2 inputMoveAxis;
     private float inputTurnAxis;
+    // Global Variables for use in next time frame.
+    private Vector3 teleportNextMovePosition;
     // Global Checks.
     private bool isGrounded;
+    private bool isPrimedToTeleport;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        isPrimedToTeleport = false;
     }
 
     // Update is called once per frame
@@ -39,50 +51,88 @@ public class ContinuousMovementPhysics : MonoBehaviour
         inputTurnAxis = turnInputSource.action.ReadValue<Vector2>().x;
         // Read input from jump button.
         bool inputJump = jumpInputSource.action.WasPerformedThisFrame();
+        bool inputRespawn = respawnInputSource.action.WasPerformedThisFrame();
 
         // Check if player is on the ground and jump if jump button is pressed.
         if (inputJump && isGrounded)
         {
             float jumpVelocity = Mathf.Sqrt(2 * -Physics.gravity.y * jumpHeight);
-            rb.velocity = Vector3.up * jumpVelocity;
+            player.rigidbodyRig.body.velocity = Vector3.up * jumpVelocity;
+        }
+
+        if (inputRespawn)
+        {
+            PrepareTeleportTo(worldSpawn);
         }
 
     }
 
     private void FixedUpdate()
     {
-        // Check if the player is grounded.
-        isGrounded = checkIfGrounded();
-
-        // If the player is grounded then let them be able to move arround.
-        if (isGrounded)
+        // Check if the player is grounded, but instance it for other potential uses later.
+        isGrounded = CheckIfGrounded();
+        //
+        if (isGrounded && !isPrimedToTeleport)
         {
-            // Define the direction of the movement.
-            Quaternion yaw = Quaternion.Euler(0, directionSource.eulerAngles.y, 0);
-            Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0, inputMoveAxis.y);
-
-            // Calculate the move 3D vector by which the player will move.
-            Vector3 targetMovePosition = rb.position + ((direction * Time.fixedDeltaTime) * moveSpeed);
-
-            // Define the direction of the rotation.
-            Vector3 axis = Vector3.up;
-            float angle = turnSpeed * Time.fixedDeltaTime * inputTurnAxis;
-
-            // Calculate the Quaternion by which the player will rotate.
-            Quaternion q = Quaternion.AngleAxis(angle, axis);
-
-            // Update the player's rotation.
-            rb.MoveRotation(rb.rotation * q);
-
-            // Calculate the position change of the player that the rotation has induced (with the movement calculated before too).
-            Vector3 newPosition = q * (targetMovePosition - turnSource.position) + turnSource.position;
-
-            // Update the player's position.
-            rb.MovePosition(newPosition);
+            MoveAndRotatePlayer();
+        }
+        //
+        else if (isPrimedToTeleport)
+        {
+            TeleportPlayer();
         }
     }
 
-    public bool checkIfGrounded()
+    public void MoveAndRotatePlayer()
+    {
+        // Define the direction of the movement.
+        Quaternion yaw = Quaternion.Euler(0, directionSource.eulerAngles.y, 0);
+        Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0, inputMoveAxis.y);
+
+        // Calculate the move 3D vector by which the player will move.
+        Vector3 targetMovePosition = player.rigidbodyRig.body.position + ((direction * Time.fixedDeltaTime) * moveSpeed);
+
+        // Define the direction of the rotation.
+        Vector3 axis = Vector3.up;
+        float angle = turnSpeed * Time.fixedDeltaTime * inputTurnAxis;
+
+        // Calculate the Quaternion by which the player will rotate.
+        Quaternion q = Quaternion.AngleAxis(angle, axis);
+
+        // Update the player's rotation.
+        player.rigidbodyRig.body.MoveRotation(player.rigidbodyRig.body.rotation * q);
+
+        // Calculate the position change of the player that the rotation has induced (with the movement calculated before too).
+        Vector3 newPosition = q * (targetMovePosition - turnSource.position) + turnSource.position;
+
+        // Update the player's position.
+        player.rigidbodyRig.body.MovePosition(newPosition);
+    }
+
+    public void TeleportPlayer()
+    {
+        // Reset all velocity.
+        player.rigidbodyRig.SetVelocity(Vector3.zero);
+
+        // Get the vector by which the player will move.
+        Vector3 direction = teleportNextMovePosition - player.rigidbodyRig.body.transform.position;
+
+        // Calculate movement that other rigidbodies will move by said direction.
+        Vector3 newHeadPosition = player.rigidbodyRig.head.transform.position + direction;
+        Vector3 newLeftHandPosition = player.rigidbodyRig.leftHand.transform.position + direction;
+        Vector3 newRightHandPosition = player.rigidbodyRig.rightHand.transform.position + direction;
+
+        // Update the player's position. (Use .position because it is a teleport).
+        player.rigidbodyRig.head.position = newHeadPosition;
+        player.rigidbodyRig.body.position = teleportNextMovePosition;
+        player.rigidbodyRig.leftHand.position = newLeftHandPosition;
+        player.rigidbodyRig.rightHand.position = newRightHandPosition;
+
+        // Reset the teleport primer.
+        isPrimedToTeleport = false;
+    }
+
+    public bool CheckIfGrounded()
     {
         // Gets the center body location of the body collider in 3d space & define the size of the raycast based on the collider's size.
         Vector3 start = bodyCollider.transform.TransformPoint(bodyCollider.center);
@@ -95,9 +145,17 @@ public class ContinuousMovementPhysics : MonoBehaviour
         return hasHit;
     }
 
-    public void setJumpHeight(float height)
+    public void PrepareTeleportTo(Transform target)
     {
-        jumpHeight = height;
+        if (!isPrimedToTeleport)
+        {
+            teleportNextMovePosition = target.position;
+            isPrimedToTeleport = true;
+        }
+        else
+        {
+            Debug.Log("A teleportation sequence is already in progress !");
+        }
     }
 }
 

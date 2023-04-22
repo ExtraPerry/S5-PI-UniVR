@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/UniVR_Intech_S5_Mars_2023/UniVR.unity
-    guid: a473e0606cffb0a479f82ab0821f4100
   - enabled: 1
     path: Assets/UniVR_Intech_S5_Mars_2023/Starting World [SGC].unity
     guid: 7e052cc4d3e1e2646a995dd5c1cdeff4
+  - enabled: 1
+    path: Assets/UniVR_Intech_S5_Mars_2023/UniVR.unity
+    guid: a473e0606cffb0a479f82ab0821f4100
+  - enabled: 1
+    path: Assets/UniVR_Intech_S5_Mars_2023/Physics Test.unity
+    guid: 71d39113fcf10fe4db0a5ff0e3036806
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 087794f147040d14e8c1374a95d6d9bb,
       type: 2}

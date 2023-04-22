@@ -1,23 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject stargate;
-    public Rigidbody playerRigidbody;
-    public Transform worldSpawn;
+    [SerializeField]
+    private StargateAnimator stargate;
+    [SerializeField]
+    private ContinuousMovementPhysics playerController;
+    [SerializeField]
+    private Transform worldSpawn;
 
-    // Dev utility to force the gate open for the next level.
-    public void forceStartGate()
+    public void Start()
     {
-        Debug.Log("Force started the Stargate for next level.");
+        
+    }
+
+    public void Update()
+    {
+        
     }
 
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).
     public void forceRespawnPlayer()
     {
-        playerRigidbody.position = worldSpawn.position;
+        playerController.PrepareTeleportTo(worldSpawn);
         Debug.Log("Force respawned the player back to World Spawn .");
     }
 

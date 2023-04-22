@@ -6,13 +6,6 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private TMPro.TMP_Text stargateStatus;
-    [SerializeField]
-    private Button gateButton;
-    [SerializeField]
-    private TMPro.TMP_Text gateButtonText;
-
-    [SerializeField]
     private StargateAnimator stargate;
     [SerializeField]
     private ContinuousMovementPhysics playerController;
@@ -21,46 +14,12 @@ public class MainMenu : MonoBehaviour
 
     public void Start()
     {
-        gateButton.image.color = new Color(0, 0.5f, 0, 1);
-        gateButtonText.text = "Start Gate";
-        stargateStatus.text = "Gate Offline";
+        
     }
 
     public void Update()
     {
         
-    }
-
-    // Dev utility to force the gate open for the next level.
-    public void ForceToggleGate()
-    {
-        if (stargate.IsGateOccupied())
-        {
-            stargate.StargateInterrupt();
-
-            gateButton.image.color = new Color(0, 0.5f, 0, 1);
-            gateButtonText.text = "Start Gate";
-            stargateStatus.text = "Gate Offline";
-            Debug.Log("Force close the Stargate.");
-        }
-        else
-        {
-            // Abydos gate address (Desert World).
-            stargate.StartGateSequence(new Glyph[]{
-            Glyph.Taurus,
-            Glyph.Serpens_Caput,
-            Glyph.Capricornus,
-            Glyph.Monoceros,
-            Glyph.Sagittarius,
-            Glyph.Orion,
-            Glyph.Giza
-            });
-
-            gateButton.image.color = new Color(0.5f, 0, 0, 1);
-            gateButtonText.text = "Close Gate";
-            stargateStatus.text = "Gate Active";
-            Debug.Log("Started Gate to Abydos !");
-        }
     }
 
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).

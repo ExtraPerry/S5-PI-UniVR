@@ -89,7 +89,7 @@ public class StargateAnimator : MonoBehaviour
     [SerializeField]
     private Transform ring;
     [SerializeField]
-    private AudioSource[] sfx = new AudioSource[3];
+    private AudioSource ringSFX;
 
     // Address & Glyph information.
     private Glyph[] storedGlyphSequence = null;
@@ -125,7 +125,7 @@ public class StargateAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    
+        
     }
 
     // Update is called once per frame
@@ -186,7 +186,6 @@ public class StargateAnimator : MonoBehaviour
             if (!animator.GetBool("EventHorizon"))
             {
                 animator.SetBool("EventHorizon", isGateActive);
-                sfx[0].Play();
                 SetupAnimationTimeout(6.4f);
             }
         }
@@ -226,7 +225,6 @@ public class StargateAnimator : MonoBehaviour
     {
         isGateActive = false;
         animator.SetBool("EventHorizon", isGateActive);
-        sfx[1].Play();
         SetupAnimationTimeout(2.6f);
 
         Debug.Log("Closing event horizon.");

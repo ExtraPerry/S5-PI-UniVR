@@ -3,22 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[System.Serializable]
-public class RigidbodyRig
-{
-    public Rigidbody head;
-    public Rigidbody body;
-    public Rigidbody leftHand;
-    public Rigidbody rightHand;
-
-    public void SetVelocity(Vector3 amount)
-    {
-        head.velocity = amount;
-        body.velocity = amount;
-        leftHand.velocity = amount;
-        rightHand.velocity = amount;
-    }
-}
 
 public class ContinuousMovementPhysics : MonoBehaviour
 {
@@ -32,12 +16,18 @@ public class ContinuousMovementPhysics : MonoBehaviour
     public InputActionProperty jumpInputSource;
     public InputActionProperty respawnInputSource;
     // Reference Elements.
-    public RigidbodyRig rig;
-    public LayerMask groundLayer;
-    public Transform directionSource;
-    public Transform turnSource;
-    public CapsuleCollider bodyCollider;
-    public Transform worldSpawn;
+    [SerializeField]
+    private Player player;
+    [SerializeField]
+    private LayerMask groundLayer;
+    [SerializeField]
+    private Transform directionSource;
+    [SerializeField]
+    private Transform turnSource;
+    [SerializeField]
+    private CapsuleCollider bodyCollider;
+    [SerializeField]
+    private Transform worldSpawn;
     // Registered Inputs.
     private Vector2 inputMoveAxis;
     private float inputTurnAxis;
@@ -67,7 +57,7 @@ public class ContinuousMovementPhysics : MonoBehaviour
         if (inputJump && isGrounded)
         {
             float jumpVelocity = Mathf.Sqrt(2 * -Physics.gravity.y * jumpHeight);
-            rig.body.velocity = Vector3.up * jumpVelocity;
+            player.rigidbodyRig.body.velocity = Vector3.up * jumpVelocity;
         }
 
         if (inputRespawn)
@@ -100,7 +90,7 @@ public class ContinuousMovementPhysics : MonoBehaviour
         Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0, inputMoveAxis.y);
 
         // Calculate the move 3D vector by which the player will move.
-        Vector3 targetMovePosition = rig.body.position + ((direction * Time.fixedDeltaTime) * moveSpeed);
+        Vector3 targetMovePosition = player.rigidbodyRig.body.position + ((direction * Time.fixedDeltaTime) * moveSpeed);
 
         // Define the direction of the rotation.
         Vector3 axis = Vector3.up;
@@ -110,33 +100,33 @@ public class ContinuousMovementPhysics : MonoBehaviour
         Quaternion q = Quaternion.AngleAxis(angle, axis);
 
         // Update the player's rotation.
-        rig.body.MoveRotation(rig.body.rotation * q);
+        player.rigidbodyRig.body.MoveRotation(player.rigidbodyRig.body.rotation * q);
 
         // Calculate the position change of the player that the rotation has induced (with the movement calculated before too).
         Vector3 newPosition = q * (targetMovePosition - turnSource.position) + turnSource.position;
 
         // Update the player's position.
-        rig.body.MovePosition(newPosition);
+        player.rigidbodyRig.body.MovePosition(newPosition);
     }
 
     public void TeleportPlayer()
     {
         // Reset all velocity.
-        rig.SetVelocity(Vector3.zero);
+        player.rigidbodyRig.SetVelocity(Vector3.zero);
 
         // Get the vector by which the player will move.
-        Vector3 direction = teleportNextMovePosition - rig.body.transform.position;
+        Vector3 direction = teleportNextMovePosition - player.rigidbodyRig.body.transform.position;
 
         // Calculate movement that other rigidbodies will move by said direction.
-        Vector3 newHeadPosition = rig.head.transform.position + direction;
-        Vector3 newLeftHandPosition = rig.leftHand.transform.position + direction;
-        Vector3 newRightHandPosition = rig.rightHand.transform.position + direction;
+        Vector3 newHeadPosition = player.rigidbodyRig.head.transform.position + direction;
+        Vector3 newLeftHandPosition = player.rigidbodyRig.leftHand.transform.position + direction;
+        Vector3 newRightHandPosition = player.rigidbodyRig.rightHand.transform.position + direction;
 
         // Update the player's position. (Use .position because it is a teleport).
-        rig.head.position = newHeadPosition;
-        rig.body.position = teleportNextMovePosition;
-        rig.leftHand.position = newLeftHandPosition;
-        rig.rightHand.position = newRightHandPosition;
+        player.rigidbodyRig.head.position = newHeadPosition;
+        player.rigidbodyRig.body.position = teleportNextMovePosition;
+        player.rigidbodyRig.leftHand.position = newLeftHandPosition;
+        player.rigidbodyRig.rightHand.position = newRightHandPosition;
 
         // Reset the teleport primer.
         isPrimedToTeleport = false;

@@ -22,7 +22,7 @@ public class PhysicRig : MonoBehaviour
     public float bodyHeightMax = 2;
 
     // Update is called once per fixed interval.
-    void Update()
+    void FixedUpdate()
     {   
         // Update the body physics to adjust it's height based on the player's VR headset position.
         bodyCollider.height = Mathf.Clamp(playerHead.localPosition.y, bodyHeightMin, bodyHeightMax);

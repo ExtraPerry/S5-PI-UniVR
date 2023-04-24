@@ -3369,6 +3369,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1826545676}
     m_Modifications:
+    - target: {fileID: 935848013123378672, guid: d8b19b6037527074e9b984b8ff2b3ab4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139759965296250130, guid: d8b19b6037527074e9b984b8ff2b3ab4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289186972692404363, guid: d8b19b6037527074e9b984b8ff2b3ab4,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289186972692404364, guid: d8b19b6037527074e9b984b8ff2b3ab4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1289186972753870752, guid: d8b19b6037527074e9b984b8ff2b3ab4,
         type: 3}
       propertyPath: dhd
@@ -3447,7 +3467,7 @@ PrefabInstance:
     - target: {fileID: 2100213896345486068, guid: d8b19b6037527074e9b984b8ff2b3ab4,
         type: 3}
       propertyPath: debug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2100213896345486068, guid: d8b19b6037527074e9b984b8ff2b3ab4,
         type: 3}
@@ -3463,6 +3483,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MediumPoly Stargate v3.0.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672228890520829387, guid: d8b19b6037527074e9b984b8ff2b3ab4,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794395635522259010, guid: d8b19b6037527074e9b984b8ff2b3ab4,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8b19b6037527074e9b984b8ff2b3ab4, type: 3}

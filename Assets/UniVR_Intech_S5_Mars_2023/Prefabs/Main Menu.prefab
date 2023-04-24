@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3094989415289380332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,9 +1055,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aab5e4e54d863e4b83c6b0dc2ebbd5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stargateStatus: {fileID: 3094989416096675509}
-  gateButton: {fileID: 0}
-  gateButtonText: {fileID: 0}
   stargate: {fileID: 0}
   playerController: {fileID: 0}
   worldSpawn: {fileID: 0}

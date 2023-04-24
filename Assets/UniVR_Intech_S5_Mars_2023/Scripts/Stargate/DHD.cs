@@ -52,8 +52,25 @@ public class DHD : MonoBehaviour
         
     }
 
+    public void GateOverride(Glyph[] glyphSequence)
+    {
+        ResetDHD();
+        for (int i = 0; i < 7; i++)
+        {
+            Glyph glyph = glyphSequence[i];
+            glyphButtons[(int)glyph].image.color = new Color(1, 0.666f, 0, 1);
+            glyphDisplays[i].material = glyphsLibrary.GetGlyphMaterial(glyph);
+            glyphDisplays[i].color = new Color(0, 0.75f, 0, 1);
+            activeGlyphs.Push(glyph);
+            Debug.Log("Glyph : " + glyph + " has been added to DHD sequence by the Gate override.");
+        }
+        UpdateStatus();
+        dialButton.image.color = new Color(1, 0.666f, 0, 1);
+    }
+
     public void SymbolePressed(int glyphNumber)
     {
+        Debug.Log("Glyph : " + glyphNumber + " => " + (Glyph)glyphNumber + ".");
         SymbolePressed((Glyph)glyphNumber);
     }
 

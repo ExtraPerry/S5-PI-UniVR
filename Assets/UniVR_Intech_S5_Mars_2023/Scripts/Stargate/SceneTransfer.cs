@@ -17,11 +17,14 @@ public class SceneTransfer : MonoBehaviour
 
     [SerializeField]
     private int targetScene = 0;
+
+    [SerializeField]
+    private bool debug = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        UpdateDebugColliderVisual(false, false);
     }
 
     // Update is called once per frame
@@ -38,7 +41,7 @@ public class SceneTransfer : MonoBehaviour
         {
             isEventHorizonOk = true;
         }
-
+        
         UpdateDebugColliderVisual(isEntranceOk, isEventHorizonOk);
 
         if (isEntranceOk && isEventHorizonOk)
@@ -67,29 +70,48 @@ public class SceneTransfer : MonoBehaviour
     private void UpdateDebugColliderVisual(bool isEntranceOk, bool isEventHorizonOk)
     {
         MeshRenderer entranceMeshRenderer = entranceCollider.gameObject.GetComponent<MeshRenderer>();
-        if (entranceMeshRenderer)
-        {
-            if (isEntranceOk)
-            {
-                entranceMeshRenderer.GetComponent<MeshRenderer>().material = colliderOffOnMaterials[0];
-            }
-            else
-            {
-                entranceMeshRenderer.GetComponent<MeshRenderer>().material = colliderOffOnMaterials[1];
-            }
-        }
-
         MeshRenderer eventHorizonMeshRenderer = eventHorizonCollider.gameObject.GetComponent<MeshRenderer>();
-        if (eventHorizonMeshRenderer)
+
+        if (debug)
         {
-            if (isEventHorizonOk)
+            if (entranceMeshRenderer)
             {
-                eventHorizonMeshRenderer.GetComponent<MeshRenderer>().material = colliderOffOnMaterials[0];
+                entranceCollider.enabled = true;
+                if (isEntranceOk)
+                {
+                    entranceMeshRenderer.GetComponent<MeshRenderer>().material = colliderOffOnMaterials[1];
+                }
+                else
+                {
+                    entranceMeshRenderer.GetComponent<MeshRenderer>().material = colliderOffOnMaterials[0];
+                }
             }
-            else
+
+            if (eventHorizonMeshRenderer)
             {
-                eventHorizonMeshRenderer.GetComponent<MeshRenderer>().material = colliderOffOnMaterials[1];
+                eventHorizonCollider.enabled = true;
+                if (isEventHorizonOk)
+                {
+                    eventHorizonMeshRenderer.GetComponent<MeshRenderer>().material = colliderOffOnMaterials[1];
+                }
+                else
+                {
+                    eventHorizonMeshRenderer.GetComponent<MeshRenderer>().material = colliderOffOnMaterials[0];
+                }
             }
         }
+        else
+        {
+            if (entranceCollider)
+            {
+                entranceCollider.enabled = false;
+            }
+
+            if (eventHorizonCollider)
+            {
+                eventHorizonCollider.enabled = false;
+            }
+        }
+        
     }
 }

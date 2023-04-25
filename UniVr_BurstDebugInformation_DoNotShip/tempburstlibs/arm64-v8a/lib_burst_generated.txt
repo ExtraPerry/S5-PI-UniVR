@@ -128,6 +128,7 @@ Library: D:\Unity_Game_Creation\UniVr\univr-experience\Temp\StagingArea\tempburs
 --compilation-defines=ANIMATION_MODULE_PRESENT
 --compilation-defines=PHYSICS2D_MODULE_PRESENT
 --compilation-defines=BURST_PRESENT
+--compilation-defines=DISABLE_BUILTIN_INPUT_SYSTEM_OCULUS
 --compilation-defines=UNITY_INPUT_SYSTEM_ENABLE_VR
 --compilation-defines=UNITY_INPUT_SYSTEM_ENABLE_XR
 --compilation-defines=UNITY_INPUT_SYSTEM_ENABLE_PHYSICS
@@ -150,6 +151,8 @@ Library: D:\Unity_Game_Creation\UniVr\univr-experience\Temp\StagingArea\tempburs
 --compilation-defines=UNITY_ANALYTICS
 --compilation-defines=INPUT_SYSTEM_POSE_VALID
 --compilation-defines=TIMELINE_FRAMEACCURATE
+--compilation-defines=UNITY_INPUT_SYSTEM
+--compilation-defines=XR_MGMT_GTE_320
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\Unity_Game_Creation\UniVr\univr-experience\Temp\Burst
 --output=D:\Unity_Game_Creation\UniVr\univr-experience\Temp\StagingArea\tempburstlibs\arm64-v8a\lib_burst_generated

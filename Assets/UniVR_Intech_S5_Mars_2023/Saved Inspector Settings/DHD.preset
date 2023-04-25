@@ -9,7 +9,7 @@ Preset:
   m_Name: DHD
   m_TargetType:
     m_NativeTypeID: 114
-    m_ManagedTypePPtr: {fileID: 11500000, guid: 4ff5dab59e0fab0439b8fd689804c87a,
+    m_ManagedTypePPtr: {fileID: 11500000, guid: d69a7567655f0564f99e584f74fd463e,
       type: 3}
     m_ManagedTypeFallback: 
   m_Properties:
@@ -26,215 +26,23 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: self
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
     propertyPath: glyphsLibrary
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: dialButton
+    propertyPath: dome
     value: 
-    objectReference: {fileID: 0}
+    objectReference: {fileID: 2100000, guid: 3e7e92664f9eb0f46bd9fea0037be4c0, type: 2}
   - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.size
-    value: 39
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[0]
+    propertyPath: glyphsSymbole
     value: 
-    objectReference: {fileID: 0}
+    objectReference: {fileID: 2100000, guid: 5a1811ed54aa5ae4c96939563c982701, type: 2}
   - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[1]
+    propertyPath: glyphsEdge
     value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[2]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[3]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[4]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[5]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[6]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[7]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[8]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[9]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[10]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[11]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[12]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[13]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[14]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[15]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[16]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[17]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[18]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[19]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[20]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[21]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[22]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[23]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[24]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[25]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[26]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[27]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[28]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[29]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[30]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[31]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[32]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[33]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[34]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[35]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[36]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[37]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphButtons.Array.data[38]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphDisplays.Array.size
-    value: 7
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphDisplays.Array.data[0]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphDisplays.Array.data[1]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphDisplays.Array.data[2]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphDisplays.Array.data[3]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphDisplays.Array.data[4]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphDisplays.Array.data[5]
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: glyphDisplays.Array.data[6]
-    value: 
-    objectReference: {fileID: 0}
+    objectReference: {fileID: 2100000, guid: e1bc35c38e810c74c9224ebecc4593ec, type: 2}
   - target: {fileID: 0}
     propertyPath: stargate
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: status
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}

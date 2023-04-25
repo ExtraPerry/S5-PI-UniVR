@@ -95,7 +95,7 @@ public class StargateAnimator : MonoBehaviour
 
     // External elements.
     [SerializeField]
-    private DHD dhd;
+    private DevDHD dhd;
     [SerializeField]
     private Animator animator;
     [SerializeField]

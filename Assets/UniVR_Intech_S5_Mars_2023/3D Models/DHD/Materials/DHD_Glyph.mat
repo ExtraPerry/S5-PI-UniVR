@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glyph
+  m_Name: DHD_Glyph
   m_Shader: {fileID: -6465566751694194690, guid: bd0ef53f75c48c242b6988f9be3b58ca,
     type: 3}
   m_ValidKeywords: []
@@ -87,13 +87,13 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
-    - _Chevron_1: 1
-    - _Chevron_2: 2
-    - _Chevron_3: 3
-    - _Chevron_4: 4
-    - _Chevron_5: 5
-    - _Chevron_6: 6
-    - _Chevron_7: 7
+    - _Chevron_1: -1
+    - _Chevron_2: -1
+    - _Chevron_3: -1
+    - _Chevron_4: -1
+    - _Chevron_5: -1
+    - _Chevron_6: -1
+    - _Chevron_7: -1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2

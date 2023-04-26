@@ -23,7 +23,7 @@ public class DHD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        dome.SetColor("_Emission Color", new Color(0.75f, 0, 0, 0));
     }
 
     // Update is called once per frame
@@ -41,12 +41,10 @@ public class DHD : MonoBehaviour
             activeGlyphs.Push(glyph);
             Debug.Log("Glyph : " + glyph + " has been added to DHD sequence by the Gate override.");
         }
-        UpdateStatus();
     }
 
     public void SymbolePressed(int glyphNumber)
     {
-        Debug.Log("Glyph : " + glyphNumber + " => " + (Glyph)glyphNumber + ".");
         SymbolePressed((Glyph)glyphNumber);
     }
 
@@ -62,7 +60,6 @@ public class DHD : MonoBehaviour
         {
             activeGlyphs.Push(glyph);
             sfx[activeGlyphs.Count - 1].Play();
-            UpdateStatus();
 
             Debug.Log("Glyph : " + glyph + " has been added to DHD sequence.");
         }
@@ -102,29 +99,10 @@ public class DHD : MonoBehaviour
 
     public void ResetDHD()
     {
+        dome.SetColor("_Emission Color", new Color(0.75f, 0, 0, 0));
         activeGlyphs.Clear();
         Start();
 
         Debug.Log("DHD has been reset.");
-    }
-
-    private void UpdateStatus()
-    {
-        int count = 0;
-        string[] stringGlyphs = new string[7];
-        if (activeGlyphs.Count != 0)
-        {
-            Glyph[] glyphs = activeGlyphs.ToArray();
-            System.Array.Reverse(glyphs);
-            foreach (Glyph element in glyphs)
-            {
-                stringGlyphs[count] = element.ToString();
-                count++;
-            }
-        }
-        for (int i = count; i < stringGlyphs.Length; i++)
-        {
-            stringGlyphs[i] = "None";
-        }
     }
 }

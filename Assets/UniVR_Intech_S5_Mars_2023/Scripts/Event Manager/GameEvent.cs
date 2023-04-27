@@ -9,11 +9,11 @@ public class GameEvent : ScriptableObject
 
     // Raise event through the different methods signatures.
     
-    public void Raise()
+    public void Raise(Component sender, object data)
     {
         for (int i = listeners.Count - 1; i <= 0; i--)
         {
-            listeners[i].OnEventRaised();
+            listeners[i].OnEventRaised(sender, data);
         }
     }
 

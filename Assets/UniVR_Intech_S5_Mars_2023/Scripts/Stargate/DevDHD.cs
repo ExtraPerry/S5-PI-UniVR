@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DevDHD : MonoBehaviour
 {
+/**
     [SerializeField]
     private Glyphs glyphsLibrary;
     [SerializeField]
@@ -14,7 +15,7 @@ public class DevDHD : MonoBehaviour
     [SerializeField]
     private Image[] glyphDisplays = new Image[7];
     [SerializeField]
-    private StargateAnimator stargate;
+    private Stargate stargate;
     [SerializeField]
     private TMPro.TMP_Text status;
     [SerializeField]
@@ -171,4 +172,5 @@ public class DevDHD : MonoBehaviour
     {
         return glyphDisplays == null || glyphDisplays.Length == 0;
     }
+*/
 }

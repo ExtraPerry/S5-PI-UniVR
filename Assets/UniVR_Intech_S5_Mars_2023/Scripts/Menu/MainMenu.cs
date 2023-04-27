@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private StargateAnimator stargate;
-    [SerializeField]
     private ContinuousMovementPhysics playerController;
     [SerializeField]
     private Transform worldSpawn;

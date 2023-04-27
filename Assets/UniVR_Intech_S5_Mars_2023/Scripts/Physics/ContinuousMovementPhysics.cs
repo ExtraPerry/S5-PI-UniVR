@@ -6,28 +6,23 @@ using UnityEngine.InputSystem;
 
 public class ContinuousMovementPhysics : MonoBehaviour
 {
-    // Main Parameters.
-    public float moveSpeed = 1;
-    public float turnSpeed = 60;
-    public float jumpHeight = 1.5f;
-    // Input Maps.
+    [Header("Player :")]
+    [SerializeField]
+    private Player player;
+
+    [Header("Inputs :")]
     public InputActionProperty moveInputSource;
     public InputActionProperty turnInputSource;
     public InputActionProperty jumpInputSource;
     public InputActionProperty respawnInputSource;
-    // Reference Elements.
-    [SerializeField]
-    private Player player;
+
+    [Header("Settings :")]
+    public float moveSpeed = 1;
+    public float turnSpeed = 60;
+    public float jumpHeight = 1.5f;
     [SerializeField]
     private LayerMask groundLayer;
-    [SerializeField]
-    private Transform directionSource;
-    [SerializeField]
-    private Transform turnSource;
-    [SerializeField]
-    private CapsuleCollider bodyCollider;
-    [SerializeField]
-    private Transform worldSpawn;
+
     // Registered Inputs.
     private Vector2 inputMoveAxis;
     private float inputTurnAxis;
@@ -62,7 +57,7 @@ public class ContinuousMovementPhysics : MonoBehaviour
 
         if (inputRespawn)
         {
-            PrepareTeleportTo(worldSpawn);
+            PrepareTeleportTo(player.respawnLocation);
         }
 
     }
@@ -86,7 +81,7 @@ public class ContinuousMovementPhysics : MonoBehaviour
     public void MoveAndRotatePlayer()
     {
         // Define the direction of the movement.
-        Quaternion yaw = Quaternion.Euler(0, directionSource.eulerAngles.y, 0);
+        Quaternion yaw = Quaternion.Euler(0, player.xrRig.headset.transform.eulerAngles.y, 0);
         Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0, inputMoveAxis.y);
 
         // Calculate the move 3D vector by which the player will move.
@@ -103,7 +98,7 @@ public class ContinuousMovementPhysics : MonoBehaviour
         player.rigidbodyRig.body.MoveRotation(player.rigidbodyRig.body.rotation * q);
 
         // Calculate the position change of the player that the rotation has induced (with the movement calculated before too).
-        Vector3 newPosition = q * (targetMovePosition - turnSource.position) + turnSource.position;
+        Vector3 newPosition = q * (targetMovePosition - player.xrRig.headset.transform.position) + player.xrRig.headset.transform.position;
 
         // Update the player's position.
         player.rigidbodyRig.body.MovePosition(newPosition);
@@ -135,11 +130,11 @@ public class ContinuousMovementPhysics : MonoBehaviour
     public bool CheckIfGrounded()
     {
         // Gets the center body location of the body collider in 3d space & define the size of the raycast based on the collider's size.
-        Vector3 start = bodyCollider.transform.TransformPoint(bodyCollider.center);
-        float rayLength = (bodyCollider.height / 2) - bodyCollider.radius + 0.05f;
+        Vector3 start = player.colliderRig.body.transform.TransformPoint(player.colliderRig.body.center);
+        float rayLength = (player.colliderRig.body.height / 2) - player.colliderRig.body.radius + 0.05f;
 
         // Raycast downwards using the previous settings above.
-        bool hasHit = Physics.SphereCast(start, bodyCollider.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
+        bool hasHit = Physics.SphereCast(start, player.colliderRig.body.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
 
         // If the raycast hit something return true else false.
         return hasHit;

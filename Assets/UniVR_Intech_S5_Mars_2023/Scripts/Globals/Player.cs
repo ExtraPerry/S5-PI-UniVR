@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class XrRig
+{
+    public Transform headset;
+    public Transform leftController;
+    public Transform rightController;
+}
+
+[System.Serializable]
 public class RigidbodyRig
 {
     public Rigidbody head;
@@ -23,15 +31,16 @@ public class RigidbodyRig
 public class ColliderRig
 {
     public Collider head;
-    public Collider body;
+    public CapsuleCollider body;
     public Collider leftHand;
     public Collider rightHand;
 }
 
-
-public class Player : MonoBehaviour
+[CreateAssetMenu(menuName = "Player")]
+public class Player : ScriptableObject
 {
-    public static string playerName;
+    public XrRig xrRig;
     public RigidbodyRig rigidbodyRig;
     public ColliderRig colliderRig;
+    public Transform respawnLocation;
 }

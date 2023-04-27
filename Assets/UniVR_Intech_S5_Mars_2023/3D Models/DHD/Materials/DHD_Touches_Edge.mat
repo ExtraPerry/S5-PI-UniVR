@@ -100,13 +100,13 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
-    - _Chevron_1: 29.24
-    - _Chevron_2: 4.92
-    - _Chevron_3: 4.23
-    - _Chevron_4: 7.2
-    - _Chevron_5: 16.23
-    - _Chevron_6: 16.77
-    - _Chevron_7: 11.19
+    - _Chevron_1: -1
+    - _Chevron_2: -1
+    - _Chevron_3: -1
+    - _Chevron_4: -1
+    - _Chevron_5: -1
+    - _Chevron_6: -1
+    - _Chevron_7: -1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2

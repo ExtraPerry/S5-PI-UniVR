@@ -11,8 +11,9 @@ public class CustomGameEvent : UnityEvent<Component, object>
 
 public class GameEventListener : MonoBehaviour
 {
+    // The event that you want to listen to.
     public GameEvent gameEvent;
-
+    // The answer to said event.
     public CustomGameEvent response;
 
     private void OnEnable()

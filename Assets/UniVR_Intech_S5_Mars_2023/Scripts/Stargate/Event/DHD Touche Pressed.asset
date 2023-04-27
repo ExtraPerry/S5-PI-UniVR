@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae3e7f0beb4dbe840b29e5b0d5fbc762, type: 3}
-  m_Name: DHD dial Stargate
+  m_Name: DHD Touche Pressed
   m_EditorClassIdentifier: 
   listeners: []

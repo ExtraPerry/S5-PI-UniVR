@@ -123,6 +123,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &29692746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 27
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &42192948
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -137,6 +154,12 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7267223147665374516, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!1 &58817425 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1047798176519744205, guid: 199523e606ce85b4293296000dc399ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 7158951413097892138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &129618628
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,6 +577,34 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247171788}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &279639585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7657892136635c14ba1a857fe7801819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 2a607961d47dcbb4c96a0de639d9bee5, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1342564221}
+        m_TargetAssemblyTypeName: DHD, Assembly-CSharp
+        m_MethodName: OnDomePressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &291780819
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +831,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &319150002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 22
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &322213488
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -891,6 +959,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 327697247}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &330352549 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1047798177045574969, guid: 199523e606ce85b4293296000dc399ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 7158951413097892138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &330352550 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1047798177045574948, guid: 199523e606ce85b4293296000dc399ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 7158951413097892138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &375878571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1418,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &572961477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 0
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &589298520
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1505,6 +1602,12 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -917180884385063433, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!4 &746463678 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1047798176127318872, guid: 199523e606ce85b4293296000dc399ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 7158951413097892138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &773868363
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1519,24 +1622,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 499151603111797686, guid: bf9175187d40c284bacc28597620a31a, type: 3}
---- !u!4 &786559030 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 4967262910551989729}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &786559031 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4967262909983714774, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 4967262910551989729}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ff5dab59e0fab0439b8fd689804c87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &816696413
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1776,6 +1861,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &989059547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 19
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &989645185
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1824,6 +1926,34 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7762467638026572505, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1074302443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7657892136635c14ba1a857fe7801819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1342564221}
+        m_TargetAssemblyTypeName: DHD, Assembly-CSharp
+        m_MethodName: OnTouchePressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!64 &1086209197
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1838,6 +1968,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 9101457781399650257, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1086958781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 13
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1094145587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2825,6 +2972,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 614635653950555110, guid: bf9175187d40c284bacc28597620a31a,
         type: 3}
+      propertyPath: m_Name
+      value: Glyph_1_Crater
+      objectReference: {fileID: 0}
+    - target: {fileID: 614635653950555110, guid: bf9175187d40c284bacc28597620a31a,
+        type: 3}
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
@@ -3074,11 +3226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69a7567655f0564f99e584f74fd463e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glyphsLibrary: {fileID: 1670101947}
   dome: {fileID: 2100000, guid: 3e7e92664f9eb0f46bd9fea0037be4c0, type: 2}
   glyphsSymbole: {fileID: 2100000, guid: 5a1811ed54aa5ae4c96939563c982701, type: 2}
   glyphsEdge: {fileID: 2100000, guid: e1bc35c38e810c74c9224ebecc4593ec, type: 2}
-  stargate: {fileID: 1860537903}
   sfx:
   - {fileID: 1124325721}
   - {fileID: 1348579542}
@@ -3387,11 +3537,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  permittedColliders: []
-  permittedLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  glyphButtonType: 0
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 1
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1342564267
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3406,6 +3556,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6923542921749412160, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1342564271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 2
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1348579540
 GameObject:
   m_ObjectHideFlags: 0
@@ -3548,6 +3715,57 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6185579562690986899, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1360685988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 4
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &1364406449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 7
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &1367539572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 31
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1428898776
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3562,6 +3780,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5104605736454616351, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1428898780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 15
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1432986946
 GameObject:
   m_ObjectHideFlags: 0
@@ -3707,6 +3942,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4286433620182232963, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1457845850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 9
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1466684849
 GameObject:
   m_ObjectHideFlags: 0
@@ -3915,6 +4167,74 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -717519630382208382, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1488237461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 36
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &1498896956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 32
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &1509224873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 21
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &1524345519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 26
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1532850085
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3929,6 +4249,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5459629505519737176, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1532850089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 6
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1541628889
 GameObject:
   m_ObjectHideFlags: 0
@@ -4141,6 +4478,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547214740}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1558801960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 5
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!4 &1559715925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1047798175965525221, guid: 199523e606ce85b4293296000dc399ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 7158951413097892138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1564377642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 37
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1585384185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4252,6 +4629,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2559381448732505469, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1592765101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 28
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1658548872
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4266,6 +4660,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2508534625832195328, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1658548876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 12
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1664767988
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4280,18 +4691,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1906963377482515128, guid: bf9175187d40c284bacc28597620a31a, type: 3}
---- !u!114 &1670101947 stripped
+--- !u!114 &1664767992
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7759025679370093400, guid: 5e6c15978e00f88438461b52a37a90c6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7759025680988682467}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1342564222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95b65d24dd254f44495caaba76530bca, type: 3}
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 38
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1678009142
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4306,6 +4722,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4689353104377169394, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1678009146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 33
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1752027121
 GameObject:
   m_ObjectHideFlags: 0
@@ -4591,7 +5024,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 992371976}
-  - {fileID: 786559030}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -4722,6 +5154,23 @@ Transform:
   m_Father: {fileID: 1943687079}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1829589475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 34
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1843513480
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4736,6 +5185,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7819083156849495686, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1843513484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 11
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1856696603
 GameObject:
   m_ObjectHideFlags: 0
@@ -4921,6 +5387,40 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1886940901779495961, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1863483700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 8
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &1869975948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 25
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1896501391
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4935,6 +5435,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6946178093435142049, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1896501395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 35
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1915592298
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4949,6 +5466,40 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7345450459594665114, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1915592302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 18
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &1938953525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 24
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &1942840008
 GameObject:
   m_ObjectHideFlags: 0
@@ -5223,6 +5774,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6180528313409053320, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &1977616260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 17
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &1999905727
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5237,18 +5805,57 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2760078052925666657, guid: bf9175187d40c284bacc28597620a31a, type: 3}
---- !u!114 &2010739416 stripped
+--- !u!114 &1999905731
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7759025680988682467}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1342564240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7030de298b86f954d922d8eed2a131a9, type: 3}
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 20
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &2004952589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 14
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &2013556959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 30
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!64 &2020153968
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5263,6 +5870,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4214461931675317171, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &2020153972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 3
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &2042739524
 GameObject:
   m_ObjectHideFlags: 0
@@ -5360,6 +5984,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042739524}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2043270904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 16
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &2056833541
 GameObject:
   m_ObjectHideFlags: 0
@@ -5398,6 +6039,23 @@ Transform:
   m_Father: {fileID: 1342564219}
   m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2077776928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 23
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!1 &2087851700
 GameObject:
   m_ObjectHideFlags: 0
@@ -5509,24 +6167,62 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3697968327188863853, guid: bf9175187d40c284bacc28597620a31a, type: 3}
+--- !u!114 &2094363008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 10
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &2110540625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e395d8d2b7dbb4c9752e746cf41347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 2a607961d47dcbb4c96a0de639d9bee5, type: 2}
+  interactionTags:
+  - Left Hand
+  - Right Hand
+--- !u!114 &2130816112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342564231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20609398b9872f48b850d690285f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventToTrigger: {fileID: 11400000, guid: 55238e11a509cf341b89517e9fd16084, type: 2}
+  glyphButtonType: 29
+  interactionTags:
+  - Left Hand
+  - Right Hand
 --- !u!4 &543450651847879104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1616411585401804879, guid: d8b19b6037527074e9b984b8ff2b3ab4,
     type: 3}
   m_PrefabInstance: {fileID: 1289186973271699855}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &919132147659879291 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2100213896345486068, guid: d8b19b6037527074e9b984b8ff2b3ab4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1289186973271699855}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20c307a2f585bea4e91dc76907b7c1cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1289186973271699855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5558,7 +6254,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dhd
       value: 
-      objectReference: {fileID: 786559031}
+      objectReference: {fileID: 0}
     - target: {fileID: 1289186972753870752, guid: d8b19b6037527074e9b984b8ff2b3ab4,
         type: 3}
       propertyPath: m_Enabled
@@ -5638,7 +6334,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 2010739416}
+      objectReference: {fileID: 0}
     - target: {fileID: 2100213896345486068, guid: d8b19b6037527074e9b984b8ff2b3ab4,
         type: 3}
       propertyPath: m_Enabled
@@ -5659,7 +6355,8 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2100213896345486068, guid: d8b19b6037527074e9b984b8ff2b3ab4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d8b19b6037527074e9b984b8ff2b3ab4, type: 3}
 --- !u!1001 &3094989414901528806
 PrefabInstance:
@@ -5688,6 +6385,11 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 7913724507338695656}
+    - target: {fileID: 3094989415289380333, guid: 6e12abb41683e0b4fa3d58518998c458,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3094989415289380334, guid: 6e12abb41683e0b4fa3d58518998c458,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5797,88 +6499,9 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 919132147659879291}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e12abb41683e0b4fa3d58518998c458, type: 3}
---- !u!1001 &4967262910551989729
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1775371096}
-    m_Modifications:
-    - target: {fileID: 4967262909983714772, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_Name
-      value: DHD Dev Menu
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714774, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: stargate
-      value: 
-      objectReference: {fileID: 1860537903}
-    - target: {fileID: 4967262909983714774, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: glyphsLibrary
-      value: 
-      objectReference: {fileID: 1670101947}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.019
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7010574
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.09229593
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7010574
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.09229593
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967262909983714775, guid: 5141e4d1d70c4394ca0ede388d5440e5,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 15
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5141e4d1d70c4394ca0ede388d5440e5, type: 3}
 --- !u!1001 &7158951413097892138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5900,12 +6523,59 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 2010739416}
+      objectReference: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910,
+        type: 2}
     - target: {fileID: 1047798176519744194, guid: 199523e606ce85b4293296000dc399ed,
         type: 3}
       propertyPath: worldSpawn
       value: 
       objectReference: {fileID: 299441647}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 330352549}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910,
+        type: 2}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: headCollider
+      value: 
+      objectReference: {fileID: 7913724508323222061}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: bodyRigidbody
+      value: 
+      objectReference: {fileID: 7913724508414869658}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: headRigidbody
+      value: 
+      objectReference: {fileID: 7913724507636011837}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: leftHandCollider
+      value: 
+      objectReference: {fileID: 7913724507238818950}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: leftHandRigidbody
+      value: 
+      objectReference: {fileID: 7913724508307349803}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: rightHandCollider
+      value: 
+      objectReference: {fileID: 7913724507542523062}
+    - target: {fileID: 1047798176519744204, guid: 199523e606ce85b4293296000dc399ed,
+        type: 3}
+      propertyPath: rightHandRigidbody
+      value: 
+      objectReference: {fileID: 7913724507295845143}
     - target: {fileID: 1047798176519744205, guid: 199523e606ce85b4293296000dc399ed,
         type: 3}
       propertyPath: m_Name
@@ -5968,115 +6638,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 199523e606ce85b4293296000dc399ed, type: 3}
---- !u!1001 &7759025680988682467
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: colliderRig.body
-      value: 
-      objectReference: {fileID: 7913724506829892788}
-    - target: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: colliderRig.head
-      value: 
-      objectReference: {fileID: 7913724508323222061}
-    - target: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: rigidbodyRig.body
-      value: 
-      objectReference: {fileID: 7913724508414869658}
-    - target: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: rigidbodyRig.head
-      value: 
-      objectReference: {fileID: 7913724507636011837}
-    - target: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: colliderRig.leftHand
-      value: 
-      objectReference: {fileID: 7913724507238818950}
-    - target: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: colliderRig.rightHand
-      value: 
-      objectReference: {fileID: 7913724507542523062}
-    - target: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: rigidbodyRig.leftHand
-      value: 
-      objectReference: {fileID: 7913724508307349803}
-    - target: {fileID: 7759025679566359099, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: rigidbodyRig.rightHand
-      value: 
-      objectReference: {fileID: 7913724507295845143}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326185, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759025679963326186, guid: 5e6c15978e00f88438461b52a37a90c6,
-        type: 3}
-      propertyPath: m_Name
-      value: Global
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5e6c15978e00f88438461b52a37a90c6, type: 3}
 --- !u!136 &7913724506829892788 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 1047798177028973982, guid: 199523e606ce85b4293296000dc399ed,
@@ -6101,12 +6662,36 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7158951413097892138}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 58817425}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc6c5f13f3639c64ab3e0d4ac7f2e5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7913724507338695659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58817425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34e4c4de7546744282ac3c18e9755eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910, type: 2}
+  headset: {fileID: 330352550}
+  leftController: {fileID: 746463678}
+  rightController: {fileID: 1559715925}
+  headCollider: {fileID: 7913724508323222061}
+  bodyCollider: {fileID: 7913724506829892788}
+  leftHandCollider: {fileID: 7913724507238818950}
+  rightHandCollider: {fileID: 7913724507542523062}
+  headRigidbody: {fileID: 7913724507636011837}
+  bodyRigidbody: {fileID: 7913724508414869658}
+  leftHandRigidbody: {fileID: 7913724508307349803}
+  rightHandRigidbody: {fileID: 7913724507295845143}
 --- !u!65 &7913724507542523062 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 1047798175778932124, guid: 199523e606ce85b4293296000dc399ed,

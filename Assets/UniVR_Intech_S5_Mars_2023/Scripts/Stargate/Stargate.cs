@@ -68,7 +68,7 @@ public class StargateSFX
     public AudioSource abortWithoutRotation;
 }
 
-public class StargateAnimator : MonoBehaviour
+public class Stargate : MonoBehaviour
 {
     // Settings.
     [SerializeField]
@@ -95,11 +95,7 @@ public class StargateAnimator : MonoBehaviour
 
     // External elements.
     [SerializeField]
-    private DevDHD dhd;
-    [SerializeField]
     private Animator animator;
-    [SerializeField]
-    private Transform Stargate;
     [SerializeField]
     private Transform ring;
     [SerializeField]
@@ -195,7 +191,7 @@ public class StargateAnimator : MonoBehaviour
             startXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[5]) + (360 * spinMultiplier * (int)direction);
 
             // Sync the DHD.
-            dhd.GateOverride(storedGlyphSequence);
+            //dhd.GateOverride(storedGlyphSequence);
         }
         else
         {
@@ -219,7 +215,7 @@ public class StargateAnimator : MonoBehaviour
         }
 
         // All default values the gate should be set to.
-        ring.rotation = Quaternion.Euler(currentXRotation, Stargate.eulerAngles.y, Stargate.eulerAngles.z).normalized;
+        ring.rotation = Quaternion.Euler(currentXRotation, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z).normalized;
         isRingSpinning = false;
         animator.SetBool("isRingSpinning", isRingSpinning);
         ringProgress = 0;
@@ -469,7 +465,7 @@ public class StargateAnimator : MonoBehaviour
             }
 
             // If ring hasn't reached target update it's rotation.
-            ring.rotation = Quaternion.Euler(currentXRotation, Stargate.eulerAngles.y, Stargate.eulerAngles.z).normalized;
+            ring.rotation = Quaternion.Euler(currentXRotation, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z).normalized;
 
             // Debug
             // Debug.Log("Turned : " + amoutToRotate + "°, Current : " + currentXRotation + "°, Target : " + targetXRotation + "°, Progress : " + (ringProgress * 100) + "%.");
@@ -479,7 +475,7 @@ public class StargateAnimator : MonoBehaviour
     private void StopSpinningGate()
     {
         // Tell the gate to stop spinning and set it to target position.
-        ring.rotation = Quaternion.Euler(targetXRotation, Stargate.eulerAngles.y, Stargate.eulerAngles.z).normalized;
+        ring.rotation = Quaternion.Euler(targetXRotation, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z).normalized;
         currentXRotation = targetXRotation;
         isRingSpinning = false;
         animator.SetBool("isRingSpinning", isRingSpinning);

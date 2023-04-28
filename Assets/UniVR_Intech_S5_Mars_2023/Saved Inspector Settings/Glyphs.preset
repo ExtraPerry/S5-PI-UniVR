@@ -9,7 +9,7 @@ Preset:
   m_Name: Glyphs
   m_TargetType:
     m_NativeTypeID: 114
-    m_ManagedTypePPtr: {fileID: 11500000, guid: 95b65d24dd254f44495caaba76530bca,
+    m_ManagedTypePPtr: {fileID: 11500000, guid: cfaa7e88687ba9f498985f221d1e9d23,
       type: 3}
     m_ManagedTypeFallback: 
   m_Properties:
@@ -185,6 +185,10 @@ Preset:
     propertyPath: glyphTextures.Array.data[38]
     value: 
     objectReference: {fileID: 2800000, guid: d2563284ac547c642b8bd6c07ea1230b, type: 3}
+  - target: {fileID: 0}
+    propertyPath: blankGlyph
+    value: 
+    objectReference: {fileID: 2100000, guid: 6576ea72e8bf754408dcd1050043bbbd, type: 2}
   - target: {fileID: 0}
     propertyPath: glyphMaterials.Array.size
     value: 39

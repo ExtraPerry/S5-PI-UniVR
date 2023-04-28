@@ -47,8 +47,8 @@ public enum Glyph
 }
 
 
-
-public class Glyphs : MonoBehaviour
+[CreateAssetMenu(menuName = "Glyphs")]
+public class Glyphs : ScriptableObject
 {
     [SerializeField]
     private Texture[] glyphTextures = new Texture[39];
@@ -62,12 +62,12 @@ public class Glyphs : MonoBehaviour
         return glyphTextures[(int)glyph];
     }
 
-    public Material GetGlyphMaterial(Glyph glyph)
+    public Material GetDevGlyphMaterial(Glyph glyph)
     {
         return glyphMaterials[(int)glyph];
     }
 
-    public Material GetBlankGlyphMaterial()
+    public Material GetDevBlankGlyphMaterial()
     {
         return blankGlyph;
     }

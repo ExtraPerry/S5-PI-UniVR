@@ -74,6 +74,10 @@ public class Stargate : MonoBehaviour
     [SerializeField]
     private bool gateStartOnOff = true;
     [SerializeField]
+    private GameEvent DHDOverrideCall;
+    [SerializeField]
+    private GameEvent DHDResetCall;
+    [SerializeField]
     private AnimationCurve speedCurve = new AnimationCurve(new Keyframe[] {
         new Keyframe(0, 0.1f),
         new Keyframe(0.1f, 0.35f, 1.81539f, 1.815319f),
@@ -101,9 +105,11 @@ public class Stargate : MonoBehaviour
     [SerializeField]
     private StargateSFX sfx;
 
-    // Address & Glyph information.
+    // Address & Glyph information
+    [SerializeField]    // Debug
     private Glyph[] storedGlyphSequence = null;
     private Glyph selectedGlyph;
+    [SerializeField]    // Debug
     private Glyph targetGlyth;
 
     // Ring rotation animation attributes.
@@ -191,7 +197,7 @@ public class Stargate : MonoBehaviour
             startXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[5]) + (360 * spinMultiplier * (int)direction);
 
             // Sync the DHD.
-            //dhd.GateOverride(storedGlyphSequence);
+            DHDOverrideCall.Raise(this, storedGlyphSequence);
         }
         else
         {
@@ -292,27 +298,33 @@ public class Stargate : MonoBehaviour
     }
 
     // Public Methodes.
-    public bool StartGateSequence(Glyph[] sequence)
+    public void OnStartGateSequence(Component sender, object data)
     {
-        if ((sequence.Length == 7) && !IsGateOccupied())
+        if (!((sender is DHD || sender is DevDHD) && data is Glyph[])) return;
+        Glyph[] sequence = (Glyph[])data;
+
+        if (sequence.Length == 7 && !IsGateOccupied())
         {
-            if (IsStoredGlyphSequenceEmptyOrNull())
+            // Debug
+            foreach (Glyph glyph in sequence)
             {
-                storedGlyphSequence = new Glyph[7];
+                Debug.Log(glyph.ToString());
             }
+
             storedGlyphSequence = sequence;
             selectedGlyph = storedGlyphSequence[0];
 
             Debug.Log("Dialling : [" + storedGlyphSequence[0] + ", " + storedGlyphSequence[1] + ", " + storedGlyphSequence[2] + ", " + storedGlyphSequence[3] + ", " + storedGlyphSequence[4] + ", " + storedGlyphSequence[5] + ", " + storedGlyphSequence[6] + "] address.");
-
-            return true;
+            return;
         }
-        return false;
+
+        if (!interruptGate) StargateInterrupt();
+        DHDResetCall.Raise(this, null);
     }
 
     public bool IsGateOccupied()
     {
-        return !IsStoredGlyphSequenceEmptyOrNull();
+        return !IsStoredGlyphSequenceEmptyOrNull() || isRingSpinning || interruptGate || isGateActive || isAnimationTimeout;
     }
 
     public void StargateInterrupt()
@@ -338,7 +350,7 @@ public class Stargate : MonoBehaviour
             sfx.abortWithRotation.Play();
             isRingMaintainingMomentum = true;
         }
-        else if (storedGlyphSequence != null)
+        else if (!IsStoredGlyphSequenceEmptyOrNull())
         {
             sfx.abortWithoutRotation.Play();
         }
@@ -351,7 +363,8 @@ public class Stargate : MonoBehaviour
         animator.SetInteger("ChevronsLocked", chevronLvl);
         remainingMomentumSeconds = remainingMomentumInSeconds;
         momentumClamp = speedCurve.Evaluate(ringProgress);
-        
+        DHDResetCall.Raise(this, null);
+
         // Address & Glyph information.
         storedGlyphSequence = null;
 

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class DHD : MonoBehaviour
 {
     [SerializeField]
+    private GameEvent stagateCall;
+    [SerializeField]
     private Material dome;
     [SerializeField]
     private Material glyphsSymbole;
@@ -13,13 +15,13 @@ public class DHD : MonoBehaviour
     private Material glyphsEdge;
     [SerializeField]
     private AudioSource[] sfx = new AudioSource[7];
-    [ReadOnly]
+    [SerializeField]    // Debug
     private Stack<Glyph> activeGlyphs = new Stack<Glyph>();
 
     // Start is called before the first frame update
     void Start()
     {
-        dome.SetColor("_Emission Color", new Color(0.75f, 0, 0, 0));
+        dome.SetColor("_EmissionColor", new Color(0.75f, 0, 0, 0));
         glyphsSymbole.SetFloat("_Chevron_1", -1);
         glyphsSymbole.SetFloat("_Chevron_2", -1);
         glyphsSymbole.SetFloat("_Chevron_3", -1);
@@ -40,9 +42,7 @@ public class DHD : MonoBehaviour
     // To be used with a GameEventListener monoscript.
     public void OnGateOverride(Component sender, object data)
     {
-        // Check if the sender is a Stargate and if data is a Glyph Table.
         if (!((sender is Stargate) && (data is Glyph[]))) return;
-        // Assign data to a Glyph Table variable.
         Glyph[] glyphSequence = (Glyph[])data;
 
         // Check if the entered sequence is of proper size.
@@ -60,7 +60,6 @@ public class DHD : MonoBehaviour
             }
         }
 
-        // Reset the DHD to it's inactive state.
         ResetDHD();
         // Assign new overide glyph sequence to the DHD.
         for (int i = 0; i < 7; i++)
@@ -72,9 +71,7 @@ public class DHD : MonoBehaviour
     // To be used with a GameEventListener monoscript.
     public void OnTouchePressed(Component sender, object data)
     {
-        // Check if the sender is a DHD Glyph Button and if data is a Glyph.
         if (!((sender is DHDGlyphButton) && (data is Glyph))) return;
-        // Assign data to a Glyph variable.
         Glyph glyph = (Glyph)data;
 
         SymbolePressed(glyph);
@@ -83,7 +80,6 @@ public class DHD : MonoBehaviour
     // To be used with a GameEventListener monoscript.
     public void OnDomePressed(Component sender, object data)
     {
-        // Check if the sender is a DHD Dome Button.
         if (!(sender is DHDDomeButton)) return;
 
         if (activeGlyphs.Count != 7)
@@ -93,38 +89,28 @@ public class DHD : MonoBehaviour
             return;
         }
 
-        // (sequence.Length == 7) && !IsGateOccupied())
+        // Send the sequence to the Gate.
         Glyph[] sequence = activeGlyphs.ToArray();
         System.Array.Reverse(sequence);
-        bool isSuccesful = false;
-        if (isSuccesful)
-        {
-            Debug.Log("DHD has confirmed Gate is starting.");
-        }
-        else
-        {
-            ResetDHD();
+        stagateCall.Raise(this, sequence);
+    }
 
-            Debug.Log("Gate has refused input.");
-        }
+    public void OnDHDReset(Component sender, object data)
+    {
+        if (!(sender is Stargate)) return;
+
+        ResetDHD();
     }
 
     private void SymbolePressed(Glyph glyph)
     {
-        // Check if the sequence already contains the selected glyph.
         if (activeGlyphs.Contains(glyph))
         {
             Debug.Log("Glyph : " + glyph + " has already been selected.");
             return;
         }
 
-        // Check if the the sequence already contains 7 glyphs.
-        // Then reset the DHD.
-        if (activeGlyphs.Count > 6)
-        {
-            ResetDHD();
-            return;
-        }
+        if (activeGlyphs.Count > 6) return;
 
         // Add the glyph to the sequence.
         activeGlyphs.Push(glyph);
@@ -148,7 +134,7 @@ public class DHD : MonoBehaviour
         glyphsEdge.SetFloat("_Chevron_" + activeGlyphs.Count, selected);
     }
 
-    public void ResetDHD()
+    private void ResetDHD()
     {
         Start();
 

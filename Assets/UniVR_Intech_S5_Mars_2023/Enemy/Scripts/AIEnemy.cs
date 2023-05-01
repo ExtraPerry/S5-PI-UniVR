@@ -7,15 +7,35 @@ public class AIEnemy : MonoBehaviour
 {
     public GameObject target;
     private NavMeshAgent agent;
+    private Animator anim;
+    public float walkDistance = 10f;
+    public float attackDistance = 2f;
+    [SerializeField]
+    private float distance;
+
+
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(target.transform.position);
+        distance = Vector3.Distance(target.transform.position, transform.position);
+
+        if (distance < walkDistance)
+        {
+            anim.SetBool("walk", true);
+            agent.SetDestination(target.transform.position);
+        }
+        else
+        {
+            anim.SetBool("walk", false);
+            agent.SetDestination(transform.position);
+
+        }
     }
 }

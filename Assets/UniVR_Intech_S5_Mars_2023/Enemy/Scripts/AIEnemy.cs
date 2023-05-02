@@ -29,10 +29,18 @@ public class AIEnemy : MonoBehaviour
         if (distance < walkDistance)
         {
             anim.SetBool("walk", true);
+            anim.SetBool("attack", false);
             agent.SetDestination(target.transform.position);
+
+            if (distance < attackDistance)
+            {
+                anim.SetBool("attack", true);
+                agent.SetDestination(transform.position);
+            }
         }
         else
         {
+            anim.SetBool("attack", false);
             anim.SetBool("walk", false);
             agent.SetDestination(transform.position);
 

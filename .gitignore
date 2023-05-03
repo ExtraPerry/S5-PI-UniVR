@@ -26,6 +26,7 @@
 
 # Visual Studio cache directory
 .vs/
+.vsconfig
 
 # Gradle cache directory
 .gradle/
@@ -98,3 +99,7 @@ packages.yml.meta
 # Packaging Stuff ( !!! Never include this type of data in the git !!! ). Changing the package name will make a new directory. . .
 /[Qq]uest2[Aa]ndroid[Bb]uild_[Bb]ack[Uu]p[Tt]his[Ff]older_[Bb]ut[Dd]ont[Ss]hip[Ii]t[Ww]ith[Yy]our[Gg]ame
 /[Qq]uest2[Aa]ndroid[Bb]uild_[Bb]urst[Dd]ebug[Ii]nformation_[Dd]o[Nn]ot[Ss]hip
+
+# More stuff :/
+/[Uu]ni[Vr]r_[Bb]ack[Uu]p[Tt]his[Ff]older_[Bb]ut[Dd]ont[Ss]hip[Ii]t[Ww]ith[Yy]our[Gg]ame
+/[Uu]ni[Vv]r_[Bb]urst[Dd]ebug[Ii]nformation_[Dd]o[Nn]ot[Ss]hip

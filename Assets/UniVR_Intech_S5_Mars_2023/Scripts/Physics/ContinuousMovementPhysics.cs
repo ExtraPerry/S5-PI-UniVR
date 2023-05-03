@@ -57,7 +57,7 @@ public class ContinuousMovementPhysics : MonoBehaviour
 
         if (inputRespawn)
         {
-            PrepareTeleportTo(player.respawnLocation);
+            PrepareTeleportTo(player.respawnLocation.Get());
         }
 
     }
@@ -104,7 +104,27 @@ public class ContinuousMovementPhysics : MonoBehaviour
         player.rigidbodyRig.body.MovePosition(newPosition);
     }
 
-    public void TeleportPlayer()
+    public void OnPrepareTeleportTo(Component sender, object data)
+    {
+        if (sender is not MainMenu || data is not Transform) return;
+        Transform target = (Transform)data;
+        PrepareTeleportTo(target);
+    }
+
+    private void PrepareTeleportTo(Transform target)
+    {
+        if (!isPrimedToTeleport)
+        {
+            teleportNextMovePosition = target.position;
+            isPrimedToTeleport = true;
+        }
+        else
+        {
+            Debug.Log("A teleportation sequence is already in progress !");
+        }
+    }
+
+    private void TeleportPlayer()
     {
         // Reset all velocity.
         player.rigidbodyRig.SetVelocity(Vector3.zero);
@@ -138,19 +158,6 @@ public class ContinuousMovementPhysics : MonoBehaviour
 
         // If the raycast hit something return true else false.
         return hasHit;
-    }
-
-    public void PrepareTeleportTo(Transform target)
-    {
-        if (!isPrimedToTeleport)
-        {
-            teleportNextMovePosition = target.position;
-            isPrimedToTeleport = true;
-        }
-        else
-        {
-            Debug.Log("A teleportation sequence is already in progress !");
-        }
     }
 }
 

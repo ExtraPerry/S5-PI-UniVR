@@ -58,27 +58,12 @@ public enum RotationDirection
     Clockwise = -1
 }
 
-[System.Serializable]
-public class StargateSFX
-{
-    public AudioSource ringStart;
-    public AudioSource ringLoop;
-    public AudioSource ringEnd;
-    public AudioSource abortWithRotation;
-    public AudioSource abortWithoutRotation;
-}
-
 public class Stargate : MonoBehaviour
 {
     // Settings.
     [SerializeField]
-    private bool gateStartOnOff = true;
-    [SerializeField]
-    private GameEvent DHDOverrideCall;
-    [SerializeField]
-    private GameEvent DHDResetCall;
-    [SerializeField]
-    private AnimationCurve speedCurve = new AnimationCurve(new Keyframe[] {
+    private bool gateStartOnOff = false;
+    public AnimationCurve speedCurve = new AnimationCurve(new Keyframe[] {
         new Keyframe(0, 0.1f),
         new Keyframe(0.1f, 0.35f, 1.81539f, 1.815319f),
         new Keyframe(0.33f, 0.5f),
@@ -86,30 +71,30 @@ public class Stargate : MonoBehaviour
         new Keyframe(1, 0.1f),
     });
     [Range(0, 360)]
-    [SerializeField]
-    private float speedDegreesPerSecond = 15f;
-    [SerializeField]
-    [Range(1,5)]
-    private int spinMultiplier = 2;
-    [SerializeField]
-    private AnimationCurve momentumCurve = new AnimationCurve(new Keyframe[] {
+    public float speedDegreesPerSecond = 15f;
+    [Range(1, 5)]
+    public int spinMultiplier = 2;
+    public AnimationCurve momentumCurve = new AnimationCurve(new Keyframe[] {
         new Keyframe(0, 1, -2.011582f, -2.011582f),
         new Keyframe(1, 0)
     });
+    [Range(1, 2.5f)]
+    public float remainingMomentumInSeconds = 1;
 
     // External elements.
+    [SerializeField]
+    private GameEvent dhdOverride;
+    [SerializeField]
+    private GameEvent dhdReset;
     [SerializeField]
     private Animator animator;
     [SerializeField]
     private Transform ring;
-    [SerializeField]
-    private StargateSFX sfx;
 
-    // Address & Glyph information
-    [SerializeField]    // Debug
+    // Address & Glyph information.
     private Glyph[] storedGlyphSequence = null;
+    [SerializeField] // Let's you manually change the value inside of the editor, but not in the true game.
     private Glyph selectedGlyph;
-    [SerializeField]    // Debug
     private Glyph targetGlyth;
 
     // Ring rotation animation attributes.
@@ -124,23 +109,29 @@ public class Stargate : MonoBehaviour
     private bool isRingMaintainingMomentum = false;
     private float remainingMomentumSeconds = 1;
     private float momentumClamp = 1;
-    private float remainingMomentumInSeconds = 2;
 
     // Event Triggers.
     private int chevronLvl = 0;
     private bool isGateActive = false;
     [SerializeField] // Let's you manually change the value inside of the editor, but not in the true game.
-    private bool interruptGate = false;
+    private bool interruptGate;
 
     // Timeout parameters.
     private bool isAnimationTimeout = false;
     private float animationTimeoutAmount = 1;
     private float animationTimeout = 0;
 
+    // Synced attributes.
+    [SerializeField]
+    private SyncedBool isGateOccupied;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        // Update the gate status.
+        isGateOccupied.Set(gateStartOnOff);
+
         // Tell the animator what state the Gate should start in (Open or Closed).
         animator.SetBool("GateStartOnOff", gateStartOnOff);
 
@@ -182,7 +173,7 @@ public class Stargate : MonoBehaviour
             // Set selected and target glyph to the last one in the sequence, as if the gate has already finished it's dialling sequence.
             selectedGlyph = storedGlyphSequence[6];
             targetGlyth = storedGlyphSequence[6];
-            
+
             // Set the Chevrons to a active gate.
             chevronLvl = 7;
             animator.SetInteger("ChevronsLocked", chevronLvl);
@@ -192,12 +183,12 @@ public class Stargate : MonoBehaviour
             animator.SetBool("EventHorizon", isGateActive);
 
             // Set the ring position too.
-            targetXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[6]) +(360 * spinMultiplier * (int)direction);
+            targetXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[6]) + (360 * spinMultiplier * (int)direction);
             currentXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[6]) + (360 * spinMultiplier * (int)direction);
             startXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[5]) + (360 * spinMultiplier * (int)direction);
 
             // Sync the DHD.
-            DHDOverrideCall.Raise(this, storedGlyphSequence);
+            dhdOverride.Raise(this, storedGlyphSequence);
         }
         else
         {
@@ -217,22 +208,10 @@ public class Stargate : MonoBehaviour
             targetXRotation = 0;
             currentXRotation = 0;
             startXRotation = 0;
-            
-        }
 
-        // All default values the gate should be set to.
-        ring.rotation = Quaternion.Euler(currentXRotation, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z).normalized;
-        isRingSpinning = false;
-        animator.SetBool("isRingSpinning", isRingSpinning);
-        ringProgress = 0;
-        isRingMaintainingMomentum = false;
-        remainingMomentumSeconds = 2;
-        momentumClamp = 1;
-        interruptGate = false;
-        isAnimationTimeout = false;
-        animationTimeoutAmount = 1;
-        animationTimeout = 0;
-}
+            interruptGate = false;
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -256,7 +235,7 @@ public class Stargate : MonoBehaviour
             }
             return;
         }
-            
+
         // 2 - Check for interrupt. If the event horizon is active close it first then next frame interrupt is called again to turn off the gate completly.
         if (interruptGate)
         {
@@ -300,35 +279,40 @@ public class Stargate : MonoBehaviour
     // Public Methodes.
     public void OnStartGateSequence(Component sender, object data)
     {
-        if (!((sender is DHD || sender is DevDHD) && data is Glyph[])) return;
+        if (!(sender is DHD || sender is DevDHD) || data is not Glyph[]) return;
         Glyph[] sequence = (Glyph[])data;
+        bool isSuccesful = StartGateSequence(sequence);
+        if (!isSuccesful) dhdReset.Raise(this);
+    }
 
-        if (sequence.Length == 7 && !IsGateOccupied())
+    private bool StartGateSequence(Glyph[] sequence)
+    {
+        if ((sequence.Length == 7))
         {
-            // Debug
-            foreach (Glyph glyph in sequence)
+            if (IsStoredGlyphSequenceEmptyOrNull())
             {
-                Debug.Log(glyph.ToString());
+                storedGlyphSequence = new Glyph[7];
             }
-
             storedGlyphSequence = sequence;
             selectedGlyph = storedGlyphSequence[0];
+            do
+            {
+                targetGlyth = (Glyph)Random.Range(0, 38);
+            } while (selectedGlyph == targetGlyth);
+
+            // Update the gate status.
+            isGateOccupied.Set(true);
 
             Debug.Log("Dialling : [" + storedGlyphSequence[0] + ", " + storedGlyphSequence[1] + ", " + storedGlyphSequence[2] + ", " + storedGlyphSequence[3] + ", " + storedGlyphSequence[4] + ", " + storedGlyphSequence[5] + ", " + storedGlyphSequence[6] + "] address.");
-            return;
+
+            return true;
         }
-
-        if (!interruptGate) StargateInterrupt();
-        DHDResetCall.Raise(this, null);
+        return false;
     }
 
-    public bool IsGateOccupied()
+    public void OnStargateInterrupt(Component sender, object data)
     {
-        return !IsStoredGlyphSequenceEmptyOrNull() || isRingSpinning || interruptGate || isGateActive || isAnimationTimeout;
-    }
-
-    public void StargateInterrupt()
-    {
+        if (!(sender is DHD || sender is DevDHD)) return;
         interruptGate = true;
     }
 
@@ -347,12 +331,7 @@ public class Stargate : MonoBehaviour
         // Check if ring is still moving.
         if (isRingSpinning)
         {
-            sfx.abortWithRotation.Play();
             isRingMaintainingMomentum = true;
-        }
-        else if (!IsStoredGlyphSequenceEmptyOrNull())
-        {
-            sfx.abortWithoutRotation.Play();
         }
 
         // Event Triggers.
@@ -363,10 +342,13 @@ public class Stargate : MonoBehaviour
         animator.SetInteger("ChevronsLocked", chevronLvl);
         remainingMomentumSeconds = remainingMomentumInSeconds;
         momentumClamp = speedCurve.Evaluate(ringProgress);
-        DHDResetCall.Raise(this, null);
 
         // Address & Glyph information.
         storedGlyphSequence = null;
+
+        // DHD related things.
+        isGateOccupied.Set(false);
+        dhdReset.Raise(this);
 
         // Animation timeout.
         SetupAnimationTimeout(0.15f);
@@ -419,14 +401,13 @@ public class Stargate : MonoBehaviour
 
         // Set continue spinning so that the ring knows it'll need to spin a certain amount of time before being able to lock.
         isRingSpinning = true;
-        animator.SetBool("isRingSpinning", isRingSpinning);
 
         // Get the rotation of the glyph on the ring.
         targetXRotation = RingGlyths.GetRingGlyphRotation(selectedGlyph) + (360 * spinMultiplier * (int)direction);
         targetGlyth = selectedGlyph;
 
         // Debug :D
-        Debug.Log("Current target Glypth is : " + targetGlyth + " with a target X of : " + targetXRotation + "° and a direction of : " + direction + ".");
+        Debug.Log("Current target Glypth is : " + targetGlyth + " with a target X of : " + targetXRotation + " and a direction of : " + direction + ".");
     }
 
     private void UpdateRing()
@@ -451,11 +432,10 @@ public class Stargate : MonoBehaviour
                     currentXRotation += amoutToRotate;
                     isRingMaintainingMomentum = false;
                     isRingSpinning = false;
-                    animator.SetBool("isRingSpinning", isRingSpinning);
                     return;
                 }
             }
-            
+
             // Update the ring's X rotation.
             currentXRotation += amoutToRotate;
 
@@ -481,7 +461,7 @@ public class Stargate : MonoBehaviour
             ring.rotation = Quaternion.Euler(currentXRotation, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z).normalized;
 
             // Debug
-            // Debug.Log("Turned : " + amoutToRotate + "°, Current : " + currentXRotation + "°, Target : " + targetXRotation + "°, Progress : " + (ringProgress * 100) + "%.");
+            // Debug.Log("Turned : " + amoutToRotate + ", Current : " + currentXRotation + ", Target : " + targetXRotation + ", Progress : " + (ringProgress * 100) + "%.");
         }
     }
 
@@ -491,10 +471,9 @@ public class Stargate : MonoBehaviour
         ring.rotation = Quaternion.Euler(targetXRotation, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z).normalized;
         currentXRotation = targetXRotation;
         isRingSpinning = false;
-        animator.SetBool("isRingSpinning", isRingSpinning);
 
         // Debug
-        Debug.Log("Ring has reached : " + targetGlyth + " at : " + targetXRotation + "°.");
+        Debug.Log("Ring has reached : " + targetGlyth + " at : " + targetXRotation + ".");
     }
 
     private void SetupAnimationTimeout(float seconds)

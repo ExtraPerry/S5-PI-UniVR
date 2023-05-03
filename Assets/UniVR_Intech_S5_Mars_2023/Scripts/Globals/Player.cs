@@ -42,5 +42,5 @@ public class Player : ScriptableObject
     public XrRig xrRig;
     public RigidbodyRig rigidbodyRig;
     public ColliderRig colliderRig;
-    public Transform respawnLocation;
+    public SyncedTransform respawnLocation;
 }

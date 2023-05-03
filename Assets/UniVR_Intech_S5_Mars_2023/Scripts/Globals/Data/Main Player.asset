@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830bce7aa62100449aca7d7fb204f930, type: 3}
   m_Name: Main Player
   m_EditorClassIdentifier: 
+  xrRig:
+    headset: {fileID: 0}
+    leftController: {fileID: 0}
+    rightController: {fileID: 0}
   rigidbodyRig:
     head: {fileID: 0}
     body: {fileID: 0}
@@ -22,3 +26,4 @@ MonoBehaviour:
     body: {fileID: 0}
     leftHand: {fileID: 0}
     rightHand: {fileID: 0}
+  respawnLocation: {fileID: 11400000, guid: b3e0bec8efe86f44d8a8cfc1c074d9fa, type: 2}

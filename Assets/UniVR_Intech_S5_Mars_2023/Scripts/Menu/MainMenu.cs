@@ -6,24 +6,14 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private ContinuousMovementPhysics playerController;
+    private GameEvent teleportPlayer;
     [SerializeField]
-    private Transform worldSpawn;
-
-    public void Start()
-    {
-        
-    }
-
-    public void Update()
-    {
-        
-    }
+    private SyncedTransform worldSpawn;
 
     // Dev utility to force the player to respawn (to be used in-case something goes wrong).
     public void forceRespawnPlayer()
     {
-        playerController.PrepareTeleportTo(worldSpawn);
+        teleportPlayer.Raise(this, worldSpawn.Get());
         Debug.Log("Force respawned the player back to World Spawn .");
     }
 

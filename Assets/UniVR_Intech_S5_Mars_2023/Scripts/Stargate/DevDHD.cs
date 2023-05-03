@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class DevDHD : MonoBehaviour
 {
     [SerializeField]
-    private GameEvent stagateCall;
+    private GameEvent stargateStart;
+    [SerializeField]
+    private GameEvent stargateInterrupt;
     [SerializeField]
     private Glyphs glyphsLibrary;
     [SerializeField]
@@ -19,6 +21,10 @@ public class DevDHD : MonoBehaviour
     private TMPro.TMP_Text status;
     [SerializeField]
     private AudioSource[] sfx = new AudioSource[7];
+
+    // Synced attributes.
+    [SerializeField]
+    private SyncedBool isGateOccupied;
 
     private Stack<Glyph> activeGlyphs = new Stack<Glyph>();
 
@@ -44,7 +50,7 @@ public class DevDHD : MonoBehaviour
         UpdateStatus();
     }
 
-    public void GateOverride(Component sender, object data)
+    public void OnGateOverride(Component sender, object data)
     {
         if (!((sender is Stargate) && (data is Glyph[]))) return;
         Glyph[] glyphSequence = (Glyph[])data;
@@ -63,42 +69,54 @@ public class DevDHD : MonoBehaviour
         dialButton.image.color = new Color(1, 0.666f, 0, 1);
     }
 
+
     public void SymbolePressed(int glyphNumber)
     {
-        Debug.Log("Glyph : " + glyphNumber + " => " + (Glyph)glyphNumber + ".");
         SymbolePressed((Glyph)glyphNumber);
     }
 
     public void SymbolePressed(Glyph glyph)
     {
-        if (activeGlyphs.Contains(glyph))
+        if (activeGlyphs.Contains(glyph) )
         {
             Debug.Log("Glyph : " + glyph + " has already been selected or Gate already has an address.");
             return;
         }
 
-        if (activeGlyphs.Count > 6) return;
+        if (activeGlyphs.Count <= 6)
+        {
+            activeGlyphs.Push(glyph);
+            glyphButtons[(int)glyph].image.color = new Color(1, 0.666f, 0, 1);
+            glyphDisplays[activeGlyphs.Count - 1].material = glyphsLibrary.GetDevGlyphMaterial(glyph);
+            sfx[activeGlyphs.Count - 1].Play();
+            UpdateStatus();
 
-        activeGlyphs.Push(glyph);
-        sfx[activeGlyphs.Count - 1].Play();
+            Debug.Log("Glyph : " + glyph + " has been added to DHD sequence.");
+        }
+        else
+        {
+            ResetDHD();
 
-        // Update the DHD visuals.
-        glyphButtons[(int)glyph].image.color = new Color(1, 0.666f, 0, 1);
-        glyphDisplays[activeGlyphs.Count - 1].material = glyphsLibrary.GetDevGlyphMaterial(glyph);
-        UpdateStatus();
-
-        Debug.Log("Glyph : " + glyph + " has been added to DHD sequence.");
+            Debug.Log("More than 7 glyphs have been input. Reseting DHD.");
+        }
     }
 
     public void DialPressed()
     {
-        // Debug
-        Debug.Log("Calling Stargate.");
+        if (activeGlyphs.Count != 7)
+        {
+            Debug.Log("DHD has attempted to dial but sequence was incomplete.");
+            ResetDHD();
+            return;
+        }
 
-        Glyph[] sequence = activeGlyphs.ToArray();
-        System.Array.Reverse(sequence);
-        stagateCall.Raise(this, sequence);
-
+        if (isGateOccupied.Get())
+        {
+            stargateInterrupt.Raise(this);
+            Debug.Log("DHD has told the Gate to interupt.");
+            return;
+        }
+        
         dialButton.image.color = new Color(1, 0.666f, 0, 1);
         if (!IsGlyphDisplaysEmptyOrNull())
         {
@@ -107,14 +125,25 @@ public class DevDHD : MonoBehaviour
                 element.color = new Color(0, 0.75f, 0, 1);
             }
         }
+
+        Glyph[] sequence = activeGlyphs.ToArray();
+        System.Array.Reverse(sequence);
+        stargateStart.Raise(this, sequence);
+
         Debug.Log("DHD has confirmed Gate is starting.");
     }
 
-    public void ResetDHD()
+    public void OnResetDHD(Component sender, object data)
+    {
+        if (sender is not Stargate) return;
+        ResetDHD();
+    }
+
+    private void ResetDHD()
     {
         activeGlyphs.Clear();
         Start();
-        
+
         Debug.Log("DHD has been reset.");
     }
 

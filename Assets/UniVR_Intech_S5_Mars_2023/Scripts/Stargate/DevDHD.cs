@@ -69,6 +69,12 @@ public class DevDHD : MonoBehaviour
         dialButton.image.color = new Color(1, 0.666f, 0, 1);
     }
 
+    public void OnSymbolePressed(Component sender, object data)
+    {
+        if (sender is not DHDGlyphButton || data is not Glyph) return;
+        Glyph glyph = (Glyph)data;
+        SymbolePressed(glyph);
+    }
 
     public void SymbolePressed(int glyphNumber)
     {
@@ -99,6 +105,12 @@ public class DevDHD : MonoBehaviour
 
             Debug.Log("More than 7 glyphs have been input. Reseting DHD.");
         }
+    }
+
+    public void OnDomePressed(Component sender, object data)
+    {
+        if (sender is not DHDDomeButton) return;
+        DialPressed();
     }
 
     public void DialPressed()

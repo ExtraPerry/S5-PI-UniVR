@@ -1772,7 +1772,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   speedDegreesPerSecond: 360
-  spinMultiplier: 2
+  spinMultiplier: 1
   momentumCurve:
     serializedVersion: 2
     m_Curve:

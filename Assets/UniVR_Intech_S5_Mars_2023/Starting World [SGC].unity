@@ -6523,6 +6523,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MediumPoly Stargate v3.0.0
       objectReference: {fileID: 0}
+    - target: {fileID: 8776991003790955573, guid: 3422c20e39697a04f9bd5116b04ebf1c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8776991003790955573, guid: 3422c20e39697a04f9bd5116b04ebf1c,
+        type: 3}
+      propertyPath: gateStartOnOff
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9098568317739676634, guid: 3422c20e39697a04f9bd5116b04ebf1c,
         type: 3}
       propertyPath: m_RootOrder

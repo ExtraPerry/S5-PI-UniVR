@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1836567933889474528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportPlayer: {fileID: 11400000, guid: 167e80ed35dfdfc4e8a5f28d503b54fe, type: 2}
-  worldSpawn: {fileID: 0}
+  worldSpawn: {fileID: 11400000, guid: b3e0bec8efe86f44d8a8cfc1c074d9fa, type: 2}
 --- !u!1 &1836567934215890387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,6 +1267,8 @@ MonoBehaviour:
     - m_Text: Uni Vr
       m_Image: {fileID: 0}
     - m_Text: Physics Test
+      m_Image: {fileID: 0}
+    - m_Text: Desert Level
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

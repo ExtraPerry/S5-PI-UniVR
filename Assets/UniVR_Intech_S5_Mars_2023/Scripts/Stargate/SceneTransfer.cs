@@ -13,7 +13,7 @@ public class SceneTransfer : MonoBehaviour
     [SerializeField]
     private Collider entranceCollider;
     [SerializeField]
-    private Collider2D eventHorizonCollider;
+    private Collider eventHorizonCollider;
     [SerializeField]
     private Material[] colliderOffOnMaterials = new Material[2];
 

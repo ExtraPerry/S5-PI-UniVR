@@ -64,17 +64,17 @@ public class ContinuousMovementPhysics : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Check if the player is grounded, but instance it for other potential uses later.
-        isGrounded = CheckIfGrounded();
-        //
-        if (isGrounded && !isPrimedToTeleport)
-        {
-            MoveAndRotatePlayer();
-        }
-        //
-        else if (isPrimedToTeleport)
+        if (isPrimedToTeleport)
         {
             TeleportPlayer();
+            return;
+        }
+
+        isGrounded = CheckIfGrounded();
+
+        if (isGrounded)
+        {
+            MoveAndRotatePlayer();
         }
     }
 

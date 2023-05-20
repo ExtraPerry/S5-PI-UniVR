@@ -38,6 +38,22 @@ public class GrabPhysics : MonoBehaviour
                 // (Can you hold it in your hand ? / Is it a climbing element to attach yourself to ?)
                 if (nearbyRigidbody)
                 {
+                    // If specified then grab to point.
+                    GrabbablePoint grabPoint = nearbyRigidbody.gameObject.GetComponent<GrabbablePoint>();
+                    if (grabPoint)
+                    {
+                        Side handSide = Side.Unspecified;
+                        if (gameObject.CompareTag("Left Hand"))
+                        {
+                            handSide = Side.Left;
+                        }
+                        if (gameObject.CompareTag("Right Hand"))
+                        {
+                            handSide = Side.Right;
+                        }
+                        grabPoint.MatchGrabPoint(handSide, transform);
+                    }
+
                     // Lock the object to the hand.
                     fixedJoint.connectedBody = nearbyRigidbody;
                     fixedJoint.connectedAnchor = nearbyRigidbody.transform.InverseTransformPoint(transform.position);
@@ -58,7 +74,7 @@ public class GrabPhysics : MonoBehaviour
             // Tell the system this hand is currently no longer grabbing something.
             isGrabbing = false;
 
-            // CHeck if the hand has an active joint.
+            // Check if the hand has an active joint.
             if (fixedJoint)
             {
                 // Delete the joint.

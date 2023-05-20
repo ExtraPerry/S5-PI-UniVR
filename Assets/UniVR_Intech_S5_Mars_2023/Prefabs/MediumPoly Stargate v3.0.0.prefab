@@ -1820,7 +1820,7 @@ MonoBehaviour:
   player: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910, type: 2}
   targetScene: {fileID: 11400000, guid: f14115d1cc293d24da711fc1675c08bc, type: 2}
   entranceCollider: {fileID: 8776991003060339999}
-  eventHorizonCollider: {fileID: 8776991003669037982}
+  eventHorizonCollider: {fileID: 602947723860609547}
   colliderOffOnMaterials:
   - {fileID: 2100000, guid: 4c46dc62478e1fb43a8d139a85cff811, type: 2}
   - {fileID: 2100000, guid: 10705a0f8e53cb94183d5d1747f4de33, type: 2}
@@ -2016,7 +2016,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8776991003060339993}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2243,9 +2243,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8776991003669037979}
-  - component: {fileID: 8776991003669037982}
   - component: {fileID: 8776991003669037977}
   - component: {fileID: 8776991003669037976}
+  - component: {fileID: 602947723860609547}
   m_Layer: 0
   m_Name: Event Horizon Collider
   m_TagString: Untagged
@@ -2268,22 +2268,6 @@ Transform:
   m_Father: {fileID: 8776991004464526868}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!58 &8776991003669037982
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8776991003669037978}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.00000005960466, y: 2.439455e-19}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!33 &8776991003669037977
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2299,7 +2283,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8776991003669037978}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2334,6 +2318,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &602947723860609547
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776991003669037978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000004, y: 2.000001, z: 1.0000005}
+  m_Center: {x: 0.00000005960466, y: 2.7105054e-20, z: -0.00000008940699}
 --- !u!1 &8776991003775573021
 GameObject:
   m_ObjectHideFlags: 0

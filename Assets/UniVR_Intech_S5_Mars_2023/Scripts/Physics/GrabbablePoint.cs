@@ -51,8 +51,9 @@ public class GrabbablePoint : MonoBehaviour
         Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
         if (rigidbody)
         {
-            rigidbody.MovePosition(handTransform.position + offset);
-            rigidbody.MoveRotation(rotation);
+            Debug.Log("Updating \"" + gameObject.name + "\" position & rotation to match grab points.");
+            rigidbody.position = handTransform.position + offset;
+            rigidbody.rotation = rotation;
         }
     }
 }

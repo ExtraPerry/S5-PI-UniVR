@@ -6,7 +6,7 @@ public class PlayerSetup : MonoBehaviour
 {
     [Header("Player :")]
     [SerializeField]
-    private Player player;
+    private PlayerRig playerRig;
 
     [Header("XR Rig :")]
     [SerializeField]
@@ -39,19 +39,19 @@ public class PlayerSetup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player.xrRig.headset = headset;
-        player.xrRig.leftController = leftController;
-        player.xrRig.rightController = rightController;
+        playerRig.xrRig.headset = headset;
+        playerRig.xrRig.leftController = leftController;
+        playerRig.xrRig.rightController = rightController;
 
-        player.colliderRig.head = headCollider;
-        player.colliderRig.body = bodyCollider;
-        player.colliderRig.leftHand = leftHandCollider;
-        player.colliderRig.rightHand = rightHandCollider;
+        playerRig.colliderRig.head = headCollider;
+        playerRig.colliderRig.body = bodyCollider;
+        playerRig.colliderRig.leftHand = leftHandCollider;
+        playerRig.colliderRig.rightHand = rightHandCollider;
 
-        player.rigidbodyRig.head = headRigidbody;
-        player.rigidbodyRig.body = bodyRigidbody;
-        player.rigidbodyRig.leftHand = leftHandRigidbody;
-        player.rigidbodyRig.rightHand = rightHandRigidbody;
+        playerRig.rigidbodyRig.head = headRigidbody;
+        playerRig.rigidbodyRig.body = bodyRigidbody;
+        playerRig.rigidbodyRig.leftHand = leftHandRigidbody;
+        playerRig.rigidbodyRig.rightHand = rightHandRigidbody;
 
         // Since this no longer needs to be run disable the behaviour.
         this.enabled = false;

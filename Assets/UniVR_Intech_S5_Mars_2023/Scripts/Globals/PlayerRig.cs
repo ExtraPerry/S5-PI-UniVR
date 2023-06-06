@@ -37,7 +37,7 @@ public class ColliderRig
 }
 
 [CreateAssetMenu(menuName = "Player")]
-public class Player : ScriptableObject
+public class PlayerRig : ScriptableObject
 {
     public XrRig xrRig;
     public RigidbodyRig rigidbodyRig;

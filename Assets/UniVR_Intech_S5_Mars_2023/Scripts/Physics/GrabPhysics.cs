@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class GrabPhysics : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GrabPhysics : MonoBehaviour
     public LayerMask grabLayer;
     // Active Joint (the link between the hand and the grabbed object).
     private FixedJoint fixedJoint;
+    private XRGrabInteractable xRGrabInteraction;
     // Value that defines if something is being grabbed.
     private bool isGrabbing = false;
 
@@ -32,6 +34,14 @@ public class GrabPhysics : MonoBehaviour
             {
                 Rigidbody nearbyRigidbody = nearbyColliders[0].attachedRigidbody;
 
+                // Check if grab is using XR toolkit Grab
+                xRGrabInteraction = nearbyRigidbody.gameObject.GetComponent<XRGrabInteractable>();
+                if (xRGrabInteraction)
+                {
+                    isGrabbing = true;
+                    return;
+                }
+
                 fixedJoint = gameObject.AddComponent<FixedJoint>();
                 fixedJoint.autoConfigureConnectedAnchor = false;
 
@@ -42,22 +52,6 @@ public class GrabPhysics : MonoBehaviour
                     // Lock the object to the hand.
                     fixedJoint.connectedBody = nearbyRigidbody;
                     fixedJoint.connectedAnchor = nearbyRigidbody.transform.InverseTransformPoint(transform.position);
-
-                    // If specified then grab to point.
-                    GrabbablePoint grabPoint = nearbyRigidbody.gameObject.GetComponent<GrabbablePoint>();
-                    if (grabPoint)
-                    {
-                        Side handSide = Side.Unspecified;
-                        if (gameObject.CompareTag("Left Hand"))
-                        {
-                            handSide = Side.Left;
-                        }
-                        if (gameObject.CompareTag("Right Hand"))
-                        {
-                            handSide = Side.Right;
-                        }
-                        grabPoint.MatchGrabPoint(handSide, transform);
-                    }
                 }
                 else
                 {
@@ -72,67 +66,22 @@ public class GrabPhysics : MonoBehaviour
         // CHeck if the hand is not grabbing anymore and if something is still attached to the hand.
         else if (!isGrabButtonPressed && isGrabbing)
         {
-            // Tell the system this hand is currently no longer grabbing something.
-            isGrabbing = false;
+            // Check if the hand is a grab interaction, the grab interaction references to the object being grabbed.
+            if (xRGrabInteraction)
+            {
+                // If so and it is not released then ignore.
+                if (xRGrabInteraction.isSelected == true) return;
+            }
 
-            // Check if the hand has an active joint.
+            // CHeck if the hand has an active joint.
             if (fixedJoint)
             {
                 // Delete the joint.
                 Destroy(fixedJoint);
             }
+
+            // Tell the system this hand is currently no longer grabbing something.
+            isGrabbing = false;
         }
     }
-
-
-    /**
-    // Input Maps.
-    public InputActionProperty grabInputSource;
-    // Settings.
-    public float maxAngularVelocity = 20;
-    public float radius = 0.1f;
-    public LayerMask grabLayer;
-    // Grabbed Rigibody.
-    private Rigidbody holdingTarget;
-
-    void FixedUpdate()
-    {
-        // Read the input.
-        bool isGrabButtonPressed = grabInputSource.action.ReadValue<float>() > 0.1f;
-
-        // Action
-        if (isGrabButtonPressed)
-        {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, radius, grabLayer, QueryTriggerInteraction.Ignore);
-            if (colliders.Length < 0)
-            {
-                holdingTarget = colliders[0].transform.root.GetComponent<Rigidbody>();
-            }
-            else
-            {
-                holdingTarget = null;
-            }
-        }
-        else
-        {
-            if (holdingTarget)
-            {
-                // Adjust rigidbody velocity to move the hand.
-                holdingTarget.velocity = (transform.position - holdingTarget.transform.position) / Time.fixedDeltaTime;
-
-                // Adjust angular velocity to rotate to hand.
-                holdingTarget.maxAngularVelocity = maxAngularVelocity;
-                Quaternion deltaRot = transform.rotation * Quaternion.Inverse(holdingTarget.transform.rotation);
-                Vector3 eulerRot = new Vector3(
-                    Mathf.DeltaAngle(0, deltaRot.eulerAngles.x),
-                    Mathf.DeltaAngle(0, deltaRot.eulerAngles.y),
-                    Mathf.DeltaAngle(0, deltaRot.eulerAngles.z)
-                );
-                eulerRot *= 0.95f;
-                eulerRot *= Mathf.Deg2Rad;
-                holdingTarget.angularVelocity = eulerRot / Time.fixedDeltaTime;
-            }
-        }
-    }
-    */
 }

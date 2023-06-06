@@ -24,36 +24,35 @@ public class GrabbablePoint : MonoBehaviour
         Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
         if (!rigidbody)
         {
-            Debug.LogWarning("\"" + gameObject.name + "\" doesn't have a rigidbody when it should.");
+            Debug.LogWarning("\"" + gameObject.name + " (" + gameObject.GetInstanceID() + ")" + "\" doesn't have a rigidbody when it should, disabling " + this.name + " component.");
+            this.enabled = false;
         }
     }
 
-   public void MatchGrabPoint(Side handSide, Transform handTransform)
+   public void MatchGrabPoint(Side handSide, ConfigurableJoint joint)
     {
+        
+
+        /*
         if (handSide == Side.Unspecified) return;
 
         Vector3 offset = Vector3.zero;
-        Quaternion rotation = transform.rotation;
+        Quaternion rotation = joint.transform.rotation;
 
         switch (handSide)
         {
             case Side.Left:
-                offset = leftHand.position - transform.position;
-                rotation = leftHand.rotation;
+                offset = leftHand.position;
                 break;
 
             case Side.Right:
-                offset = rightHand.position - transform.position;
-                rotation = rightHand.rotation;
+                offset = rightHand.position;
                 break;
         }
 
-        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-        if (rigidbody)
-        {
-            Debug.Log("Updating \"" + gameObject.name + "\" position & rotation to match grab points.");
-            rigidbody.position = handTransform.position + offset;
-            rigidbody.rotation = rotation;
-        }
+        Debug.Log("Updating \"" + gameObject.name + " (" + gameObject.GetInstanceID() + ")" + "\" position & rotation to match grab points.");
+        joint.targetPosition += offset;
+        joint.targetRotation = rotation;
+        */
     }
 }

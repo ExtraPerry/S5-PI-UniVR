@@ -7,7 +7,7 @@ public class SceneTransfer : MonoBehaviour
 {
     // Inputs.
     [SerializeField]
-    private Player player;
+    private PlayerRig playerRig;
     [SerializeField]
     private SyncedInt targetScene;
     [SerializeField]
@@ -46,12 +46,12 @@ public class SceneTransfer : MonoBehaviour
 
     private bool IsRigIntersectsEntranceZone()
     {
-        return entranceCollider.bounds.Intersects(player.colliderRig.head.bounds) && entranceCollider.bounds.Intersects(player.colliderRig.body.bounds) && entranceCollider.bounds.Intersects(player.colliderRig.leftHand.bounds) && entranceCollider.bounds.Intersects(player.colliderRig.rightHand.bounds);
+        return entranceCollider.bounds.Intersects(playerRig.colliderRig.head.bounds) && entranceCollider.bounds.Intersects(playerRig.colliderRig.body.bounds) && entranceCollider.bounds.Intersects(playerRig.colliderRig.leftHand.bounds) && entranceCollider.bounds.Intersects(playerRig.colliderRig.rightHand.bounds);
     }
 
     private bool IsRigHeadIntersectEventHorizon()
     {
-        return eventHorizonCollider.bounds.Intersects(player.colliderRig.head.bounds);
+        return eventHorizonCollider.bounds.Intersects(playerRig.colliderRig.head.bounds);
     }
 
     // Debug Stuff.

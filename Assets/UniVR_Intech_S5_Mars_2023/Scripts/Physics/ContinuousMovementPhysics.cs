@@ -8,7 +8,7 @@ public class ContinuousMovementPhysics : MonoBehaviour
 {
     [Header("Player :")]
     [SerializeField]
-    private Player player;
+    private PlayerRig playerRig;
 
     [Header("Inputs :")]
     public InputActionProperty moveInputSource;
@@ -48,16 +48,16 @@ public class ContinuousMovementPhysics : MonoBehaviour
         bool inputJump = jumpInputSource.action.WasPerformedThisFrame();
         bool inputRespawn = respawnInputSource.action.WasPerformedThisFrame();
 
-        // Check if player is on the ground and jump if jump button is pressed.
+        // Check if playerRig is on the ground and jump if jump button is pressed.
         if (inputJump && isGrounded)
         {
             float jumpVelocity = Mathf.Sqrt(2 * -Physics.gravity.y * jumpHeight);
-            player.rigidbodyRig.body.velocity = Vector3.up * jumpVelocity;
+            playerRig.rigidbodyRig.body.velocity = Vector3.up * jumpVelocity;
         }
 
         if (inputRespawn)
         {
-            PrepareTeleportTo(player.respawnLocation.Get());
+            PrepareTeleportTo(playerRig.respawnLocation.Get());
         }
 
     }
@@ -81,27 +81,27 @@ public class ContinuousMovementPhysics : MonoBehaviour
     public void MoveAndRotatePlayer()
     {
         // Define the direction of the movement.
-        Quaternion yaw = Quaternion.Euler(0, player.xrRig.headset.transform.eulerAngles.y, 0);
+        Quaternion yaw = Quaternion.Euler(0, playerRig.xrRig.headset.transform.eulerAngles.y, 0);
         Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0, inputMoveAxis.y);
 
-        // Calculate the move 3D vector by which the player will move.
-        Vector3 targetMovePosition = player.rigidbodyRig.body.position + ((direction * Time.fixedDeltaTime) * moveSpeed);
+        // Calculate the move 3D vector by which the playerRig will move.
+        Vector3 targetMovePosition = playerRig.rigidbodyRig.body.position + ((direction * Time.fixedDeltaTime) * moveSpeed);
 
         // Define the direction of the rotation.
         Vector3 axis = Vector3.up;
         float angle = turnSpeed * Time.fixedDeltaTime * inputTurnAxis;
 
-        // Calculate the Quaternion by which the player will rotate.
+        // Calculate the Quaternion by which the playerRig will rotate.
         Quaternion q = Quaternion.AngleAxis(angle, axis);
 
-        // Update the player's rotation.
-        player.rigidbodyRig.body.MoveRotation(player.rigidbodyRig.body.rotation * q);
+        // Update the playerRig's rotation.
+        playerRig.rigidbodyRig.body.MoveRotation(playerRig.rigidbodyRig.body.rotation * q);
 
-        // Calculate the position change of the player that the rotation has induced (with the movement calculated before too).
-        Vector3 newPosition = q * (targetMovePosition - player.xrRig.headset.transform.position) + player.xrRig.headset.transform.position;
+        // Calculate the position change of the playerRig that the rotation has induced (with the movement calculated before too).
+        Vector3 newPosition = q * (targetMovePosition - playerRig.xrRig.headset.transform.position) + playerRig.xrRig.headset.transform.position;
 
-        // Update the player's position.
-        player.rigidbodyRig.body.MovePosition(newPosition);
+        // Update the playerRig's position.
+        playerRig.rigidbodyRig.body.MovePosition(newPosition);
     }
 
     public void OnPrepareTeleportTo(Component sender, object data)
@@ -127,21 +127,21 @@ public class ContinuousMovementPhysics : MonoBehaviour
     private void TeleportPlayer()
     {
         // Reset all velocity.
-        player.rigidbodyRig.SetVelocity(Vector3.zero);
+        playerRig.rigidbodyRig.SetVelocity(Vector3.zero);
 
-        // Get the vector by which the player will move.
-        Vector3 direction = teleportNextMovePosition - player.rigidbodyRig.body.transform.position;
+        // Get the vector by which the playerRig will move.
+        Vector3 direction = teleportNextMovePosition - playerRig.rigidbodyRig.body.transform.position;
 
         // Calculate movement that other rigidbodies will move by said direction.
-        Vector3 newHeadPosition = player.rigidbodyRig.head.transform.position + direction;
-        Vector3 newLeftHandPosition = player.rigidbodyRig.leftHand.transform.position + direction;
-        Vector3 newRightHandPosition = player.rigidbodyRig.rightHand.transform.position + direction;
+        Vector3 newHeadPosition = playerRig.rigidbodyRig.head.transform.position + direction;
+        Vector3 newLeftHandPosition = playerRig.rigidbodyRig.leftHand.transform.position + direction;
+        Vector3 newRightHandPosition = playerRig.rigidbodyRig.rightHand.transform.position + direction;
 
-        // Update the player's position. (Use .position because it is a teleport).
-        player.rigidbodyRig.head.position = newHeadPosition;
-        player.rigidbodyRig.body.position = teleportNextMovePosition;
-        player.rigidbodyRig.leftHand.position = newLeftHandPosition;
-        player.rigidbodyRig.rightHand.position = newRightHandPosition;
+        // Update the playerRig's position. (Use .position because it is a teleport).
+        playerRig.rigidbodyRig.head.position = newHeadPosition;
+        playerRig.rigidbodyRig.body.position = teleportNextMovePosition;
+        playerRig.rigidbodyRig.leftHand.position = newLeftHandPosition;
+        playerRig.rigidbodyRig.rightHand.position = newRightHandPosition;
 
         // Reset the teleport primer.
         isPrimedToTeleport = false;
@@ -150,11 +150,11 @@ public class ContinuousMovementPhysics : MonoBehaviour
     public bool CheckIfGrounded()
     {
         // Gets the center body location of the body collider in 3d space & define the size of the raycast based on the collider's size.
-        Vector3 start = player.colliderRig.body.transform.TransformPoint(player.colliderRig.body.center);
-        float rayLength = (player.colliderRig.body.height / 2) - player.colliderRig.body.radius + 0.05f;
+        Vector3 start = playerRig.colliderRig.body.transform.TransformPoint(playerRig.colliderRig.body.center);
+        float rayLength = (playerRig.colliderRig.body.height / 2) - playerRig.colliderRig.body.radius + 0.05f;
 
         // Raycast downwards using the previous settings above.
-        bool hasHit = Physics.SphereCast(start, player.colliderRig.body.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
+        bool hasHit = Physics.SphereCast(start, playerRig.colliderRig.body.radius, Vector3.down, out RaycastHit hitInfo, rayLength, groundLayer);
 
         // If the raycast hit something return true else false.
         return hasHit;

@@ -33,7 +33,7 @@ public class Tir : MonoBehaviour
             {
                 if(hit.transform.gameObject.tag == "Enemy")
                 {
-                    Destroy(hit.transform.gameObject);
+                    hit.transform.gameObject.GetComponent<Dead>().ennemyDead();
                 }
             }
         }

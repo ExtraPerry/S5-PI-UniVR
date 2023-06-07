@@ -4241,6 +4241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff5dab59e0fab0439b8fd689804c87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldGateSequence: {fileID: 11400000, guid: 68f2aa55f6ebef9479e5826ccfad86ac, type: 2}
   stargateStart: {fileID: 11400000, guid: 8b5d507261f6daf439ef03db3a8a3e7d, type: 2}
   stargateInterrupt: {fileID: 11400000, guid: 4a40df8dd09212347b02535956461844, type: 2}
   glyphsLibrary: {fileID: 11400000, guid: 94211f5704dfa0f4486f3a8e65e81c9f, type: 2}

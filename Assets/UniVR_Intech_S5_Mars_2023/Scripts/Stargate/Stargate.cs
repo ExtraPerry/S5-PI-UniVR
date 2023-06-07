@@ -130,10 +130,10 @@ public class Stargate : MonoBehaviour
     void Start()
     {
         // Update the gate status.
-        isGateOccupied.Set(gateStartOnOff);
+        isGateOccupied.Set(false);
 
         // Tell the animator what state the Gate should start in (Open or Closed).
-        animator.SetBool("GateStartOnOff", gateStartOnOff);
+        animator.SetBool("GateStartOnOff", false);
 
         // Set the ring's direction before the glyphs cause in the case of it being used it needs to be set to something.
         if (Random.Range(-1, 1) >= 0)
@@ -145,72 +145,24 @@ public class Stargate : MonoBehaviour
             direction = RotationDirection.Clockwise;
         }
 
-        // If the Gate is open or closed set it to defined or else.
-        if (gateStartOnOff)
-        {
-            // Create a new Glyph Sequence for the Gate.
-            storedGlyphSequence = new Glyph[7];
-            // Fill new storedGlyphSequence with glyphs, making sure they are all unique.
-            for (int i = 0; i < storedGlyphSequence.Length; i++)
-            {
-                bool again;
-                Glyph randomGlyph;
-                do
-                {
-                    again = false;
-                    randomGlyph = (Glyph)Random.Range(0, 38);
-                    foreach (Glyph glyph in storedGlyphSequence)
-                    {
-                        if (randomGlyph == glyph)
-                        {
-                            again = true;
-                            break;
-                        }
-                    }
-                } while (again);
-                storedGlyphSequence[i] = randomGlyph;
-            }
-            // Set selected and target glyph to the last one in the sequence, as if the gate has already finished it's dialling sequence.
-            selectedGlyph = storedGlyphSequence[6];
-            targetGlyth = storedGlyphSequence[6];
+        // Put target & selected glyphs to default.
+        storedGlyphSequence = null;
+        selectedGlyph = Glyph.Giza;
+        targetGlyth = Glyph.Giza;
 
-            // Set the Chevrons to a active gate.
-            chevronLvl = 7;
-            animator.SetInteger("ChevronsLocked", chevronLvl);
+        // Set the Chevrons to a inactive gate.
+        chevronLvl = 0;
+        animator.SetInteger("ChevronsLocked", chevronLvl);
 
-            // Set the event horizon to open.
-            isGateActive = true;
-            animator.SetBool("EventHorizon", isGateActive);
+        // Set the event horizon to closed.
+        isGateActive = false;
+        animator.SetBool("EventHorizon", isGateActive);
 
-            // Set the ring position too.
-            targetXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[6]) + (360 * spinMultiplier * (int)direction);
-            currentXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[6]) + (360 * spinMultiplier * (int)direction);
-            startXRotation = RingGlyths.GetRingGlyphRotation(storedGlyphSequence[5]) + (360 * spinMultiplier * (int)direction);
+        targetXRotation = 0;
+        currentXRotation = 0;
+        startXRotation = 0;
 
-            // Sync the DHD.
-            dhdOverride.Raise(this, storedGlyphSequence);
-        }
-        else
-        {
-            // Don't give the gate a sequence and put target & selected glyphs to default.
-            storedGlyphSequence = null;
-            selectedGlyph = Glyph.Giza;
-            targetGlyth = Glyph.Giza;
-
-            // Set the Chevrons to a inactive gate.
-            chevronLvl = 0;
-            animator.SetInteger("ChevronsLocked", chevronLvl);
-
-            // Set the event horizon to closed.
-            isGateActive = false;
-            animator.SetBool("EventHorizon", isGateActive);
-
-            targetXRotation = 0;
-            currentXRotation = 0;
-            startXRotation = 0;
-
-            interruptGate = false;
-        }
+        interruptGate = false;
     }
 
     // Update is called once per frame

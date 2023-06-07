@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class DevDHD : MonoBehaviour
 {
     [SerializeField]
+    private SyncedGlyphSequence worldGateSequence;
+    [SerializeField]
     private GameEvent stargateStart;
     [SerializeField]
     private GameEvent stargateInterrupt;
@@ -31,6 +33,8 @@ public class DevDHD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        worldGateSequence.GenerateNewSequence();
+
         dialButton.image.color = new Color(0, 0.75f, 0, 1);
         if (!IsGlyphDisplaysEmptyOrNull())
         {
@@ -122,6 +126,15 @@ public class DevDHD : MonoBehaviour
             return;
         }
 
+        Glyph[] sequence = activeGlyphs.ToArray();
+        System.Array.Reverse(sequence);
+
+        if (sequence != worldGateSequence.Get())
+        {
+            ResetDHD();
+            return;
+        }
+
         if (isGateOccupied.Get())
         {
             stargateInterrupt.Raise(this);
@@ -138,8 +151,6 @@ public class DevDHD : MonoBehaviour
             }
         }
 
-        Glyph[] sequence = activeGlyphs.ToArray();
-        System.Array.Reverse(sequence);
         stargateStart.Raise(this, sequence);
 
         Debug.Log("DHD has confirmed Gate is starting.");

@@ -925,13 +925,26 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 3701707434889473823, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-  rb: {fileID: 7913724507878121000}
+  respawnInputSource:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 68aa3667-8d53-4636-a4da-af6107e3d23e
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  player: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
   directionSource: {fileID: 7913724507349492412}
   turnSource: {fileID: 7913724507349492412}
   bodyCollider: {fileID: 7913724507365962246}
+  worldSpawn: {fileID: 0}
 --- !u!1 &7913724507268007753
 GameObject:
   m_ObjectHideFlags: 0

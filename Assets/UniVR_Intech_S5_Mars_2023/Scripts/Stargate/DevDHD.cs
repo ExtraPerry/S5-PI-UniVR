@@ -75,7 +75,11 @@ public class DevDHD : MonoBehaviour
 
     public void OnSymbolePressed(Component sender, object data)
     {
-        if (sender is not DHDGlyphButton || data is not Glyph) return;
+        if (!(sender is DHDGlyphButton || sender is DevDHDGlyphEditorButton) || data is not Glyph)
+        {
+            Debug.LogWarning(sender.name + " or " + data.GetType() + " are not accepted sender or data.");
+            return;
+        }
         Glyph glyph = (Glyph)data;
         SymbolePressed(glyph);
     }
@@ -87,7 +91,7 @@ public class DevDHD : MonoBehaviour
 
     public void SymbolePressed(Glyph glyph)
     {
-        if (activeGlyphs.Contains(glyph) )
+        if (activeGlyphs.Contains(glyph))
         {
             Debug.Log("Glyph : " + glyph + " has already been selected or Gate already has an address.");
             return;
@@ -113,12 +117,25 @@ public class DevDHD : MonoBehaviour
 
     public void OnDomePressed(Component sender, object data)
     {
-        if (sender is not DHDDomeButton) return;
+        if (!(sender is DHDDomeButton || sender is DevDHDDomeEditorButton))
+        {
+            Debug.LogWarning(sender.name + " or " + data.GetType() + " are not accepted sender or data.");
+            return;
+        }
         DialPressed();
     }
 
     public void DialPressed()
     {
+        // Check if gate is occupied.
+        if (isGateOccupied.Get())
+        {
+            stargateInterrupt.Raise(this);
+            Debug.Log("DHD has told the Gate to interupt.");
+            return;
+        }
+
+        // Check if sequenc if full.
         if (activeGlyphs.Count != 7)
         {
             Debug.Log("DHD has attempted to dial but sequence was incomplete.");
@@ -126,22 +143,37 @@ public class DevDHD : MonoBehaviour
             return;
         }
 
+        // Translate sequence into an array for later use.
         Glyph[] sequence = activeGlyphs.ToArray();
         System.Array.Reverse(sequence);
 
+        // Check of sequence mateches world sequence.
         if (sequence != worldGateSequence.Get())
         {
+#if UNITY_EDITOR    // Debugging Parts
+            int count = 0;
+            string worldSequenceString = "";
+            foreach (Glyph glyph in worldGateSequence.Get())
+            {
+                worldSequenceString += glyph.ToString();
+                if (count != worldGateSequence.Get().Length) worldSequenceString += ", ";
+                count++;
+            }
+            count = 0;
+            string dhdSequenceString = "";
+            foreach (Glyph glyph in worldGateSequence.Get())
+            {
+                dhdSequenceString += glyph.ToString();
+                if (count != sequence.Length) dhdSequenceString += ", ";
+                count++;
+            }
+            Debug.Log("Input sequence on DHD does not match world sequence for next level.\nWorld : " + worldSequenceString + "\nDHD : " + dhdSequenceString);
+#endif
             ResetDHD();
             return;
         }
-
-        if (isGateOccupied.Get())
-        {
-            stargateInterrupt.Raise(this);
-            Debug.Log("DHD has told the Gate to interupt.");
-            return;
-        }
         
+        // Update Dev DHD UI.
         dialButton.image.color = new Color(1, 0.666f, 0, 1);
         if (!IsGlyphDisplaysEmptyOrNull())
         {
@@ -151,6 +183,7 @@ public class DevDHD : MonoBehaviour
             }
         }
 
+        // Start the Stargate.
         stargateStart.Raise(this, sequence);
 
         Debug.Log("DHD has confirmed Gate is starting.");

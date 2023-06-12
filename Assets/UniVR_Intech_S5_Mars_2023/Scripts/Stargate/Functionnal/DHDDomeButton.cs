@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DHDDomeButton : MonoBehaviour
+public class DHDDomeButton : DHDDome
 {
-    [SerializeField]
-    private GameEvent eventToTrigger;
-    [SerializeField]
-    private string[] interactionTags = new string[2];
+    public string[] interactionTags = new string[2];
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -15,6 +12,6 @@ public class DHDDomeButton : MonoBehaviour
         {
             if (!collision.collider.CompareTag(element)) return;
         }
-        eventToTrigger.Raise(this, null);
+        DomePressed();
     }
 }

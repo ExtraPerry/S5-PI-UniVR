@@ -61,8 +61,6 @@ public enum RotationDirection
 public class Stargate : MonoBehaviour
 {
     // Settings.
-    [SerializeField]
-    private bool gateStartOnOff = false;
     public AnimationCurve speedCurve = new AnimationCurve(new Keyframe[] {
         new Keyframe(0, 0.1f),
         new Keyframe(0.1f, 0.35f, 1.81539f, 1.815319f),
@@ -73,7 +71,7 @@ public class Stargate : MonoBehaviour
     [Range(0, 360)]
     public float speedDegreesPerSecond = 15f;
     [Range(1, 5)]
-    public int spinMultiplier = 2;
+    public int spinMultiplier = 1;
     public AnimationCurve momentumCurve = new AnimationCurve(new Keyframe[] {
         new Keyframe(0, 1, -2.011582f, -2.011582f),
         new Keyframe(1, 0)

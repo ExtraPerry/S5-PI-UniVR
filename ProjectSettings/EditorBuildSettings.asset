@@ -21,6 +21,8 @@ EditorBuildSettings:
     path: Assets/UniVR_Intech_S5_Mars_2023/Desert Level/Maps/Demo.unity
     guid: 814e5eb95547fef41b3bf5a0699e947c
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5c2a041b7c6ed7d419e08a377baab47c,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 087794f147040d14e8c1374a95d6d9bb,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 3b9d9a8963cadd549ba330b9297e69cf,

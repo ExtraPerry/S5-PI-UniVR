@@ -2,87 +2,79 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum DamageType
-{
-    Neutral,
-    Fire,
-    Poison,
-    Paralyse,
-    True
-}
-
+[RequireComponent(typeof(GameEventListener))]
 public class Entity : MonoBehaviour
 {
     public string name;
 
-    [Range(0, Mathf.Infinity)]  // Base Health amount.
+
+    [Min(0)]    // Base Health amount.
     public float baseHealth = 300;
-    [Range(0, Mathf.Infinity)]  // Base Armour amount.
+    [Min(0)]    // Base Armour amount.
     public float baseArmour = 225;
-    [Range(0, Mathf.Infinity)]  // Base Shield capacity.
+    [Min(0)]    // Base Shield capacity.
     public float baseShield = 450;
-    [Range(0, Mathf.Infinity)]  // Amount of ticks to wait before shield starts to regen.
+    [Min(0)]    // Amount of ticks to wait before shield starts to regen.
     public int baseTickShieldRegenDelay = 5;
-    [Range(0, 1)]               // % of total shields to regen in 1 second.
+    [Min(0)]    // % of total shields to regen in 1 second.
     public float baseShieldRegen = 0.25f;
 
-    [Range(0, Mathf.Infinity)]  // Movement speed multiplier.
+    [Min(0)]    // Movement speed multiplier.
     public float baseSpeed = 1;
-    [Range(0, Mathf.Infinity)]  // Jump height multiplier.
+    [Min(0)]    // Jump height multiplier.
     public float baseJumpHeight = 1;
 
-    [Range(0, Mathf.Infinity)]  // Base Damage output.
+    [Min(0)]    // Base Damage output.
     public float baseAttackDamage = 50;
-    [Range(0, Mathf.Infinity)]  // Attack Speed multiplier.
+    [Min(0)]    // Attack Speed multiplier.
     public float baseAttackSpeed = 1;
-    [Range(0, Mathf.Infinity)]  // Chance do crit.
+    [Min(0)]    // Chance do crit.
     public float baseCritChance = 0;
-    [Range(0, Mathf.Infinity)]  // Damage Multipler.
+    [Min(0)]    // Damage Multipler.
     public float baseCritDamage = 2;
 
-    [Range(1, Mathf.Infinity)]  // Damage Multipler for Fire element.
-    public float baseFireDamage;
-    [Range(1, Mathf.Infinity)]  // Damage Multipler for Poison element.
-    public float basePoisonDamage;
-    [Range(1, Mathf.Infinity)]  // Damage Multipler for Paralyse element.
-    public float baseParalyseDamage;
+    [Min(0)]    // Damage Multipler for Fire element.
+    public float baseFireDamage = 1;
+    [Min(0)]    // Damage Multipler for Poison element.
+    public float basePoisonDamage = 1;
+    [Min(0)]    // Damage Multipler for Paralyse element.
+    public float baseParalyseDamage = 1;
 
+    [Min(0)]
     private float health;
-    [Range(0, Mathf.Infinity)]
+    [Min(0)]
     private float armour;
-    [Range(0, Mathf.Infinity)]
+    [Min(0)]
     private float shield;
-    [Range(0, Mathf.Infinity)]
+    [Min(0)]
     private float speed;
-    [Range(0, Mathf.Infinity)]
+    [Min(0)]
     private float jumpHeight;
 
-    [Range(0, Mathf.Infinity)]
-    private float removedArmour;
     private bool isShiedlRegenActive = true;
-    [Range(0, Mathf.Infinity)]
+    [Min(0)]
     private int ticksToShieldRegen = 0;
 
+    private bool isImmune = false;
+    [Min(0)]
+    private float immunityTimeLeft = 0;
+
+    [Range(0, 1)]
+    private float fireProcArmourMultiplier = 0;
+
     private bool isOnFire = false;
-    [Range(0, Mathf.Infinity)]
-    private float fireDamage = 0;
-    [Range(0, Mathf.Infinity)]
+    [Min(0)]
     private float fireTimeLeft = 0;
     private bool isPoisoned = false;
-    [Range(0, Mathf.Infinity)]
-    private float poisonDamage = 0;
-    [Range(0, Mathf.Infinity)]
+    [Min(0)]
     private float poisonTimeLeft = 0;
     private bool isParalysed = false;
-    [Range(0, Mathf.Infinity)]
+    [Min(0)]
     private float paralysedTimeLeft = 0;
 
-    [Range(0, Mathf.Infinity)]
-    private float timeCount = 0;
     private bool isDead = false;
 
-    private void Start()
+    private void Awake()
     {
         health = baseHealth;
         armour = baseArmour;
@@ -91,196 +83,156 @@ public class Entity : MonoBehaviour
         jumpHeight = baseJumpHeight;
     }
 
-    public void Update()
+    public void TickUpdate(Component sender, object data)
     {
-        if (isDead) return;
-
-        // Check if player is dead.
-        if (health <= 0)
-        {
-            isDead = true;
-            return;
-        }
-
-        // Check if a tick event should trigger. Should trigger every 1 second.
-        bool tickEvent = false;
-        timeCount += Time.deltaTime;
-        if (timeCount >= 1)
-        {
-            tickEvent = true;
-            timeCount -= 1;
-        }
+        if (sender is not TimeTickSystem || data is not int) return;
 
         if (isShiedlRegenActive)
         {
             if (shield < baseShield)
             {
-                float shieldToRegen = baseShield * baseShieldRegen * Time.deltaTime;
-                if ((shieldToRegen + shield) >= baseShield)
+                float regenAmount = (float)(baseShield * baseShieldRegen * TimeTickSystem.TICK_TIMER_MAX);
+                if (shield + regenAmount >= baseShield)
                 {
                     shield = baseShield;
                 }
                 else
                 {
-                    shield += shieldToRegen;
+                    shield += regenAmount;
                 }
             }
         }
         else
         {
-            if (tickEvent)
+            ticksToShieldRegen++;
+            if (ticksToShieldRegen >= baseTickShieldRegenDelay)
             {
-                ticksToShieldRegen++;
-                if (ticksToShieldRegen >= baseTickShieldRegenDelay)
-                {
-                    ticksToShieldRegen = 0;
-                    isShiedlRegenActive = true;
-                }
+                isShiedlRegenActive = true;
+                ticksToShieldRegen = 0;
             }
         }
 
-        // Fire damage ticks neutral damage but reduces armour over time. Resets armour upon end of duration.
-        if (isOnFire) 
+        if (isOnFire)
         {
-            if (tickEvent)
-            {
-                TakeDamage(fireDamage * Time.deltaTime, DamageType.Neutral);
-                if (shield <= 0)
-                {
-                    float armourReduction = (armour * 5) / 100;
-                    RemoveArmour(armourReduction);
-                    removedArmour += (armourReduction);
-                }
-            }
+            TakeDamage(DamageSystem.CalculateDoT(health, shield, DoTType.Fire), DamageType.Fire, false);
 
-            fireTimeLeft -= Time.deltaTime;
+            fireTimeLeft -= TimeTickSystem.TICK_TIMER_MAX;
             if (fireTimeLeft <= 0)
             {
-                fireTimeLeft = 0;
-                fireDamage = 0;
+                fireProcArmourMultiplier = 1;
                 isOnFire = false;
-                AddArmour(removedArmour);
-                removedArmour = 0;
-                return;
+                fireTimeLeft = 0;
             }
         }
 
-        // Poison damage ticks true damage ignoring armour but not shields.
-        if (isPoisoned) 
+        if (isPoisoned)
         {
-            if (tickEvent)
-            {
-                TakeDamage(poisonDamage * Time.deltaTime, DamageType.True);
-            }
+            
+            TakeDamage(DamageSystem.CalculateDoT(health, shield, DoTType.Poison), DamageType.Poison, false);
 
-            poisonTimeLeft -= Time.deltaTime;
+            poisonTimeLeft -= TimeTickSystem.TICK_TIMER_MAX;
             if (poisonTimeLeft <= 0)
             {
-                poisonTimeLeft = 0;
-                poisonDamage = 0;
                 isPoisoned = false;
-                return;
+                poisonTimeLeft = 0;
             }
         }
 
-        // Parlyse reduces effective player speed. Resets speed upon end of duration.
-        if (isParalysed) 
+        if (isParalysed)
         {
-            paralysedTimeLeft -= Time.deltaTime;
+            ticksToShieldRegen = 0;
+
+            paralysedTimeLeft -= TimeTickSystem.TICK_TIMER_MAX;
             if (paralysedTimeLeft <= 0)
             {
-                paralysedTimeLeft = 0;
-                speed = baseSpeed;
-                jumpHeight = baseJumpHeight;
                 isParalysed = false;
-                return;
+                paralysedTimeLeft = 0;
+            }
+        }
+
+        if (isImmune)
+        {
+            immunityTimeLeft -= TimeTickSystem.TICK_TIMER_MAX;
+            if (immunityTimeLeft <= 0)
+            {
+                isImmune = false;
+                immunityTimeLeft = 0;
             }
         }
     }
 
     public void TakeDamage(float damage, DamageType type)
     {
-        bool isTrueDamage = false;
-        switch (type)
-        {
-            case DamageType.Fire :
-                fireDamage += damage;
-                isOnFire = true;
-                if (fireTimeLeft < 10)
-                {
-                    fireTimeLeft += 1;
-                }
-                break;
-
-            case DamageType.Poison :
-                if (shield <= 0)
-                {
-                    poisonDamage += damage;
-                    isPoisoned = true;
-                    if (poisonTimeLeft < 10)
-                    {
-                        poisonTimeLeft += 1;
-                    }
-                }
-                break;
-
-            case DamageType.Paralyse :
-                if (shield <= 0)
-                {
-                    isParalysed = true;
-                    if (paralysedTimeLeft < 10)
-                    {
-                        paralysedTimeLeft += 1;
-                    }
-                    speed = baseSpeed * 0.25f;
-                    jumpHeight = baseJumpHeight * 0.25f;
-                }
-                break;
-
-            case DamageType.True :
-                isTrueDamage = true;
-                break;
-        }
-
-        CalculateDamage(damage, isTrueDamage);
+        TakeDamage(damage, type, true);
     }
 
-    private void CalculateDamage(float damage, bool isTrueDamage)
+    private void TakeDamage(float rawDamage, DamageType type, bool isProc)
     {
-        isShiedlRegenActive = false;
-        ticksToShieldRegen = 0;
+        if (isImmune) return;
 
-        if (damage < 0)
+        if (isProc) // Only proc from direct damage and not Dot proc damage.
         {
-            Debug.LogWarning("Cannot take negative damage.");
-            return;
-        }
-
-        if (!isTrueDamage)
-        {
-            if (shield >= 0)
+            switch (type)
             {
-                if (shield >= damage)
-                {
-                    shield -= damage;
-                }
-                else
-                {
-                    damage -= shield;
-                    shield = 0;
-                }
+                case DamageType.Fire:
+                    if (shield > 0) break; // Only proc when shields are down.
+                    float calculatedArmour = fireProcArmourMultiplier - DamageSystem.fireArmourPercent;
+                    if (calculatedArmour > 0)
+                    {
+                        fireProcArmourMultiplier = calculatedArmour;
+                    }
+                    else
+                    {
+                        fireProcArmourMultiplier = 0;
+                    }  
+                    isOnFire = true;
+                    fireTimeLeft += DamageSystem.fireProcTime;
+                    break;
+
+                case DamageType.Poison:
+                    if (shield > 0) break; // Only proc when shields are down.
+                    isPoisoned = true;
+                    poisonTimeLeft += DamageSystem.poisonProcTime;
+                    break;
+
+                case DamageType.Electricity:
+                    isParalysed = true;
+                    paralysedTimeLeft += DamageSystem.paralyseProcTime;
+                    break;
             }
         }
 
-        if (isTrueDamage)
+        float calculatedDamage = 0f;
+
+        if (shield > 0) // Calculate shield damage.
         {
-            health -= damage;
+            calculatedDamage = DamageSystem.CalculateDamage(rawDamage, 0, type, ProtectionType.Shield);
+            if (calculatedDamage >= shield)
+            {
+                isImmune = true;
+                immunityTimeLeft = DamageSystem.immunityFrameTime;
+            }
+            else
+            {
+                shield -= calculatedDamage;
+            }
+            return;
+        }
+
+        ProtectionType protectionType = ProtectionType.Health;
+        if (armour > 0 && fireProcArmourMultiplier != 0) // Calculate health damage with or without armour.
+        {
+            protectionType = ProtectionType.Armour;
+        }
+        calculatedDamage = DamageSystem.CalculateDamage(rawDamage, armour * fireProcArmourMultiplier, type, protectionType);
+        if (calculatedDamage >= health)
+        {
+            health = 0;
+            isDead = true;
         }
         else
         {
-            // Damage reduction is base off of Warframe's calculation.
-            // Example 300ar value reduces by 50%, 900ar value reduces by 75%.
-            health -= damage * (armour / (armour + 300));
+            health -= calculatedDamage;
         }
     }
 
@@ -330,12 +282,10 @@ public class Entity : MonoBehaviour
 
         if (armour >= amount)
         {
-            removedArmour += amount;
             armour -= amount;
         }
         else
         {
-            removedArmour += armour;
             armour = 0;
         }
     }

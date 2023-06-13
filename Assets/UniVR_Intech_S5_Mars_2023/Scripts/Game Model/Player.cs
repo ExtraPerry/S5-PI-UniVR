@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public SyncedInt gold;
+    private Inventory inventory;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        inventory = new Inventory();
     }
 }

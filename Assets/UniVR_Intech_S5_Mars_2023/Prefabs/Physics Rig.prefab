@@ -2500,6 +2500,8 @@ GameObject:
   - component: {fileID: 115443868786294997}
   - component: {fileID: 115443868786294998}
   - component: {fileID: 115443868786294995}
+  - component: {fileID: 657461818735406735}
+  - component: {fileID: 4413579115414325236}
   m_Layer: 8
   m_Name: Physics Rig
   m_TagString: Untagged
@@ -2538,7 +2540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b6373725922a44099c8b6898fa2901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910, type: 2}
+  playerRig: {fileID: 0}
   bodyHeightMin: 0.5
   bodyHeightMax: 2
   headJoint: {fileID: 115443868531060739}
@@ -2556,7 +2558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6c5f13f3639c64ab3e0d4ac7f2e5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910, type: 2}
+  playerRig: {fileID: 0}
   moveInputSource:
     m_UseReference: 1
     m_Action:
@@ -2627,7 +2629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34e4c4de7546744282ac3c18e9755eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910, type: 2}
+  playerRig: {fileID: 0}
   headset: {fileID: 115443869320585011}
   leftController: {fileID: 115443869098512719}
   rightController: {fileID: 115443868274122482}
@@ -2658,6 +2660,63 @@ MonoBehaviour:
       - m_Target: {fileID: 115443868786294997}
         m_TargetAssemblyTypeName: ContinuousMovementPhysics, Assembly-CSharp
         m_MethodName: OnPrepareTeleportTo
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &657461818735406735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115443868786295002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56e1bdd3968bda4488c1d596e22e20f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: ExtraPerry
+  baseHealth: 300
+  baseArmour: 225
+  baseShield: 450
+  baseTickShieldRegenDelay: 5
+  baseShieldRegen: 0.25
+  baseSpeed: 1
+  baseJumpHeight: 1
+  baseAttackDamage: 50
+  baseAttackSpeed: 1
+  baseCritChance: 0
+  baseCritDamage: 2
+  baseFireDamage: 1
+  basePoisonDamage: 1
+  baseParalyseDamage: 1
+  gold: {fileID: 11400000, guid: cad2c56cb04016e49bd3ef584fc0e500, type: 2}
+  inventory: {fileID: 0}
+--- !u!114 &4413579115414325236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115443868786295002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7657892136635c14ba1a857fe7801819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 6455ccdcc5fdaef42b815a0119a08f09, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 657461818735406735}
+        m_TargetAssemblyTypeName: Entity, Assembly-CSharp
+        m_MethodName: TickUpdate
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -33,21 +33,7 @@ public class BasicMeshGenerator : MonoBehaviour
     {
         if (generateHeatMapGradient)
         {
-            gradient.SetKeys(
-                new GradientColorKey[5]
-                {
-                    new GradientColorKey(new Color(0f, 0f, 1f), 0f),
-                    new GradientColorKey(new Color(0f, 1f, 1f), 0.25f),
-                    new GradientColorKey(new Color(1f, 1f, 0f), 0.5f),
-                    new GradientColorKey(new Color(1f, 0.5f, 0f), 0.75f),
-                    new GradientColorKey(new Color(1f, 0f, 0f), 1f)
-                },
-                new GradientAlphaKey[2]
-                {
-                    new GradientAlphaKey(1f, 1f),
-                    new GradientAlphaKey(1f, 1f)
-                }
-                );
+            gradient = Noise.GetHeatMapGradient();
         }
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;

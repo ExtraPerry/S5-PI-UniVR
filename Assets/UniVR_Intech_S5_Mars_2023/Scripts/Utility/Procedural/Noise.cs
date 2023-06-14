@@ -2,35 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct NoiseMapParams
-{
-	public int mapWidth;
-	public int mapHeight;
-	public int seed;
-	[Min(1)]
-	public float scale;
-	[Min(0)]
-	public int octaves;
-	[Range(0, 1)]
-	public float persistance;
-	[Min(1)]
-	public float lacunarity;
-	public Vector2 offset;
-
-	public NoiseMapParams(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
-    {
-		this.mapWidth = mapWidth;
-		this.mapHeight = mapHeight;
-		this.seed = seed;
-		this.scale = scale;
-		this.octaves = octaves;
-		this.persistance = persistance;
-		this.lacunarity = lacunarity;
-		this.offset = offset;
-	}
-}
-
 public static class Noise
 {
 	public static Gradient GetHeatMapGradient()
@@ -54,50 +25,50 @@ public static class Noise
 		return heatMapGradient;
 	}
 
-	public static float[,] GenerateNoiseMap(NoiseMapParams parameters)
+	public static float[,] GenerateNoiseMap(int widthSize, int heightSize, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
 	{
-		float[,] noiseMap = new float[parameters.mapWidth, parameters.mapHeight];
+		float[,] noiseMap = new float[widthSize, heightSize];
 
-		System.Random prng = new System.Random(parameters.seed);
-		Vector2[] octaveOffsets = new Vector2[parameters.octaves];
-		for (int i = 0; i < parameters.octaves; i++)
+		System.Random prng = new System.Random(seed);
+		Vector2[] octaveOffsets = new Vector2[octaves];
+		for (int i = 0; i < octaves; i++)
 		{
-			float offsetX = prng.Next(-100000, 100000) + parameters.offset.x;
-			float offsetY = prng.Next(-100000, 100000) + parameters.offset.y;
+			float offsetX = prng.Next(-100000, 100000) + offset.x;
+			float offsetY = prng.Next(-100000, 100000) + offset.y;
 			octaveOffsets[i] = new Vector2(offsetX, offsetY);
 		}
 
-		if (parameters.scale <= 0)
+		if (scale <= 0)
 		{
-			parameters.scale = 0.0001f;
+			scale = 0.0001f;
 		}
 
 		float maxNoiseHeight = float.MinValue;
 		float minNoiseHeight = float.MaxValue;
 
-		float halfWidth = parameters.mapWidth / 2f;
-		float halfHeight = parameters.mapHeight / 2f;
+		float halfWidth = widthSize / 2f;
+		float halfHeight = heightSize / 2f;
 
 
-		for (int y = 0; y < parameters.mapHeight; y++)
+		for (int y = 0; y < heightSize; y++)
 		{
-			for (int x = 0; x < parameters.mapWidth; x++)
+			for (int x = 0; x < widthSize; x++)
 			{
 
 				float amplitude = 1;
 				float frequency = 1;
 				float noiseHeight = 0;
 
-				for (int i = 0; i < parameters.octaves; i++)
+				for (int i = 0; i < octaves; i++)
 				{
-					float sampleX = (x - halfWidth) / parameters.scale * frequency + octaveOffsets[i].x;
-					float sampleY = (y - halfHeight) / parameters.scale * frequency + octaveOffsets[i].y;
+					float sampleX = (x - halfWidth) / scale * frequency + octaveOffsets[i].x;
+					float sampleY = (y - halfHeight) / scale * frequency + octaveOffsets[i].y;
 
 					float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1;
 					noiseHeight += perlinValue * amplitude;
 
-					amplitude *= parameters.persistance;
-					frequency *= parameters.lacunarity;
+					amplitude *= persistance;
+					frequency *= lacunarity;
 				}
 
 				if (noiseHeight > maxNoiseHeight)
@@ -112,9 +83,9 @@ public static class Noise
 			}
 		}
 
-		for (int y = 0; y < parameters.mapHeight; y++)
+		for (int y = 0; y < heightSize; y++)
 		{
-			for (int x = 0; x < parameters.mapWidth; x++)
+			for (int x = 0; x < widthSize; x++)
 			{
 				noiseMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[x, y]);
 			}

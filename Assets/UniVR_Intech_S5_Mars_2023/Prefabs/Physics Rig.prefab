@@ -2540,7 +2540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b6373725922a44099c8b6898fa2901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRig: {fileID: 0}
+  playerRig: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910, type: 2}
   bodyHeightMin: 0.5
   bodyHeightMax: 2
   headJoint: {fileID: 115443868531060739}
@@ -2558,7 +2558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6c5f13f3639c64ab3e0d4ac7f2e5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRig: {fileID: 0}
+  playerRig: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910, type: 2}
   moveInputSource:
     m_UseReference: 1
     m_Action:
@@ -2629,7 +2629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34e4c4de7546744282ac3c18e9755eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRig: {fileID: 0}
+  playerRig: {fileID: 11400000, guid: 9504573db3462924995d5d4098971910, type: 2}
   headset: {fileID: 115443869320585011}
   leftController: {fileID: 115443869098512719}
   rightController: {fileID: 115443868274122482}
@@ -2697,7 +2697,6 @@ MonoBehaviour:
   basePoisonDamage: 1
   baseParalyseDamage: 1
   gold: {fileID: 11400000, guid: cad2c56cb04016e49bd3ef584fc0e500, type: 2}
-  inventory: {fileID: 0}
 --- !u!114 &4413579115414325236
 MonoBehaviour:
   m_ObjectHideFlags: 0

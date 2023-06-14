@@ -4,28 +4,31 @@ using System.Collections;
 public static class MeshGenerator
 {
 
-	public static MeshData GenerateTerrainMesh(float[,] heightMap)
+	public static MeshData GenerateTerrainMesh(float[,] heightMap, float amplitude, AnimationCurve meshAmplitudeCurve, int levelOfDetail)
 	{
 		int width = heightMap.GetLength(0);
 		int height = heightMap.GetLength(1);
 		float topLeftX = (width - 1) / -2f;
 		float topLeftZ = (height - 1) / 2f;
 
-		MeshData meshData = new MeshData(width, height);
+		int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
+		int verticesPerLine = (width - 1) / meshSimplificationIncrement + 1;
+
+		MeshData meshData = new MeshData(verticesPerLine, verticesPerLine);
 		int vertexIndex = 0;
 
-		for (int y = 0; y < height; y++)
+		for (int y = 0; y < height; y += meshSimplificationIncrement)
 		{
-			for (int x = 0; x < width; x++)
+			for (int x = 0; x < width; x += meshSimplificationIncrement)
 			{
 
-				meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, heightMap[x, y], topLeftZ - y);
+				meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, meshAmplitudeCurve.Evaluate(heightMap[x, y]) * amplitude, topLeftZ - y);
 				meshData.uvs[vertexIndex] = new Vector2(x / (float)width, y / (float)height);
 
 				if (x < width - 1 && y < height - 1)
 				{
-					meshData.AddTriangle(vertexIndex, vertexIndex + width + 1, vertexIndex + width);
-					meshData.AddTriangle(vertexIndex + width + 1, vertexIndex, vertexIndex + 1);
+					meshData.AddTriangle(vertexIndex, vertexIndex + verticesPerLine + 1, vertexIndex + verticesPerLine);
+					meshData.AddTriangle(vertexIndex + verticesPerLine + 1, vertexIndex, vertexIndex + 1);
 				}
 
 				vertexIndex++;
@@ -41,26 +44,32 @@ public static class MeshGenerator
 		float topLeftX = (width - 1) / -2f;
 		float topLeftZ = (height - 1) / 2f;
 
-		MeshData meshData = new MeshData(width, height);
-		int vertexIndex = 0;
+		MeshData meshData = new MeshData(1, 1);
 
-		for (int y = 0; y < height; y++)
+		Vector3[] vertices = new Vector3[4]
 		{
-			for (int x = 0; x < width; x++)
-			{
+			new Vector3(topLeftX, 0, -topLeftZ),
+			new Vector3(-topLeftX, 0, -topLeftZ),
+			new Vector3(topLeftX, 0, topLeftZ),
+			new Vector3(-topLeftX, 0, topLeftZ)
+		};
+		meshData.vertices = vertices;
 
-				meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, 0, topLeftZ - y);
-				meshData.uvs[vertexIndex] = new Vector2(x / (float)width, y / (float)height);
+		int[] triangles = new int[6]
+		{
+			0, 2, 1,
+			2, 3, 1
+		};
+		meshData.triangles = triangles;
 
-				if (x < width - 1 && y < height - 1)
-				{
-					meshData.AddTriangle(vertexIndex, vertexIndex + width + 1, vertexIndex + width);
-					meshData.AddTriangle(vertexIndex + width + 1, vertexIndex, vertexIndex + 1);
-				}
-
-				vertexIndex++;
-			}
-		}
+		Vector2[] uvs = new Vector2[4]
+		{
+			new Vector3(0, 0),
+			new Vector3(1, 0),
+			new Vector3(0, 1),
+			new Vector3(1, 1)
+		};
+		meshData.uvs = uvs;
 
 		return meshData;
 	}

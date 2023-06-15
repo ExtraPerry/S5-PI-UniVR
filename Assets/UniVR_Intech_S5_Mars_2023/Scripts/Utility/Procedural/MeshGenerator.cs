@@ -4,8 +4,10 @@ using System.Collections;
 public static class MeshGenerator
 {
 
-	public static MeshData GenerateTerrainMesh(float[,] heightMap, float amplitude, AnimationCurve meshAmplitudeCurve, int levelOfDetail)
+	public static MeshData GenerateTerrainMesh(float[,] heightMap, float amplitude, AnimationCurve _meshAmplitudeCurve, int levelOfDetail)
 	{
+		AnimationCurve meshAmplitudeCurve = new AnimationCurve(_meshAmplitudeCurve.keys);
+
 		int width = heightMap.GetLength(0);
 		int height = heightMap.GetLength(1);
 		float topLeftX = (width - 1) / -2f;

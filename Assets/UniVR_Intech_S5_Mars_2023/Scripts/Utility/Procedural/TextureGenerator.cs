@@ -4,14 +4,14 @@ using UnityEngine;
 
 public static class TextureGenerator
 {
-	public static Texture2D TextureBlankWhite()
+	public static Color[] ColourMapBlankWhite()
 	{
 		Texture2D texture = new Texture2D(1, 1);
 		Color[] colourMap = new Color[1]
 		{
 			new Color(1f, 1f, 1f, 1f)
 		};
-		return TextureFromColourMap(colourMap, 1, 1);
+		return colourMap;
 	}
 
 	public static Texture2D TextureFromColourMap(Color[] colourMap, int width, int height)
@@ -23,7 +23,7 @@ public static class TextureGenerator
 	}
 
 
-	public static Texture2D TextureFromHeightMap(float[,] heightMap)
+	public static Color[] ColourMapFromHeightMap(float[,] heightMap)
 	{
 		int width = heightMap.GetLength(0);
 		int height = heightMap.GetLength(1);
@@ -37,10 +37,10 @@ public static class TextureGenerator
 			}
 		}
 
-		return TextureFromColourMap(colourMap, width, height);
+		return colourMap;
 	}
 
-	public static Texture2D TextureFromGradientHeight(float[,] heightMap, Gradient grad)
+	public static Color[] ColourMapFromGradient(float[,] heightMap, Gradient grad)
     {
 		int width = heightMap.GetLength(0);
 		int height = heightMap.GetLength(1);
@@ -54,6 +54,6 @@ public static class TextureGenerator
 			}
 		}
 
-		return TextureFromColourMap(colourMap, width, height);
+		return colourMap;
 	}
 }

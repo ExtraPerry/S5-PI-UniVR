@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1836567933889474528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1268,7 +1268,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Physics Test
       m_Image: {fileID: 0}
-    - m_Text: Desert Level
+    - m_Text: Procedural World
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

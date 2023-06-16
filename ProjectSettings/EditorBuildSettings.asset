@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/UniVR_Intech_S5_Mars_2023/Physics Test.unity
     guid: 71d39113fcf10fe4db0a5ff0e3036806
   - enabled: 1
-    path: Assets/UniVR_Intech_S5_Mars_2023/Desert Level/Maps/Demo.unity
-    guid: 814e5eb95547fef41b3bf5a0699e947c
+    path: Assets/UniVR_Intech_S5_Mars_2023/Low Poly World.unity
+    guid: cdce2df5c9c92d04eb3f2334f96cc33a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5c2a041b7c6ed7d419e08a377baab47c,
       type: 2}

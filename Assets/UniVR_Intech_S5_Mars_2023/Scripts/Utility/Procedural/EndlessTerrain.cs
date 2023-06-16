@@ -5,9 +5,10 @@ using System.Collections.Generic;
 [RequireComponent(typeof(MapGenerator))]
 public class EndlessTerrain : MonoBehaviour
 {
+	public const float scale = 1f;
 
-	const float viewerMoveThresholdForChunkUpdate = 25f;
-	const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
+	private const float viewerMoveThresholdForChunkUpdate = 25f;
+	private const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
 	public LODInfo[] detailLevels = new LODInfo[7]
 	{
@@ -26,6 +27,7 @@ public class EndlessTerrain : MonoBehaviour
 	public Transform mockViewer;
 	public bool useMockViewer = false;
 	public Material mapMaterial;
+	public Material waterMaterial;
 
 	public static Vector2 viewerPosition;
 	private Vector2 viewerPositionOld;
@@ -57,7 +59,7 @@ public class EndlessTerrain : MonoBehaviour
 	private void Update()
 	{
 		Transform viewer = (useMockViewer) ? mockViewer : playerRig.xrRig.headset;
-		viewerPosition = new Vector2(viewer.position.x, viewer.position.z);
+		viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / scale;
 
 		if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
 		{
@@ -94,7 +96,7 @@ public class EndlessTerrain : MonoBehaviour
 				}
 				else
 				{
-					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial));
+					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, waterMaterial));
 				}
 
 			}
@@ -110,6 +112,7 @@ public class EndlessTerrain : MonoBehaviour
 
 		MeshRenderer meshRenderer;
 		MeshFilter meshFilter;
+		MeshCollider meshCollider;
 
 		LODInfo[] detailLevels;
 		LODMesh[] lodMeshes;
@@ -118,7 +121,7 @@ public class EndlessTerrain : MonoBehaviour
 		bool mapDataReceived;
 		int previousLODIndex = -1;
 
-		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material)
+		public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material mapMaterial, Material waterMaterial)
 		{
 			this.detailLevels = detailLevels;
 
@@ -129,10 +132,25 @@ public class EndlessTerrain : MonoBehaviour
 			meshObject = new GameObject("Terrain Chunk");
 			meshRenderer = meshObject.AddComponent<MeshRenderer>();
 			meshFilter = meshObject.AddComponent<MeshFilter>();
-			meshRenderer.material = material;
+			meshCollider = meshObject.AddComponent<MeshCollider>();
+			meshRenderer.material = mapMaterial;
 
-			meshObject.transform.position = positionV3;
+			meshObject.transform.position = positionV3 * scale;
 			meshObject.transform.parent = parent;
+
+			GameObject waterPlane = new GameObject("Water Layer");
+			MeshRenderer waterMeshRenderer = waterPlane.AddComponent<MeshRenderer>();
+			MeshFilter waterMeshFilter = waterPlane.AddComponent<MeshFilter>();
+			MeshData waterMeshData = MeshGenerator.GeneratePlaneMeshData(size + 1, size + 1);
+
+			waterMeshFilter.mesh = waterMeshData.CreateMesh();
+			waterMeshRenderer.material = waterMaterial;
+
+			waterPlane.transform.parent = meshObject.transform;
+			waterPlane.transform.position = meshObject.transform.position + new Vector3(0, 2, 0);
+
+			meshObject.transform.localScale = Vector3.one * scale;
+
 			SetVisible(false);
 
 			lodMeshes = new LODMesh[detailLevels.Length];
@@ -150,6 +168,9 @@ public class EndlessTerrain : MonoBehaviour
 			mapDataReceived = true;
 
 			Texture2D texture = TextureGenerator.TextureFromColourMap(mapData.colourMap, MapGenerator.mapChunkSize, MapGenerator.mapChunkSize);
+			texture.filterMode = mapGenerator.filterMode;
+			texture.wrapMode = TextureWrapMode.Clamp;
+			texture.Apply();
 			meshRenderer.material.mainTexture = texture;
 
 			UpdateTerrainChunk();
@@ -187,6 +208,7 @@ public class EndlessTerrain : MonoBehaviour
 						{
 							previousLODIndex = lodIndex;
 							meshFilter.mesh = lodMesh.mesh;
+							meshCollider.sharedMesh = lodMesh.mesh;
 						}
 						else if (!lodMesh.hasRequestedMesh)
 						{

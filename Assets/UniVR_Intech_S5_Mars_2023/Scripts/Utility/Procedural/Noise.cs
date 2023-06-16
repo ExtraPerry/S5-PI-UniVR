@@ -62,11 +62,14 @@ public static class Noise
 		{
 			for (int x = 0; x < mapWidth; x++)
 			{
+
+				amplitude = 1;
+				frequency = 1;
 				float noiseHeight = 0;
 
 				for (int i = 0; i < octaves; i++)
 				{
-					float sampleX = (x - halfWidth + octaveOffsets[i].x) / scale * frequency ;
+					float sampleX = (x - halfWidth + octaveOffsets[i].x) / scale * frequency;
 					float sampleY = (y - halfHeight + octaveOffsets[i].y) / scale * frequency;
 
 					float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1;
@@ -92,19 +95,15 @@ public static class Noise
 		{
 			for (int x = 0; x < mapWidth; x++)
 			{
-				switch (normalizeMode)
-                {
-					case NormalizeMode.Local:
-						noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
-						break;
-
-					default:
-					case NormalizeMode.Global:
-						float normalizedHeight = (noiseMap[x, y] + 1) / (2f * maxPossibleHeight) / 1.75f;
-						noiseMap[x, y] = Mathf.Clamp(normalizedHeight, 0, int.MaxValue);
-						break;
-                }
-				
+				if (normalizeMode == NormalizeMode.Local)
+				{
+					noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
+				}
+				else
+				{
+					float normalizedHeight = (noiseMap[x, y] + 1) / (maxPossibleHeight / 0.9f);
+					noiseMap[x, y] = Mathf.Clamp(normalizedHeight, 0, int.MaxValue);
+				}
 			}
 		}
 

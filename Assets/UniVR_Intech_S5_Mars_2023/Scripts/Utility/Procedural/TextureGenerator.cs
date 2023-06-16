@@ -26,11 +26,12 @@ public static class TextureGenerator
 		Texture2D texture = new Texture2D(width, height);
 		texture.SetPixels(colourMap);
 		texture.Apply();
+
 		return texture;
 	}
 
 
-	public static Color[] ColourMapFromHeightMap(float[,] heightMap)
+	public static Color[] ColourMapFromBlackAndWhite(float[,] heightMap)
 	{
 		int width = heightMap.GetLength(0);
 		int height = heightMap.GetLength(1);

@@ -147,30 +147,33 @@ public class DevDHD : MonoBehaviour
         Glyph[] sequence = activeGlyphs.ToArray();
         System.Array.Reverse(sequence);
 
-        // Check of sequence mateches world sequence.
-        if (sequence != worldGateSequence.Get())
+        // Check for sequence match.
+        for (int i = 0; i < 7; i++)
         {
+            if (sequence[i] != worldGateSequence.Get()[i])
+            {
 #if UNITY_EDITOR    // Debugging Parts
-            int count = 0;
-            string worldSequenceString = "";
-            foreach (Glyph glyph in worldGateSequence.Get())
-            {
-                worldSequenceString += glyph.ToString();
-                if (count != worldGateSequence.Get().Length) worldSequenceString += ", ";
-                count++;
-            }
-            count = 0;
-            string dhdSequenceString = "";
-            foreach (Glyph glyph in worldGateSequence.Get())
-            {
-                dhdSequenceString += glyph.ToString();
-                if (count != sequence.Length) dhdSequenceString += ", ";
-                count++;
-            }
-            Debug.Log("Input sequence on DHD does not match world sequence for next level.\nWorld : " + worldSequenceString + "\nDHD : " + dhdSequenceString);
+                int count = 0;
+                string worldSequenceString = "";
+                foreach (Glyph glyph in worldGateSequence.Get())
+                {
+                    worldSequenceString += glyph.ToString();
+                    if (count != worldGateSequence.Get().Length) worldSequenceString += ", ";
+                    count++;
+                }
+                count = 0;
+                string dhdSequenceString = "";
+                foreach (Glyph glyph in worldGateSequence.Get())
+                {
+                    dhdSequenceString += glyph.ToString();
+                    if (count != sequence.Length) dhdSequenceString += ", ";
+                    count++;
+                }
+                Debug.Log("Input sequence on DHD does not match world sequence for next level.\nWorld : " + worldSequenceString + "\nDHD : " + dhdSequenceString);
 #endif
-            ResetDHD();
-            return;
+                ResetDHD();
+                return;
+            }
         }
         
         // Update Dev DHD UI.

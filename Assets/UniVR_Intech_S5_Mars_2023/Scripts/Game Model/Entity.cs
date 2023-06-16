@@ -5,9 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(GameEventListener))]
 public class Entity : MonoBehaviour
 {
-    public string name;
-
-
     [Min(0)]    // Base Health amount.
     public float baseHealth = 300;
     [Min(0)]    // Base Armour amount.
@@ -74,7 +71,7 @@ public class Entity : MonoBehaviour
 
     private bool isDead = false;
 
-    private void Awake()
+    private void Start()
     {
         health = baseHealth;
         armour = baseArmour;

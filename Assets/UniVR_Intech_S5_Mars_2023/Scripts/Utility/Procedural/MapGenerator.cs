@@ -7,8 +7,9 @@ using System.Threading;
 [RequireComponent(typeof(MapDisplay))]
 public class MapGenerator : MonoBehaviour
 {
-    public DrawMode drawMode = DrawMode.HeatMap;
     public MeshMode meshMode = MeshMode.Default;
+    public NormalizeMode normalizedMode = NormalizeMode.Global;
+    public DrawMode drawMode = DrawMode.HeatMap;
     public FilterMode filterMode = FilterMode.Bilinear;
 
     [HideInInspector]
@@ -37,7 +38,7 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainType[] regions = new TerrainType[8]
     {
-        new TerrainType("Water Deep", 0.3f, new Color(0.2039216f, 0.3764706f, 0.737255f, 1f)),
+        new TerrainType("Water Deep", 0f, new Color(0.2039216f, 0.3764706f, 0.737255f, 1f)),
         new TerrainType("Water Shallow", 0.4f, new Color(0.2f, 0.3882353f, 0.764706f, 1f)),
         new TerrainType("Sand", 0.45f, new Color(0.8117648f, 0.8156863f, 0.490196f, 1f)),
         new TerrainType("Grass", 0.55f, new Color(0.3372549f, 0.5921568f, 0.07843135f, 1f)),
@@ -51,14 +52,14 @@ public class MapGenerator : MonoBehaviour
     private Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
     public MapDisplay display;
 
-    private void OnValidate()
+private void OnValidate()
     {
         DrawMap();
     }
 
     public void DrawMap()
     {
-        MapData mapData = GenerateMapData();
+        MapData mapData = GenerateMapData(Vector2.zero);
 
         switch (meshMode)
         {
@@ -72,19 +73,19 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public void RequestMapData(Action<MapData> callback)
+    public void RequestMapData(Vector2 center, Action<MapData> callback)
     {
         ThreadStart threadStart = delegate
         {
-            MapDataThread(callback);
+            MapDataThread(center, callback);
         };
 
         new Thread(threadStart).Start();
     }
 
-    private void MapDataThread(Action<MapData> callback)
+    private void MapDataThread(Vector2 center, Action<MapData> callback)
     {
-        MapData mapData = GenerateMapData();
+        MapData mapData = GenerateMapData(center);
         lock (mapDataThreadInfoQueue)
         {
             mapDataThreadInfoQueue.Enqueue(new MapThreadInfo<MapData>(callback, mapData));
@@ -131,9 +132,9 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    private MapData GenerateMapData()
+    private MapData GenerateMapData(Vector2 center)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, scale, octaves, persistance, lacunarity, offset);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, scale, octaves, persistance, lacunarity, center + offset, normalizedMode);
 
         Color[] colourMap;
 
@@ -152,9 +153,12 @@ public class MapGenerator : MonoBehaviour
                         float currentHeight = noiseMap[x, y];
                         for (int i = 0; i < regions.Length; i++)
                         {
-                            if (currentHeight <= regions[i].height)
+                            if (currentHeight >= regions[i].height)
                             {
                                 colourMap[y * mapChunkSize + x] = regions[i].colour;
+                            }
+                            else
+                            {
                                 break;
                             }
                         }
@@ -167,7 +171,8 @@ public class MapGenerator : MonoBehaviour
                 break;
 
             default:
-                colourMap = TextureGenerator.ColourMapBlankWhite();
+            case DrawMode.White:
+                colourMap = TextureGenerator.ColourMapBlankWhite(noiseMap);
                 break;
         }
 

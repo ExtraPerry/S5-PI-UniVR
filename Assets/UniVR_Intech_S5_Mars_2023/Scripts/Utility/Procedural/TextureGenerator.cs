@@ -4,13 +4,20 @@ using UnityEngine;
 
 public static class TextureGenerator
 {
-	public static Color[] ColourMapBlankWhite()
+	public static Color[] ColourMapBlankWhite(float [,] heightMap)
 	{
-		Texture2D texture = new Texture2D(1, 1);
-		Color[] colourMap = new Color[1]
+		int width = heightMap.GetLength(0);
+		int height = heightMap.GetLength(1);
+
+		Color[] colourMap = new Color[width * height];
+		for (int y = 0; y < height; y++)
 		{
-			new Color(1f, 1f, 1f, 1f)
-		};
+			for (int x = 0; x < width; x++)
+			{
+				colourMap[y * width + x] = Color.white;
+			}
+		}
+
 		return colourMap;
 	}
 

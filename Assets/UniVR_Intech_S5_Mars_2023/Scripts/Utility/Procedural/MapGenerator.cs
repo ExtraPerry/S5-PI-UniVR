@@ -7,37 +7,24 @@ using System.Threading;
 [RequireComponent(typeof(MapDisplay))]
 public class MapGenerator : MonoBehaviour
 {
+    public bool autoUpdate = true;
+
     public MeshMode meshMode = MeshMode.Default;
-    public NormalizeMode normalizedMode = NormalizeMode.Global;
     public DrawMode drawMode = DrawMode.HeatMap;
     public FilterMode filterMode = FilterMode.Point;
 
     [HideInInspector]
-    public const int mapChunkSize = 241;
+    public const int mapChunkSize = 95;
+
+    public TerrainData terrainData;
+    public NoiseData noiseData;
+    public TextureData textureData;
+    public Material terrainMaterial;
+
     [Range(0, 6)]
     public int editorLevelOfDetail = 6;
-    public int seed = 158;
-    [Min(1)]
-    public float scale = 25;
-    [Min(1)]
-    public int octaves = 5;
-    [Range(0, 1)]
-    public float persistance = 0.5f;
-    [Min(0)]
-    public float lacunarity = 2;
-    public Vector2 offset = new Vector2(0, 0);
 
-    public bool useFallOff = true;
     private float[,] fallOffMap;
-
-    [Min(0)]
-    public float amplitude = 25;
-    public AnimationCurve meshAmplitudeCurve = new AnimationCurve(new Keyframe[3]
-    {
-        new Keyframe(0, 0, 0, 0, 0, 0),
-        new Keyframe(0.5061418f, 0.08748782f, 0.04075397f, 0.04075397f, 0.196721f, 0.3302161f),
-        new Keyframe(1.1f, 1.1f, 2, 2, 0, 0),
-    });
 
     public TerrainType[] regions = new TerrainType[8]
     {
@@ -58,18 +45,71 @@ public class MapGenerator : MonoBehaviour
     private GameObject waterDisplay;
     public Material waterMaterial;
 
+    private static MapGenerator instance;
+
+    private void OnValuesUpdated()
+    {
+        if (!Application.isPlaying) OnValidate();
+    }
+
+    private void OnTextureValuesUpdated()
+    {
+        textureData.ApplyToMaterial(terrainMaterial);
+    }
+
+    public static int mapChunksize
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<MapGenerator>();
+            }
+            if (instance.terrainData.useFlatShading)
+            {
+                return 95;
+            }
+            else
+            {
+                return 239;
+            }
+        }
+    }
+
     private void OnValidate()
     {
+        if (terrainData != null)
+        {
+            terrainData.OnValuesUpdated -= OnValuesUpdated;
+            terrainData.OnValuesUpdated += OnValuesUpdated;
+        }
+
+        if (noiseData != null)
+        {
+            noiseData.OnValuesUpdated -= OnValuesUpdated;
+            noiseData.OnValuesUpdated += OnValuesUpdated;
+        }
+
+        if (textureData != null)
+        {
+            textureData.OnValuesUpdated -= OnTextureValuesUpdated;
+            textureData.OnValuesUpdated += OnTextureValuesUpdated;
+        }
+
+        if (!autoUpdate) return;
+
         DrawMap();
 
         if (waterDisplay == null)
         {
             waterDisplay = new GameObject("Water Layer Display");
+            waterDisplay.isStatic = true;
+            waterDisplay.AddComponent<DestroyGameobjectOnPlay>();
             MeshRenderer waterMeshRenderer = waterDisplay.AddComponent<MeshRenderer>();
             MeshFilter waterMeshFilter = waterDisplay.AddComponent<MeshFilter>();
-            MeshData waterMeshData = MeshGenerator.GeneratePlaneMeshData(mapChunkSize + 1, mapChunkSize + 1);
+            Mesh waterMesh = MeshGenerator.GeneratePlaneMesh(mapChunkSize, mapChunkSize);
 
-            waterMeshFilter.mesh = waterMeshData.CreateMesh();
+            waterMeshFilter.mesh = waterMesh;
             waterMeshRenderer.material = waterMaterial;
 
             waterDisplay.transform.parent = gameObject.transform;
@@ -89,11 +129,11 @@ public class MapGenerator : MonoBehaviour
         switch (meshMode)
         {
             case MeshMode.Terrain:
-                display.DrawMesh(MeshGenerator.GenerateTerrainMeshData(mapData.noiseMap, amplitude, meshAmplitudeCurve, editorLevelOfDetail), texture);
+                display.DrawMesh(MeshGenerator.GenerateTerrainMeshData(mapData.noiseMap, terrainData.amplitude, terrainData.meshAmplitudeCurve, editorLevelOfDetail, terrainData.useFlatShading), texture);
                 break;
 
             default:
-                display.DrawMesh(MeshGenerator.GeneratePlaneMeshData(mapChunkSize, mapChunkSize), texture);
+                display.DrawMesh(MeshGenerator.GeneratePlaneMesh(mapChunkSize, mapChunkSize), texture);
                 break;
         }
     }
@@ -129,7 +169,7 @@ public class MapGenerator : MonoBehaviour
 
     private void MeshDataThread(MapData mapData, int lod, Action<MeshData> callback)
     {
-        MeshData meshData = MeshGenerator.GenerateTerrainMeshData(mapData.noiseMap, amplitude, meshAmplitudeCurve, lod);
+        MeshData meshData = MeshGenerator.GenerateTerrainMeshData(mapData.noiseMap, terrainData.amplitude, terrainData.meshAmplitudeCurve, lod, terrainData.useFlatShading);
         lock (meshDataThreadInfoQueue)
         {
             meshDataThreadInfoQueue.Enqueue(new MapThreadInfo<MeshData>(callback, meshData));
@@ -159,11 +199,22 @@ public class MapGenerator : MonoBehaviour
 
     private MapData GenerateMapData(Vector2 center)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, scale, octaves, persistance, lacunarity, center + offset, normalizedMode);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, noiseData.seed, noiseData.scale, noiseData.octaves, noiseData.persistance, noiseData.lacunarity, center + noiseData.offset, noiseData.normalizedMode);
 
-        if (fallOffMap == null)
+        if (terrainData.useFallOff)
         {
-            fallOffMap = FalloffGenerator.GenerateFalloffMap(mapChunkSize);
+            if (fallOffMap == null)
+            {
+                fallOffMap = FalloffGenerator.GenerateFalloffMap(mapChunkSize + 2);
+            }
+            for (int y = 0; y < mapChunkSize + 2; y++)
+            {
+                for (int x = 0; x < mapChunkSize + 2; x++)
+                {
+                    noiseMap[x, y] = Mathf.Clamp(noiseMap[x, y] - fallOffMap[x, y], 0, 1);
+                }
+            }
+
         }
 
         Color[] colourMap;
@@ -188,10 +239,6 @@ public class MapGenerator : MonoBehaviour
                 {
                     for (int x = 0; x < mapChunkSize; x++)
                     {
-                        if (useFallOff)
-                        {
-                            noiseMap[x, y] = Mathf.Clamp(noiseMap[x, y] - fallOffMap[x, y], 0, 1);
-                        }
                         float currentHeight = noiseMap[x, y];
                         for (int i = 0; i < regions.Length; i++)
                         {

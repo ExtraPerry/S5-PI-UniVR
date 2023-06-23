@@ -7,6 +7,11 @@ public class Tir : MonoBehaviour
     public AudioClip SoundShoot, SoundReload, SoundEmpty;
     private Ray ray;
     private RaycastHit hit;
+    [SerializeField]
+    private Transform spawnPoint;
+
+    [SerializeField]
+    private LayerMask hitLayer;
 
     public int cartouches, chargeurs, max_cartouches;
 
@@ -29,7 +34,7 @@ public class Tir : MonoBehaviour
 
             ray = Camera.main.ScreenPointToRay(ScreenCenterPoint);
 
-            if(Physics.Raycast(ray, out hit, Camera.main.farClipPlane))
+            if(Physics.Raycast(spawnPoint.position, spawnPoint.forward, out hit, 20f, hitLayer, QueryTriggerInteraction.Ignore))
             {
                 if(hit.transform.gameObject.tag == "Enemy")
                 {

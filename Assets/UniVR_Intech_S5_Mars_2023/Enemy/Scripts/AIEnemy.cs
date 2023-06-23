@@ -13,6 +13,7 @@ public class AIEnemy : MonoBehaviour
     [SerializeField]
     private float distance;
 
+    public int damage = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class AIEnemy : MonoBehaviour
             {
                 anim.SetBool("attack", true);
                 agent.SetDestination(transform.position);
+                
             }
         }
         else
@@ -45,5 +47,15 @@ public class AIEnemy : MonoBehaviour
             agent.SetDestination(transform.position);
 
         }
+    }
+    public void disabledATK()
+    {
+        anim.SetBool("attack", false);
+        this.enabled = false;
+    }
+
+    public void damageToPlayer()
+    {
+        GameObject.Find("Player").GetComponent<HealthScript>().playerDamaged(damage);
     }
 }

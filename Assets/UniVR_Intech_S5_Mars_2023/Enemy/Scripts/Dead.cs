@@ -16,7 +16,7 @@ public class Dead : MonoBehaviour
     public void ennemyDead()
     {
         anim.SetTrigger("dead");
-        GetComponent<AIEnemy>().enabled = false;
+        GetComponent<AIEnemy>().disabledATK();
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<CapsuleCollider>().enabled = false;
         Destroy(gameObject, 5f);
